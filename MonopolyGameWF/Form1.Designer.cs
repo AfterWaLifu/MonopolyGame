@@ -29,8 +29,14 @@ namespace MonopolyGameWF
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -48,6 +54,8 @@ namespace MonopolyGameWF
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
