@@ -14,6 +14,9 @@ namespace MonopolyGameWF
     {
         Button[] buttons = new Button[24];
         Button[] figures = new Button[4];
+        Button toMove;
+        int whoIsMoving = 0;
+        int timeControl = 0;
         
         public Form1()
         {
@@ -21,6 +24,7 @@ namespace MonopolyGameWF
 
             for (int i = 0; i < 24; i++) Controls.Add(buttons[i]);
             for (int i = 0; i < 4; i++) Controls.Add(figures[i]);
+            Controls.Add(toMove);
 
             figures[0].BringToFront();
             figures[1].BringToFront();
@@ -32,7 +36,24 @@ namespace MonopolyGameWF
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (whoIsMoving == 4) whoIsMoving = 0;
 
+            figures[whoIsMoving].Location = new Point(figures[whoIsMoving].Location.X+10, figures[whoIsMoving].Location.Y);
+            timeControl++;
+
+            if (timeControl == 10)
+            {
+                timer1.Stop();
+                timeControl = 0;
+                toMove.Enabled = true;
+                whoIsMoving++;
+            }
+        }
+
+        private void toMove_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+            toMove.Enabled = false;
         }
 
         //==============================================================
@@ -87,6 +108,15 @@ namespace MonopolyGameWF
             figures[1].Location = new Point(50, 0);
             figures[2].Location = new Point(0, 50);
             figures[3].Location = new Point(50, 50);
+
+            // =======ДВИЖЕНИЯ КНОПКА========
+            toMove = new Button();
+            toMove.Size = new Size(80,30);
+            toMove.Text = "жми бабай";
+            toMove.Enabled = true;
+            toMove.Visible = true;
+            toMove.Click += toMove_Click;
+            toMove.Location = new Point(200, 200);
         }
     }
 }
