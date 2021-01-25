@@ -116,7 +116,7 @@ namespace MonopolyGameWF
             toMove.Enabled = true;
             toMove.Visible = true;
             toMove.Click += toMove_Click;
-            toMove.Location = new Point(200, 200);
+            toMove.Location = new Point(180, 120);
         }
     }
 }
