@@ -45,10 +45,15 @@ namespace MonopolyGameWF
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::MonopolyGameWF.Properties.Resources.og_og_1449047923244563434;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(799, 600);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(815, 639);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(815, 639);
             this.Name = "Form1";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Monopoly The Game";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
