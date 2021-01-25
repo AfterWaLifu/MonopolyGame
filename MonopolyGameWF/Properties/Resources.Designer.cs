@@ -63,9 +63,49 @@ namespace MonopolyGameWF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap comboburst_1 {
+            get {
+                object obj = ResourceManager.GetObject("comboburst_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap comboburst_11 {
+            get {
+                object obj = ResourceManager.GetObject("comboburst_11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap comboburst_13 {
+            get {
+                object obj = ResourceManager.GetObject("comboburst_13", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap comboburst_3 {
             get {
                 object obj = ResourceManager.GetObject("comboburst_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap comboburst_9 {
+            get {
+                object obj = ResourceManager.GetObject("comboburst_9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

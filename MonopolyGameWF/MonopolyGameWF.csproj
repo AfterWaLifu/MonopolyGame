@@ -89,5 +89,17 @@
   <ItemGroup>
     <None Include="comboburst-3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="comboburst-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="comboburst-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="comboburst-9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="comboburst-11.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
