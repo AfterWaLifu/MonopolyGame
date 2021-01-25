@@ -13,6 +13,7 @@ namespace MonopolyGameWF
     public partial class Form1 : Form
     {
         Button[] buttons = new Button[24];
+        
         public Form1()
         {
             buttonsCreate();

@@ -63,9 +63,9 @@ namespace MonopolyGameWF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap og_og_1449047923244563434 {
+        internal static System.Drawing.Bitmap comboburst_3 {
             get {
-                object obj = ResourceManager.GetObject("og_og_1449047923244563434", resourceCulture);
+                object obj = ResourceManager.GetObject("comboburst_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
