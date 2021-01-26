@@ -30,6 +30,7 @@ namespace MonopolyGameWF
             configure(id);
         }
 
+        //выбор направления от места
         public void checkForDir()
         {
             switch (manId)
@@ -61,6 +62,7 @@ namespace MonopolyGameWF
             }
         }
 
+        //настройка от айди картинки и места
         private void configure(int id)
         {
             switch (id)

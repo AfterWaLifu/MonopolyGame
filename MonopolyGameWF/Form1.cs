@@ -57,6 +57,7 @@ namespace MonopolyGameWF
         {
             Random r = new Random();
             diceResult = r.Next(1,7);
+            label1.Text = $"Результат броска: {diceResult}";
             timer1.Start();
             toMove.Enabled = false;
         }
@@ -92,8 +93,8 @@ namespace MonopolyGameWF
 
             // =======ДВИЖЕНИЯ КНОПКА========
             toMove = new Button();
-            toMove.Size = new Size(80,30);
-            toMove.Text = "бросить куб";
+            toMove.Size = new Size(100,40);
+            toMove.Text = "БРОСИТЬ КУБИК";
             toMove.Enabled = true;
             toMove.Visible = true;
             toMove.Click += toMove_Click;
