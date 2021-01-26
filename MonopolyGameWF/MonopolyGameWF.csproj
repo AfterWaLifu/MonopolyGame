@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figure.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,12 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="og_og_1449047923244563434.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="qwe.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="comboburst-3.png" />
