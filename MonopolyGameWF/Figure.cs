@@ -12,9 +12,11 @@ namespace MonopolyGameWF
     {
         public Button b;
         public int direction;
+        int manId;
 
         public Figure(int id)
         {
+            manId = id;
             direction = 0;
 
             b = new Button();
@@ -30,7 +32,33 @@ namespace MonopolyGameWF
 
         public void checkForDir()
         {
-
+            switch (manId)
+            {
+                case 0:
+                    if (b.Location.X == 700 && b.Location.Y == 0) direction = 1;
+                    else if (b.Location.X == 700 && b.Location.Y == 500) direction = 2;
+                    else if (b.Location.X == 0 && b.Location.Y == 500) direction = 3;
+                    else if (b.Location.X == 0 && b.Location.Y == 0) direction = 0;
+                    break;
+                case 1:
+                    if (b.Location.X == 750 && b.Location.Y == 0) direction = 1;
+                    else if (b.Location.X == 750 && b.Location.Y == 500) direction = 2;
+                    else if (b.Location.X == 50 && b.Location.Y == 500) direction = 3;
+                    else if (b.Location.X == 50 && b.Location.Y == 0) direction = 0;
+                    break;
+                case 2:
+                    if (b.Location.X == 700 && b.Location.Y == 50) direction = 1;
+                    else if (b.Location.X == 700 && b.Location.Y == 550) direction = 2;
+                    else if (b.Location.X == 0 && b.Location.Y == 550) direction = 3;
+                    else if (b.Location.X == 0 && b.Location.Y == 50) direction = 0;
+                    break;
+                case 3:
+                    if (b.Location.X == 750 && b.Location.Y == 50) direction = 1;
+                    else if (b.Location.X == 750 && b.Location.Y == 550) direction = 2;
+                    else if (b.Location.X == 50 && b.Location.Y == 550) direction = 3;
+                    else if (b.Location.X == 50 && b.Location.Y == 50) direction = 0;
+                    break;
+            }
         }
 
         private void configure(int id)

@@ -41,7 +41,7 @@ namespace MonopolyGameWF
         {
             if (whoIsMoving == 4) whoIsMoving = 0;
 
-            mover();
+            hugeToMoveMethod();
             timeControl++;
 
             if (timeControl == 20*diceResult)
@@ -100,13 +100,24 @@ namespace MonopolyGameWF
             toMove.Location = new Point(180, 120);
         }
 
-        private void mover()
+        private void hugeToMoveMethod()
         {
             figures[whoIsMoving].checkForDir();
 
             switch (figures[whoIsMoving].direction)
             {
-
+                case 0:
+                    figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X+5, figures[whoIsMoving].b.Location.Y);
+                    break;
+                case 1:
+                    figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X, figures[whoIsMoving].b.Location.Y+5);
+                    break;
+                case 2:
+                    figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X - 5, figures[whoIsMoving].b.Location.Y);
+                    break;
+                case 3:
+                    figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X, figures[whoIsMoving].b.Location.Y-5);
+                    break;
             }
         }
     }
