@@ -68,19 +68,19 @@ namespace MonopolyGameWF
             switch (id)
             {
                 case 0:
-                    b.BackgroundImage = Properties.Resources.comboburst_1;
+                    b.BackgroundImage = Properties.Resources.first;
                     b.Location = new Point(0, 0);
                     break;
                 case 1:
-                    b.BackgroundImage = Properties.Resources.comboburst_11;
+                    b.BackgroundImage = Properties.Resources.second;
                     b.Location = new Point(50, 0);
                     break;
                 case 2:
-                    b.BackgroundImage = Properties.Resources.comboburst_13;
+                    b.BackgroundImage = Properties.Resources.third;
                     b.Location = new Point(0, 50);
                     break;
                 case 3:
-                    b.BackgroundImage = Properties.Resources.comboburst_9;
+                    b.BackgroundImage = Properties.Resources.fourth;
                     b.Location = new Point(50, 50);
                     break;
             }
