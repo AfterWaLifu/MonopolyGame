@@ -90,6 +90,7 @@ namespace MonopolyGameWF
             this.MinimumSize = new System.Drawing.Size(815, 639);
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Monopoly The Game";
             this.ResumeLayout(false);
             this.PerformLayout();

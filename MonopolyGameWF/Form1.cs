@@ -23,7 +23,10 @@ namespace MonopolyGameWF
 
         public Form1()
         {
-            playersCount = 4;
+            Form2 f = new Form2();
+            f.ShowDialog();
+            playersCount = f.quantity;
+
             buttonsCreate();
 
             for (int i = 0; i < playersCount; i++) figures[i] = new Figure(i);
@@ -35,17 +38,16 @@ namespace MonopolyGameWF
             }
             Controls.Add(toMove);
 
-            figures[0].b.BringToFront();
-            figures[1].b.BringToFront();
-            figures[2].b.BringToFront();
-            figures[3].b.BringToFront();
+            for (int i = 0; i < playersCount; i++)
+            {
+                figures[i].b.BringToFront();
+            }
 
             InitializeComponent();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (whoIsMoving == playersCount) whoIsMoving = 0;
 
             hugeToMoveMethod();
             timeControl++;
@@ -57,7 +59,7 @@ namespace MonopolyGameWF
                 toMove.Enabled = true;
                 whoIsMoving++;
             }
-
+            if (whoIsMoving == playersCount) whoIsMoving = 0;
             label2.Text = $"Ходит: {whoIsMoving+1}";
         }
 
