@@ -13,9 +13,10 @@ namespace MonopolyGameWF
     public partial class Form1 : Form
     {
         Button[] buttons = new Button[24];
-        Figure[] figures = new Figure[4];
-        Button[] infoButtons = new Button[4];
+        Figure[] figures;
+        Button[] infoButtons;
         Button toMove;
+        Button[] buyButtons = new Button[2];
         int whoIsMoving = 0;
         int timeControl = 0;
         int diceResult = 0;
@@ -26,6 +27,8 @@ namespace MonopolyGameWF
             Form2 f = new Form2();
             f.ShowDialog();
             playersCount = f.quantity;
+            figures = new Figure[playersCount];
+            infoButtons = new Button[playersCount];
 
             for (int i = 0; i < playersCount; i++) figures[i] = new Figure(i);
 
@@ -37,6 +40,8 @@ namespace MonopolyGameWF
                 Controls.Add(infoButtons[i]);
             }
             Controls.Add(toMove);
+            Controls.Add(buyButtons[0]);
+            Controls.Add(buyButtons[1]);
 
             for (int i = 0; i < playersCount; i++)
             {
@@ -61,7 +66,7 @@ namespace MonopolyGameWF
             }
             if (whoIsMoving == playersCount) whoIsMoving = 0;
             label2.Text = $"Ходит: {whoIsMoving+1}";
-            infoButtons[whoIsMoving].Text = "Игрок " + whoIsMoving.ToString() + ": " + figures[whoIsMoving].money;
+            infoButtons[whoIsMoving].Text = "Игрок " + (whoIsMoving+1).ToString() + ": " + figures[whoIsMoving].money;
         }
 
         private void toMove_Click(object sender, EventArgs e)
@@ -110,11 +115,29 @@ namespace MonopolyGameWF
                 b.Enabled = false;
                 b.Visible = true;
                 b.Size = new Size(120,30);
-                b.Location = new Point(460+(i%2*120),155+(i/2*35));
+                b.Location = new Point(460+(i%2*120+1),155+(i/2*30+1));
                 b.Font = new Font(b.Font.Name, 10, b.Font.Style, b.Font.Unit);
+                b.FlatStyle = FlatStyle.Flat;
+                b.BackColor = Color.White;
                 b.Text = "Игрок "+(i+1).ToString() + ": " + figures[i].money;
                 infoButtons[i] = b;
             }
+
+            //========КУПЛЕПРОДАЖНЫЕ========
+            for (int i = 0; i < 2; i++)
+            {
+                Button b = new Button();
+                b.Enabled = true;
+                b.Visible = true;
+                b.Size = new Size(120, 30);
+                b.Location = new Point(460+120*i, infoButtons[infoButtons.Length-1].Location.Y+30);
+                b.Font = new Font(b.Font.Name, 10, b.Font.Style, b.Font.Unit);
+                b.FlatStyle = FlatStyle.Flat;
+                b.BackColor = Color.FromArgb(233, 120, 127);
+                buyButtons[i] = b;
+            }
+            buyButtons[0].Text = "КУПИТЬ";
+            buyButtons[1].Text = "ПРОДАТЬ";
 
             // =======ДВИЖЕНИЯ КНОПКА========
             toMove = new Button();
