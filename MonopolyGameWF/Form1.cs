@@ -27,9 +27,9 @@ namespace MonopolyGameWF
             f.ShowDialog();
             playersCount = f.quantity;
 
-            buttonsCreate();
-
             for (int i = 0; i < playersCount; i++) figures[i] = new Figure(i);
+
+            buttonsCreate();
 
             for (int i = 0; i < 24; i++) Controls.Add(buttons[i]);
             for (int i = 0; i < playersCount; i++) {
@@ -61,6 +61,7 @@ namespace MonopolyGameWF
             }
             if (whoIsMoving == playersCount) whoIsMoving = 0;
             label2.Text = $"Ходит: {whoIsMoving+1}";
+            infoButtons[whoIsMoving].Text = "Игрок " + whoIsMoving.ToString() + ": " + figures[whoIsMoving].money;
         }
 
         private void toMove_Click(object sender, EventArgs e)
@@ -108,9 +109,10 @@ namespace MonopolyGameWF
                 Button b = new Button();
                 b.Enabled = false;
                 b.Visible = true;
-                b.Size = new Size(100,40);
-                b.Location = new Point(500+(i/2*100),155+(i%2*40));
-                b.Text = i.ToString();
+                b.Size = new Size(120,30);
+                b.Location = new Point(460+(i%2*120),155+(i/2*35));
+                b.Font = new Font(b.Font.Name, 10, b.Font.Style, b.Font.Unit);
+                b.Text = "Игрок "+(i+1).ToString() + ": " + figures[i].money;
                 infoButtons[i] = b;
             }
 

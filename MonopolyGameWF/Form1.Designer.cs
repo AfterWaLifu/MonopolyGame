@@ -56,7 +56,7 @@ namespace MonopolyGameWF
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label2.Location = new System.Drawing.Point(550, 105);
+            this.label2.Location = new System.Drawing.Point(533, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 25);
             this.label2.TabIndex = 1;
@@ -66,7 +66,7 @@ namespace MonopolyGameWF
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label3.Location = new System.Drawing.Point(554, 130);
+            this.label3.Location = new System.Drawing.Point(537, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 25);
             this.label3.TabIndex = 2;

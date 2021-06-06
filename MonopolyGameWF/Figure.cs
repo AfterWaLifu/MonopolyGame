@@ -13,11 +13,13 @@ namespace MonopolyGameWF
         public Button b;
         public int direction;
         int manId;
+        public int money;
 
         public Figure(int id)
         {
             manId = id;
             direction = 0;
+            money = 25;
 
             b = new Button();
             b.Size = new Size(50, 50);
@@ -39,25 +41,41 @@ namespace MonopolyGameWF
                     if (b.Location.X == 700 && b.Location.Y == 0) direction = 1;
                     else if (b.Location.X == 700 && b.Location.Y == 500) direction = 2;
                     else if (b.Location.X == 0 && b.Location.Y == 500) direction = 3;
-                    else if (b.Location.X == 0 && b.Location.Y == 0) direction = 0;
+                    else if (b.Location.X == 0 && b.Location.Y == 0)
+                    {
+                        direction = 0;
+                        money += 75;
+                    }
                     break;
                 case 1:
                     if (b.Location.X == 750 && b.Location.Y == 0) direction = 1;
                     else if (b.Location.X == 750 && b.Location.Y == 500) direction = 2;
                     else if (b.Location.X == 50 && b.Location.Y == 500) direction = 3;
-                    else if (b.Location.X == 50 && b.Location.Y == 0) direction = 0;
+                    else if (b.Location.X == 50 && b.Location.Y == 0) 
+                    { 
+                        direction = 0;
+                        money += 75;
+                    }
                     break;
                 case 2:
                     if (b.Location.X == 700 && b.Location.Y == 50) direction = 1;
                     else if (b.Location.X == 700 && b.Location.Y == 550) direction = 2;
                     else if (b.Location.X == 0 && b.Location.Y == 550) direction = 3;
-                    else if (b.Location.X == 0 && b.Location.Y == 50) direction = 0;
+                    else if (b.Location.X == 0 && b.Location.Y == 50)
+                    {
+                        direction = 0;
+                        money += 75;
+                    }
                     break;
                 case 3:
                     if (b.Location.X == 750 && b.Location.Y == 50) direction = 1;
                     else if (b.Location.X == 750 && b.Location.Y == 550) direction = 2;
                     else if (b.Location.X == 50 && b.Location.Y == 550) direction = 3;
-                    else if (b.Location.X == 50 && b.Location.Y == 50) direction = 0;
+                    else if (b.Location.X == 50 && b.Location.Y == 50)
+                    {
+                        direction = 0;
+                        money += 75;
+                    }
                     break;
             }
         }
