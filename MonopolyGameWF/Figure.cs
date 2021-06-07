@@ -14,12 +14,16 @@ namespace MonopolyGameWF
         public int direction;
         int manId;
         public int money;
+        public List<int> buildings;
+        public int toEarn;
 
         public Figure(int id)
         {
             manId = id;
             direction = 0;
             money = 25;
+            buildings = new List<int>();
+            toEarn = 25;
 
             b = new Button();
             b.Size = new Size(50, 50);
@@ -44,7 +48,7 @@ namespace MonopolyGameWF
                     else if (b.Location.X == 0 && b.Location.Y == 0)
                     {
                         direction = 0;
-                        money += 75;
+                        money += toEarn;
                     }
                     break;
                 case 1:
@@ -54,7 +58,7 @@ namespace MonopolyGameWF
                     else if (b.Location.X == 50 && b.Location.Y == 0) 
                     { 
                         direction = 0;
-                        money += 75;
+                        money += toEarn;
                     }
                     break;
                 case 2:
@@ -64,7 +68,7 @@ namespace MonopolyGameWF
                     else if (b.Location.X == 0 && b.Location.Y == 50)
                     {
                         direction = 0;
-                        money += 75;
+                        money += toEarn;
                     }
                     break;
                 case 3:
@@ -74,7 +78,7 @@ namespace MonopolyGameWF
                     else if (b.Location.X == 50 && b.Location.Y == 50)
                     {
                         direction = 0;
-                        money += 75;
+                        money += toEarn;
                     }
                     break;
             }

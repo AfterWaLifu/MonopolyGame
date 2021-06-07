@@ -21,6 +21,7 @@ namespace MonopolyGameWF
         int timeControl = 0;
         int diceResult = 0;
         int playersCount;
+        int currentButton;
 
         public Form1()
         {
@@ -62,6 +63,8 @@ namespace MonopolyGameWF
                 timer1.Stop();
                 timeControl = 0;
                 toMove.Enabled = true;
+                buyButtons[0].Enabled = true;
+                buyButtons[1].Enabled = true;
                 whoIsMoving++;
             }
             if (whoIsMoving == playersCount) whoIsMoving = 0;
@@ -76,9 +79,16 @@ namespace MonopolyGameWF
             label1.Text = $"Результат броска: {diceResult}";
             timer1.Start();
             toMove.Enabled = false;
+            buyButtons[0].Enabled = false;
+            buyButtons[1].Enabled = false;
+        }
+        private void checkButton_Click(object sender, EventArgs e)
+        {
+            string text = sender.ToString().Substring(sender.ToString().IndexOf(':')+2);
+            MessageBox.Show(text, "Title");
         }
 
-        //================ ИНИЦИАЛИЗАЦИЯ КНОПОК ================================
+        //===== ИНИЦИАЛИЗАЦИЯ КНОПОК =====
         private void buttonsCreate()
         {
             // ======= кнопки места ========
@@ -88,7 +98,8 @@ namespace MonopolyGameWF
                 buttons[i].Enabled = true;
                 buttons[i].Visible = true;
                 buttons[i].Size = new Size(100, 100);
-                buttons[i].Text = " ";
+                buttons[i].Text = i.ToString();
+                buttons[i].Click += checkButton_Click;
             }
 
             for (int i = 0; i < 8; i++)
@@ -107,6 +118,8 @@ namespace MonopolyGameWF
             {
                 buttons[i + 16].Location = new Point(i * 100, 500);
             }
+
+            buttonsNamer();
 
             // =========ИНФО КНОПКИ=========
             for (int i = 0; i < playersCount; i++)
@@ -148,6 +161,34 @@ namespace MonopolyGameWF
             toMove.Visible = true;
             toMove.Click += toMove_Click;
             toMove.Location = new Point(160, 120);
+        }
+
+        private void buttonsNamer()
+        {
+            buttons[0].Text = "Старт";
+            buttons[1].Text = "Ларёк перед школой =50 +20";
+            buttons[2].Text = "Ларёк с шаурмой =65 +30";
+            buttons[3].Text = "Ларёк в центре =85 +40";
+            buttons[4].Text = "Шаг вперёд";
+            buttons[5].Text = "Завод палок =90 +30";
+            buttons[6].Text = "Завод камней =100 +40";
+            buttons[7].Text = "Завод каменных палок =110 +50";
+            buttons[8].Text = "Два шага вперёд";
+            buttons[9].Text = "Автомаркет Самара =220 +100";
+            buttons[10].Text = "Автомаркет Волксваген =250 +120";
+            buttons[11].Text = "Автомаркет Кухонда =300 +155";
+            buttons[12].Text = "SpaceY ГенДир =1600 +800";
+            buttons[13].Text = "SpaceY инженер =1400 +650";
+            buttons[14].Text = "SpaceY уборщик =1000 +400";
+            buttons[15].Text = "Четыре шага вперёд";
+            buttons[16].Text = "Инвестор завода =500 +200";
+            buttons[17].Text = "Инвестор DogeCoin =750 +350";
+            buttons[18].Text = "Инвестор GameStop =950 +520";
+            buttons[19].Text = "Пять вперёд";
+            buttons[20].Text = "Военный =290 +130";
+            buttons[21].Text = "Кибер полицейский =260 +125";
+            buttons[22].Text = "Следователь =250 +110";
+            buttons[23].Text = "Три шага вперёд";
         }
 
         private void hugeToMoveMethod()
