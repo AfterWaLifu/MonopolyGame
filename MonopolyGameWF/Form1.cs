@@ -18,10 +18,10 @@ namespace MonopolyGameWF
         Button toMove;
         Button[] buyButtons = new Button[2];
         int whoIsMoving = 0;
+        int lastMoved = 1;
         int timeControl = 0;
         int diceResult = 0;
         int playersCount;
-        int currentButton;
 
         public Form1()
         {
@@ -50,11 +50,11 @@ namespace MonopolyGameWF
             }
 
             InitializeComponent();
+            label4.Location = new Point(516, buyButtons[0].Location.Y + 28);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             hugeToMoveMethod();
             timeControl++;
 
@@ -66,10 +66,15 @@ namespace MonopolyGameWF
                 buyButtons[0].Enabled = true;
                 buyButtons[1].Enabled = true;
                 whoIsMoving++;
+
+                if (whoIsMoving == playersCount) whoIsMoving = 0;
+                lastMoved = whoIsMoving;
+                if (lastMoved == 0) lastMoved = figures.Length;
+
+                label2.Text = $"Ходит: {whoIsMoving + 1}";
+                label4.Text = $"Покупает: {lastMoved}";
             }
-            if (whoIsMoving == playersCount) whoIsMoving = 0;
-            label2.Text = $"Ходит: {whoIsMoving+1}";
-            infoButtons[whoIsMoving].Text = "Игрок " + (whoIsMoving+1).ToString() + ": " + figures[whoIsMoving].money;
+            infoButtons[whoIsMoving].Text = "Игрок " + (whoIsMoving + 1).ToString() + ": " + figures[whoIsMoving].money;
         }
 
         private void toMove_Click(object sender, EventArgs e)
@@ -81,6 +86,8 @@ namespace MonopolyGameWF
             toMove.Enabled = false;
             buyButtons[0].Enabled = false;
             buyButtons[1].Enabled = false;
+            figures[whoIsMoving].position += diceResult;
+            if (figures[whoIsMoving].position > 23) figures[whoIsMoving].position -= 24;
         }
         private void checkButton_Click(object sender, EventArgs e)
         {
@@ -143,12 +150,14 @@ namespace MonopolyGameWF
                 b.Enabled = true;
                 b.Visible = true;
                 b.Size = new Size(120, 30);
-                b.Location = new Point(460+120*i, infoButtons[infoButtons.Length-1].Location.Y+30);
+                b.Location = new Point(461+120*i, infoButtons[infoButtons.Length-1].Location.Y+30);
                 b.Font = new Font(b.Font.Name, 10, b.Font.Style, b.Font.Unit);
                 b.FlatStyle = FlatStyle.Flat;
                 b.BackColor = Color.FromArgb(233, 120, 127);
                 buyButtons[i] = b;
             }
+            buyButtons[0].Click += buyButton_Click;
+            buyButtons[1].Click += sellButton_Click;
             buyButtons[0].Text = "КУПИТЬ";
             buyButtons[1].Text = "ПРОДАТЬ";
 
@@ -210,6 +219,62 @@ namespace MonopolyGameWF
                     figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X, figures[whoIsMoving].b.Location.Y-5);
                     break;
             }
+        }
+
+        // ======= КНОПКИ БОЛИ которые я очень не хочу делать ========
+
+        private void buyButton_Click(object sender, EventArgs e)
+        {
+            string needed = buttons[figures[lastMoved - 1].position].Text;
+            int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
+            int owner = whoIsTheOwner(figures[lastMoved-1].position);
+
+            if (lookForThroughBuidings(figures[lastMoved-1], figures[lastMoved-1].position))
+            {
+                MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
+            }
+            else if (figures[lastMoved - 1].money < cost)
+            {
+                MessageBox.Show($"У игрока №{lastMoved} недосточно денег на {needed}", "Ахтунг!");
+            }
+            else if (owner < 5)
+            {
+                MessageBox.Show($"Предприятие '{needed}' уже под контролем игрока {owner}", "Ахтунг!");
+            }
+            else
+            {
+                int earn = Convert.ToInt32(needed.Substring(needed.LastIndexOf("+") + 1));
+                figures[lastMoved - 1].buildings.Add(figures[lastMoved - 1].position);
+                figures[lastMoved - 1].money -= cost;
+                figures[lastMoved - 1].toEarn += earn;
+                infoButtons[whoIsMoving].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved-1].money;
+            }
+        }
+        private void sellButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private bool lookForThroughBuidings(Figure f, int building)
+        {
+            if (f.buildings.Count == 0) return false;
+            for (int i = 0; i < f.buildings.Count;i++)
+            {
+                if (f.buildings[i] == building) return true;
+            }
+            return false;
+        }
+        private int whoIsTheOwner(int building)
+        {
+            for (int i = 0; i < figures.Length; i++)
+            {
+                if (figures[i].buildings.Count == 0) continue;
+                for (int j = 0; j < figures[i].buildings.Count; j++)
+                {
+                    if (figures[i].buildings[j] == building) return i;
+                }
+            }
+            return 5;
         }
     }
 }

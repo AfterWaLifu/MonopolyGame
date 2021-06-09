@@ -16,6 +16,7 @@ namespace MonopolyGameWF
         public int money;
         public List<int> buildings;
         public int toEarn;
+        public int position;
 
         public Figure(int id)
         {
@@ -24,6 +25,7 @@ namespace MonopolyGameWF
             money = 25;
             buildings = new List<int>();
             toEarn = 25;
+            position = 0;
 
             b = new Button();
             b.Size = new Size(50, 50);
