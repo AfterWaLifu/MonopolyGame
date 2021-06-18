@@ -21,6 +21,8 @@ namespace MonopolyGameWF
         private void button1_Click(object sender, EventArgs e)
         {
             quantity = (int)numericUpDown1.Value;
+            MessageBox.Show("А цель этой игры стать самым богатым, в данном случае - 15000 денех и ты победитель",
+                "Немного правил");
             this.Close();
         }
     }
