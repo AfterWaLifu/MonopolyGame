@@ -82,12 +82,28 @@ namespace MonopolyGameWF
             Random r = new Random();
             diceResult = r.Next(1,7);
             label1.Text = $"Результат броска: {diceResult}";
-            timer1.Start();
             toMove.Enabled = false;
             buyButtons[0].Enabled = false;
             buyButtons[1].Enabled = false;
             figures[whoIsMoving].position += diceResult;
             if (figures[whoIsMoving].position > 23) figures[whoIsMoving].position -= 24;
+            switch (figures[whoIsMoving].position)
+            {
+                case 4:
+                case 8:
+                case 12:
+                case 16:
+                case 20:
+                    int num = numberFinder(figures[whoIsMoving].position);
+                    MessageBox.Show($"Ваш бросок был на {diceResult}, но вы наступили на +{num} шагов");
+                    diceResult += num;
+                    figures[whoIsMoving].position += num;
+                    if (figures[whoIsMoving].position > 23) figures[whoIsMoving].position -= 24;
+                    break;
+                default:
+                    break;
+            }
+            timer1.Start();
         }
         private void checkButton_Click(object sender, EventArgs e)
         {
@@ -219,6 +235,25 @@ namespace MonopolyGameWF
                     figures[whoIsMoving].b.Location = new Point(figures[whoIsMoving].b.Location.X, figures[whoIsMoving].b.Location.Y-5);
                     break;
             }
+        }
+
+        private int numberFinder(int num)
+        {
+            switch (figures[whoIsMoving].position)
+            {
+                case 4:
+                    return 1;
+                case 8:
+                    return 2;
+                case 12:
+                    return 3;
+                case 16:
+                    return 5;
+                case 20:
+                    return 4;
+                default:
+                    return 0;
+            };
         }
 
         // ======= КНОПКИ БОЛИ которые я очень не хочу делать ========
