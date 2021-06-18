@@ -220,6 +220,13 @@ namespace MonopolyGameWF
         {
             figures[whoIsMoving].checkForDir();
 
+            if (figures[whoIsMoving].WIN)
+            {
+                timer1.Stop();
+                MessageBox.Show($"А ПОБЕДИЛ ИГРОК НОМЕР {whoIsMoving}","А ПОБЕДИЛ");
+                Environment.Exit(0);
+            }
+
             switch (figures[whoIsMoving].direction)
             {
                 case 0:

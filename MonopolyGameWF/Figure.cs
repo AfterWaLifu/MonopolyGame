@@ -17,6 +17,7 @@ namespace MonopolyGameWF
         public List<int> buildings;
         public int toEarn;
         public int position;
+        public bool WIN = false;
 
         public Figure(int id)
         {
@@ -51,6 +52,7 @@ namespace MonopolyGameWF
                     {
                         direction = 0;
                         money += toEarn;
+                        checkIfWon();
                     }
                     break;
                 case 1:
@@ -61,6 +63,7 @@ namespace MonopolyGameWF
                     { 
                         direction = 0;
                         money += toEarn;
+                        checkIfWon();
                     }
                     break;
                 case 2:
@@ -71,6 +74,7 @@ namespace MonopolyGameWF
                     {
                         direction = 0;
                         money += toEarn;
+                        checkIfWon();
                     }
                     break;
                 case 3:
@@ -81,6 +85,7 @@ namespace MonopolyGameWF
                     {
                         direction = 0;
                         money += toEarn;
+                        checkIfWon();
                     }
                     break;
             }
@@ -107,6 +112,14 @@ namespace MonopolyGameWF
                     b.BackgroundImage = Properties.Resources.fourth;
                     b.Location = new Point(50, 50);
                     break;
+            }
+        }
+
+        private void checkIfWon()
+        {
+            if (money >= 15000)
+            {
+                WIN = true;
             }
         }
     }
