@@ -108,7 +108,7 @@ namespace MonopolyGameWF
         private void checkButton_Click(object sender, EventArgs e)
         {
             string text = sender.ToString().Substring(sender.ToString().IndexOf(':')+2);
-            MessageBox.Show(text, "Title");
+            MessageBox.Show(text, "А здесь у нас:");
         }
 
         //===== ИНИЦИАЛИЗАЦИЯ КНОПОК =====
