@@ -62,12 +62,15 @@ namespace MonopolyGameWF
         /// </summary>
         int playersCount;
 
+        LOGS_Form LF;
+
         /// <summary>
         /// Конструктор основного окна игры
         /// </summary>
         public Form1()
         {
             Form2 f = new Form2();
+            LF = new LOGS_Form();
             f.ShowDialog();
             playersCount = f.quantity;
             figures = new Figure[playersCount];
@@ -132,6 +135,7 @@ namespace MonopolyGameWF
             Random r = new Random();
             diceResult = r.Next(1,7);
             label1.Text = $"Результат броска: {diceResult}";
+            if (LF.Visible) LF.richTextBox1.Text += $"\nРезультат броска: {diceResult}";
             toMove.Enabled = false;
             buyButtons[0].Enabled = false;
             buyButtons[1].Enabled = false;
@@ -145,7 +149,8 @@ namespace MonopolyGameWF
                 case 16:
                 case 20:
                     int num = numberFinder(figures[whoIsMoving].position);
-                    MessageBox.Show($"Ваш бросок был на {diceResult}, но вы наступили на +{num} шагов");
+                    if (LF.Visible) LF.richTextBox1.Text += $", но ещё +{num} шагов";
+                    else MessageBox.Show($"Ваш бросок был на {diceResult}, но вы наступили на +{num} шагов");
                     diceResult += num;
                     figures[whoIsMoving].position += num;
                     if (figures[whoIsMoving].position > 23) figures[whoIsMoving].position -= 24;
@@ -162,7 +167,14 @@ namespace MonopolyGameWF
         private void checkButton_Click(object sender, EventArgs e)
         {
             string text = sender.ToString().Substring(sender.ToString().IndexOf(':')+2);
-            MessageBox.Show(text, "А здесь у нас:");
+            if (LF.Visible)
+            {
+                LF.richTextBox1.Text += $"\nЗдесть стоит: {text}";
+            }
+            else
+            {
+                MessageBox.Show(text, "А здесь у нас:");
+            }
         }
 
         /// <summary>
@@ -171,11 +183,18 @@ namespace MonopolyGameWF
         private void ShowBuildings(object sender, EventArgs e)
         {
             int player = Convert.ToInt32(sender.ToString().Substring(sender.ToString().LastIndexOf(':')-1,1)) -1;
-            string buildings = $"У игрока №{player+1} есть:\n";
+            string buildings = $"\nУ игрока №{player+1} есть:\n";
             
             if (figures[player].buildings.Count == 0)
             {
-                MessageBox.Show($"А у игрока {player+1} нет ничего, но он получает 25 за круг","Ахтунг");
+                if (LF.Visible)
+                {
+                    LF.richTextBox1.Text += $"\nу игрока {player + 1} нет предприятий, +25 за круг";
+                }
+                else
+                {
+                    MessageBox.Show($"А у игрока {player+1} нет ничего, но он получает 25 за круг","Ахтунг");
+                }
                 return;
             }
 
@@ -185,7 +204,8 @@ namespace MonopolyGameWF
             }
             buildings += $"\nОн зарабатывает за круг: {figures[player].toEarn}";
 
-            MessageBox.Show(buildings, $"Хозяйство игрока {player+1}");
+            if (LF.Visible) LF.richTextBox1.Text += buildings;
+            else MessageBox.Show(buildings, $"Хозяйство игрока {player+1}");
         }
 
         /// <summary>
@@ -310,6 +330,7 @@ namespace MonopolyGameWF
             {
                 timer1.Stop();
                 MessageBox.Show($"А ПОБЕДИЛ ИГРОК НОМЕР {whoIsMoving}","А ПОБЕДИЛ");
+                LF.richTextBox1.Text +=$"\nПобедил игрок {whoIsMoving}";
                 Environment.Exit(0);
             }
 
@@ -361,7 +382,8 @@ namespace MonopolyGameWF
         {
             if (figures[lastMoved-1].position == 0)
             {
-                MessageBox.Show("А старт нельзя купить", "Ахтунг");
+                if (LF.Visible) LF.richTextBox1.Text += "Вы пытаетесь купить старт? серьёзно?";
+                else MessageBox.Show("А старт нельзя купить", "Ахтунг");
                 return;
             }
             int posit = figures[lastMoved - 1].position;
@@ -414,15 +436,18 @@ namespace MonopolyGameWF
 
             if (!(lookForThroughBuidings(figures[lastMoved-1], posit) == -1))
             {
-                MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
+                if (LF.Visible) LF.richTextBox1.Text += $"Игрок №{lastMoved} уже купил {needed}";
+                else MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
             }
             else if (figures[lastMoved - 1].money < cost)
             {
-                MessageBox.Show($"У игрока №{lastMoved} недосточно денег на {needed}", "Ахтунг!");
+                if (LF.Visible) LF.richTextBox1.Text += $"У игрока №{lastMoved} недосточно денег на {needed}";
+                else MessageBox.Show($"У игрока №{lastMoved} недосточно денег на {needed}", "Ахтунг!");
             }
             else if (owner < 5)
             {
-                MessageBox.Show($"Предприятие '{needed}' уже под контролем игрока {owner+1}", "Ахтунг!");
+                if (LF.Visible) LF.richTextBox1.Text += $"Предприятие '{needed}' уже под контролем игрока {owner + 1}";
+                else MessageBox.Show($"Предприятие '{needed}' уже под контролем игрока {owner+1}", "Ахтунг!");
             }
             else
             {
@@ -536,6 +561,9 @@ namespace MonopolyGameWF
             return 5;
         }
 
+        /// <summary>
+        /// Добавляет кнопки помощи и логов
+        /// </summary>
         private void NotNecessaryButtons()
         {
             Button HELP = new Button();
@@ -560,14 +588,26 @@ namespace MonopolyGameWF
             Controls.Add(HISTORY);
         }
 
+        /// <summary>
+        /// обработчик нажатия на кнопку помощи
+        /// </summary>
         private void helpToClick(object sender, EventArgs e)
         {
-            
+            HELP_Form hf = new HELP_Form();
+            hf.Show();
         }
 
+        /// <summary>
+        /// обработчик нажатия на кнопку логов
+        /// </summary>
         private void historyToOpen(object sender, EventArgs e)
         {
-
+            if (LF.Visible) LF.Hide();
+            else
+            {
+                LF.Show();
+                LF.richTextBox1.Text = "Двигать - за шапку, закрыть - на ту же кнопку";
+            }
         }
     }
 }
