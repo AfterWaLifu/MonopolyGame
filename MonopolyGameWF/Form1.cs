@@ -169,11 +169,11 @@ namespace MonopolyGameWF
         private void ShowBuildings(object sender, EventArgs e)
         {
             int player = Convert.ToInt32(sender.ToString().Substring(sender.ToString().LastIndexOf(':')-1,1)) -1;
-            string buildings = $"У игрока №{player} есть:\n";
+            string buildings = $"У игрока №{player+1} есть:\n";
             
             if (figures[player].buildings.Count == 0)
             {
-                MessageBox.Show($"А у игрока {player} нет ничего, но он получает 25 за круг","Ахтунг");
+                MessageBox.Show($"А у игрока {player+1} нет ничего, но он получает 25 за круг","Ахтунг");
                 return;
             }
 
@@ -183,7 +183,7 @@ namespace MonopolyGameWF
             }
             buildings += $"\nОн зарабатывает за круг: {figures[player].toEarn}";
 
-            MessageBox.Show(buildings, $"Хозяйство игрока {player}");
+            MessageBox.Show(buildings, $"Хозяйство игрока {player+1}");
         }
 
         /// <summary>
@@ -362,11 +362,55 @@ namespace MonopolyGameWF
                 MessageBox.Show("А старт нельзя купить", "Ахтунг");
                 return;
             }
-            string needed = buttons[figures[lastMoved - 1].position].Text;
-            int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
-            int owner = whoIsTheOwner(figures[lastMoved-1].position);
+            int posit = figures[lastMoved - 1].position;
+            if (posit > 11)
+            {
+                switch (posit)
+                {
+                    case 12:
+                        posit = 23;
+                        break;
+                    case 13:
+                        posit = 22;
+                        break;
+                    case 14:
+                        posit = 21;
+                        break;
+                    case 15:
+                        posit = 20;
+                        break;
+                    case 16:
+                        posit = 19;
+                        break;
+                    case 17:
+                        posit = 18;
+                        break;
+                    case 18:
+                        posit = 17;
+                        break;
+                    case 19:
+                        posit = 16;
+                        break;
+                    case 20:
+                        posit = 15;
+                        break;
+                    case 21:
+                        posit = 14;
+                        break;
+                    case 22:
+                        posit = 13;
+                        break;
+                    case 23:
+                        posit = 12;
+                        break;
+                }
+            } 
 
-            if (!(lookForThroughBuidings(figures[lastMoved-1], figures[lastMoved-1].position) == -1))
+            string needed = buttons[posit].Text;
+            int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
+            int owner = whoIsTheOwner(posit);
+
+            if (!(lookForThroughBuidings(figures[lastMoved-1], posit) == -1))
             {
                 MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
             }
@@ -381,7 +425,7 @@ namespace MonopolyGameWF
             else
             {
                 int earn = Convert.ToInt32(needed.Substring(needed.LastIndexOf("+") + 1));
-                figures[lastMoved - 1].buildings.Add(figures[lastMoved - 1].position);
+                figures[lastMoved - 1].buildings.Add(posit);
                 figures[lastMoved - 1].money -= cost;
                 figures[lastMoved - 1].toEarn += earn;
                 infoButtons[lastMoved-1].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved-1].money;
@@ -398,10 +442,53 @@ namespace MonopolyGameWF
                 MessageBox.Show("А старт нельзя продать", "Ахтунг");
                 return;
             }
-            string needed = buttons[figures[lastMoved - 1].position].Text;
+            int posit = figures[lastMoved - 1].position;
+            if (posit > 11)
+            {
+                switch (posit)
+                {
+                    case 12:
+                        posit = 23;
+                        break;
+                    case 13:
+                        posit = 22;
+                        break;
+                    case 14:
+                        posit = 21;
+                        break;
+                    case 15:
+                        posit = 20;
+                        break;
+                    case 16:
+                        posit = 19;
+                        break;
+                    case 17:
+                        posit = 18;
+                        break;
+                    case 18:
+                        posit = 17;
+                        break;
+                    case 19:
+                        posit = 16;
+                        break;
+                    case 20:
+                        posit = 15;
+                        break;
+                    case 21:
+                        posit = 14;
+                        break;
+                    case 22:
+                        posit = 13;
+                        break;
+                    case 23:
+                        posit = 12;
+                        break;
+                }
+            }
+            string needed = buttons[posit].Text;
             int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
-            int owner = whoIsTheOwner(figures[lastMoved - 1].position);
-            int temp = lookForThroughBuidings(figures[lastMoved - 1], figures[lastMoved - 1].position);
+            int owner = whoIsTheOwner(posit);
+            int temp = lookForThroughBuidings(figures[lastMoved - 1], posit);
 
             if (temp > -1)
             {
