@@ -93,6 +93,8 @@ namespace MonopolyGameWF
 
             InitializeComponent();
             label4.Location = new Point(516, buyButtons[0].Location.Y + 28);
+
+            NotNecessaryButtons();
         }
 
         /// <summary>
@@ -532,6 +534,40 @@ namespace MonopolyGameWF
                 }
             }
             return 5;
+        }
+
+        private void NotNecessaryButtons()
+        {
+            Button HELP = new Button();
+            HELP.Size = new Size(99,39);
+            HELP.Font = new Font(HELP.Font.Name, 10, HELP.Font.Style, HELP.Font.Unit);
+            HELP.Enabled = true;
+            HELP.Visible = true;
+            HELP.Text = "ПОМОЩЬ";
+            HELP.Location = new Point(101,459);
+            HELP.Click += helpToClick;
+
+            Button HISTORY = new Button();
+            HISTORY.Size = new Size(99, 39);
+            HISTORY.Font = HELP.Font;
+            HISTORY.Enabled = true;
+            HISTORY.Visible = true;
+            HISTORY.Text = "ЛОГ";
+            HISTORY.Location = new Point(201, 459);
+            HISTORY.Click += historyToOpen;
+
+            Controls.Add(HELP);
+            Controls.Add(HISTORY);
+        }
+
+        private void helpToClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void historyToOpen(object sender, EventArgs e)
+        {
+
         }
     }
 }
