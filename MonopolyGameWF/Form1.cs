@@ -12,17 +12,59 @@ namespace MonopolyGameWF
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Предприятия
+        /// </summary>
         Button[] buttons = new Button[24];
+
+        /// <summary>
+        /// Фигурки на доске
+        /// </summary>
         Figure[] figures;
+
+        /// <summary>
+        /// Подписи денег игроков
+        /// </summary>
         Button[] infoButtons;
+        
+        /// <summary>
+        /// Кнопка для броска кубика
+        /// </summary>
         Button toMove;
+        
+        /// <summary>
+        /// Кнопки куплепродажи
+        /// </summary>
         Button[] buyButtons = new Button[2];
+        
+        /// <summary>
+        /// Счётчик игрока к ходу
+        /// </summary>
         int whoIsMoving = 0;
+        
+        /// <summary>
+        /// Последний игрок, совершивший ход
+        /// </summary>
         int lastMoved = 1;
+        
+        /// <summary>
+        /// Счётчик для таймера анимаций
+        /// </summary>
         int timeControl = 0;
+        
+        /// <summary>
+        /// Результат броска кубика
+        /// </summary>
         int diceResult = 0;
+        
+        /// <summary>
+        /// Количество игроков
+        /// </summary>
         int playersCount;
 
+        /// <summary>
+        /// Конструктор основного окна игры
+        /// </summary>
         public Form1()
         {
             Form2 f = new Form2();
@@ -53,6 +95,9 @@ namespace MonopolyGameWF
             label4.Location = new Point(516, buyButtons[0].Location.Y + 28);
         }
 
+        /// <summary>
+        /// Таймер анимации
+        /// </summary>
         private void timer1_Tick(object sender, EventArgs e)
         {
             hugeToMoveMethod();
@@ -77,6 +122,9 @@ namespace MonopolyGameWF
             infoButtons[whoIsMoving].Text = "Игрок " + (whoIsMoving + 1).ToString() + ": " + figures[whoIsMoving].money;
         }
 
+        /// <summary>
+        /// Выполнение броска кубика
+        /// </summary>
         private void toMove_Click(object sender, EventArgs e)
         {
             Random r = new Random();
@@ -105,13 +153,19 @@ namespace MonopolyGameWF
             }
             timer1.Start();
         }
+
+        /// <summary>
+        /// Вывод содержания предприятия
+        /// </summary>
         private void checkButton_Click(object sender, EventArgs e)
         {
             string text = sender.ToString().Substring(sender.ToString().IndexOf(':')+2);
             MessageBox.Show(text, "А здесь у нас:");
         }
 
-        //===== ИНИЦИАЛИЗАЦИЯ КНОПОК =====
+        /// <summary>
+        /// Определение кнопок на экране
+        /// </summary>
         private void buttonsCreate()
         {
             // ======= кнопки места ========
@@ -188,6 +242,9 @@ namespace MonopolyGameWF
             toMove.Location = new Point(160, 120);
         }
 
+        /// <summary>
+        /// Заполнение кнопок предприятий
+        /// </summary>
         private void buttonsNamer()
         {
             buttons[0].Text = "Старт";
@@ -216,6 +273,9 @@ namespace MonopolyGameWF
             buttons[23].Text = "Три шага вперёд";
         }
 
+        /// <summary>
+        /// Метод анимации перемещения фигурок по полю
+        /// </summary>
         private void hugeToMoveMethod()
         {
             figures[whoIsMoving].checkForDir();
@@ -244,6 +304,11 @@ namespace MonopolyGameWF
             }
         }
 
+        /// <summary>
+        /// Обработчик попадания на бонусные шаги
+        /// </summary>
+        /// <param name="num">Номер клетки, в которой находится игрок</param>
+        /// <returns></returns>
         private int numberFinder(int num)
         {
             switch (figures[whoIsMoving].position)
@@ -263,8 +328,9 @@ namespace MonopolyGameWF
             };
         }
 
-        // ======= КНОПКИ БОЛИ которые я очень не хочу делать ========
-
+        /// <summary>
+        /// Обработчик нажатия на кнопку покупки
+        /// </summary>
         private void buyButton_Click(object sender, EventArgs e)
         {
             string needed = buttons[figures[lastMoved - 1].position].Text;
@@ -292,11 +358,21 @@ namespace MonopolyGameWF
                 infoButtons[whoIsMoving].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved-1].money;
             }
         }
+
+        /// <summary>
+        /// Обработчик нажатия на кнопку покупки
+        /// </summary>
         private void sellButton_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Проверка, если предприятие уже куплено игроком
+        /// </summary>
+        /// <param name="f">Игрок</param>
+        /// <param name="building">Предприятие</param>
+        /// <returns></returns>
         private bool lookForThroughBuidings(Figure f, int building)
         {
             if (f.buildings.Count == 0) return false;
@@ -306,6 +382,12 @@ namespace MonopolyGameWF
             }
             return false;
         }
+
+        /// <summary>
+        /// Поиск владельца предприятия среди игроков
+        /// </summary>
+        /// <param name="building">Предприятие</param>
+        /// <returns></returns>
         private int whoIsTheOwner(int building)
         {
             for (int i = 0; i < figures.Length; i++)

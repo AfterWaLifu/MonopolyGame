@@ -10,15 +10,50 @@ namespace MonopolyGameWF
 {
     class Figure
     {
+        /// <summary>
+        /// Кнопка игрока
+        /// </summary>
         public Button b;
+
+        /// <summary>
+        /// Направление движения
+        /// </summary>
         public int direction;
+
+        /// <summary>
+        /// ID номер игрока
+        /// </summary>
         int manId;
+
+        /// <summary>
+        /// Деньги игрока
+        /// </summary>
         public int money;
+
+        /// <summary>
+        /// Список предприятия игрока
+        /// </summary>
         public List<int> buildings;
+
+        /// <summary>
+        /// Деньги, получаемые за прохождения круга
+        /// </summary>
         public int toEarn;
+
+        /// <summary>
+        /// Позиция игрока на поле
+        /// </summary>
         public int position;
+
+        /// <summary>
+        /// Показатель победы игрока
+        /// </summary>
         public bool WIN = false;
 
+        /// <summary>
+        /// Конструктор игрока
+        /// </summary>
+        /// <param name="id">Порядковый номер игрока</param>
         public Figure(int id)
         {
             manId = id;
@@ -39,7 +74,9 @@ namespace MonopolyGameWF
             configure(id);
         }
 
-        //выбор направления от места
+        /// <summary>
+        /// Проверка направления движения
+        /// </summary>
         public void checkForDir()
         {
             switch (manId)
@@ -91,7 +128,10 @@ namespace MonopolyGameWF
             }
         }
 
-        //настройка от айди картинки и места
+        /// <summary>
+        /// Конфигурация иконки и положения фигурки от порядкового номера игрока
+        /// </summary>
+        /// <param name="id">Порядковый номер игрока</param>
         private void configure(int id)
         {
             switch (id)
@@ -115,6 +155,9 @@ namespace MonopolyGameWF
             }
         }
 
+        /// <summary>
+        /// Проверка условия победы игрока
+        /// </summary>
         private void checkIfWon()
         {
             if (money >= 15000)
