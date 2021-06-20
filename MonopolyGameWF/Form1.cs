@@ -337,7 +337,7 @@ namespace MonopolyGameWF
             int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
             int owner = whoIsTheOwner(figures[lastMoved-1].position);
 
-            if (lookForThroughBuidings(figures[lastMoved-1], figures[lastMoved-1].position))
+            if (lookForThroughBuidings(figures[lastMoved-1], figures[lastMoved-1].position) == -1)
             {
                 MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
             }
@@ -364,7 +364,19 @@ namespace MonopolyGameWF
         /// </summary>
         private void sellButton_Click(object sender, EventArgs e)
         {
+            string needed = buttons[figures[lastMoved - 1].position].Text;
+            int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
+            int owner = whoIsTheOwner(figures[lastMoved - 1].position);
+            int temp = lookForThroughBuidings(figures[lastMoved - 1], figures[lastMoved - 1].position);
 
+            if (temp > -1)
+            {
+                int earn = Convert.ToInt32(needed.Substring(needed.LastIndexOf("+") + 1));
+                figures[lastMoved - 1].buildings.RemoveAt(temp);
+                figures[lastMoved - 1].money += (int)(cost * 0.75f);
+                figures[lastMoved - 1].toEarn -= earn;
+                infoButtons[whoIsMoving].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved - 1].money;
+            }
         }
 
         /// <summary>
@@ -373,14 +385,14 @@ namespace MonopolyGameWF
         /// <param name="f">Игрок</param>
         /// <param name="building">Предприятие</param>
         /// <returns></returns>
-        private bool lookForThroughBuidings(Figure f, int building)
+        private int lookForThroughBuidings(Figure f, int building)
         {
-            if (f.buildings.Count == 0) return false;
+            if (f.buildings.Count == 0) return -1;
             for (int i = 0; i < f.buildings.Count;i++)
             {
-                if (f.buildings[i] == building) return true;
+                if (f.buildings[i] == building) return i;
             }
-            return false;
+            return -1;
         }
 
         /// <summary>
