@@ -58,7 +58,7 @@ namespace MonopolyGameWF
         {
             manId = id;
             direction = 0;
-            money = 5000;
+            money = 25;
             buildings = new List<int>();
             toEarn = 25;
             position = 0;
