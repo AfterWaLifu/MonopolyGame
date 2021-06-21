@@ -66,5 +66,23 @@ namespace MonopolyGameWF
                 for (int i = (int)(lines.Length * 0.7); i < lines.Length; i++) richTextBox1.Text += lines[i];
             }
         }
+
+        public void addLine(string[] temp)
+        {
+            string[] lines = new string[richTextBox1.Lines.Length+temp.Length];
+
+            string[] buffer = richTextBox1.Lines;
+            if (!string.IsNullOrEmpty(richTextBox1.Text))
+            {
+                richTextBox1.Text = buffer[0] + "\n";
+            }
+
+            for (int i = 0; i < temp.Length; i++)
+            {
+                richTextBox1.Text += $"{temp[i]}";
+                if (temp.Length > 1) richTextBox1.Text += "\n";
+            }
+            for (int i = 1; i < buffer.Length; i++) richTextBox1.Text += $"\n{buffer[i]}";
+        }
     }
 }

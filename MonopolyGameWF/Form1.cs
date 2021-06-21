@@ -135,7 +135,7 @@ namespace MonopolyGameWF
             Random r = new Random();
             diceResult = r.Next(1,7);
             label1.Text = $"Результат броска: {diceResult}";
-            if (LF.Visible) LF.richTextBox1.Text += $"\nРезультат броска: {diceResult}";
+            string resOut = $"\nРезультат броска: {diceResult}";
             toMove.Enabled = false;
             buyButtons[0].Enabled = false;
             buyButtons[1].Enabled = false;
@@ -149,8 +149,8 @@ namespace MonopolyGameWF
                 case 16:
                 case 20:
                     int num = numberFinder(figures[whoIsMoving].position);
-                    if (LF.Visible) LF.richTextBox1.Text += $", но ещё +{num} шагов";
-                    else MessageBox.Show($"Ваш бросок был на {diceResult}, но вы наступили на +{num} шагов");
+                    resOut += $", но ещё +{num} шагов";
+                    if (!LF.Visible)MessageBox.Show($"Ваш бросок был на {diceResult}, но вы наступили на +{num} шагов");
                     diceResult += num;
                     figures[whoIsMoving].position += num;
                     if (figures[whoIsMoving].position > 23) figures[whoIsMoving].position -= 24;
@@ -158,6 +158,7 @@ namespace MonopolyGameWF
                 default:
                     break;
             }
+            if (LF.Visible) LF.addLine(new string[] { resOut });
             timer1.Start();
         }
 
@@ -169,7 +170,7 @@ namespace MonopolyGameWF
             string text = sender.ToString().Substring(sender.ToString().IndexOf(':')+2);
             if (LF.Visible)
             {
-                LF.richTextBox1.Text += $"\nЗдесть стоит: {text}";
+                LF.addLine(new string[1] { $"\nЗдесть стоит: {text}" });
             }
             else
             {
@@ -189,7 +190,7 @@ namespace MonopolyGameWF
             {
                 if (LF.Visible)
                 {
-                    LF.richTextBox1.Text += $"\nу игрока {player + 1} нет предприятий, +25 за круг";
+                    LF.addLine(new string[1] { $"\nу игрока {player + 1} нет предприятий, +25 за круг"});
                 }
                 else
                 {
@@ -204,7 +205,7 @@ namespace MonopolyGameWF
             }
             buildings += $"\nОн зарабатывает за круг: {figures[player].toEarn}";
 
-            if (LF.Visible) LF.richTextBox1.Text += buildings;
+            if (LF.Visible) LF.addLine(buildings.Split('\n'));
             else MessageBox.Show(buildings, $"Хозяйство игрока {player+1}");
         }
 
@@ -330,7 +331,7 @@ namespace MonopolyGameWF
             {
                 timer1.Stop();
                 MessageBox.Show($"А ПОБЕДИЛ ИГРОК НОМЕР {whoIsMoving}","А ПОБЕДИЛ");
-                LF.richTextBox1.Text +=$"\nПобедил игрок {whoIsMoving}";
+                LF.addLine(new string[1] { $"\nПобедил игрок {whoIsMoving}" });
                 Environment.Exit(0);
             }
 
@@ -382,7 +383,7 @@ namespace MonopolyGameWF
         {
             if (figures[lastMoved-1].position == 0)
             {
-                if (LF.Visible) LF.richTextBox1.Text += "Вы пытаетесь купить старт? серьёзно?";
+                if (LF.Visible) LF.addLine(new string[1] { "\nВы пытаетесь купить старт? серьёзно?" });
                 else MessageBox.Show("А старт нельзя купить", "Ахтунг");
                 return;
             }
@@ -436,17 +437,17 @@ namespace MonopolyGameWF
 
             if (!(lookForThroughBuidings(figures[lastMoved-1], posit) == -1))
             {
-                if (LF.Visible) LF.richTextBox1.Text += $"Игрок №{lastMoved} уже купил {needed}";
+                if (LF.Visible) LF.addLine(new string[1] { $"\nИгрок №{lastMoved} уже купил {needed}" });
                 else MessageBox.Show($"Игрок №{lastMoved} уже купил {needed}", "Ахтунг!");
             }
             else if (figures[lastMoved - 1].money < cost)
             {
-                if (LF.Visible) LF.richTextBox1.Text += $"У игрока №{lastMoved} недосточно денег на {needed}";
+                if (LF.Visible) LF.addLine(new string[1] { $"\nУ игрока №{lastMoved} недосточно денег на {needed}" });
                 else MessageBox.Show($"У игрока №{lastMoved} недосточно денег на {needed}", "Ахтунг!");
             }
             else if (owner < 5)
             {
-                if (LF.Visible) LF.richTextBox1.Text += $"Предприятие '{needed}' уже под контролем игрока {owner + 1}";
+                if (LF.Visible) LF.addLine(new string[1] { $"\nПредприятие '{needed}' уже под контролем игрока {owner + 1}" });
                 else MessageBox.Show($"Предприятие '{needed}' уже под контролем игрока {owner+1}", "Ахтунг!");
             }
             else
@@ -466,7 +467,8 @@ namespace MonopolyGameWF
         {
             if (figures[lastMoved-1].position == 0)
             {
-                MessageBox.Show("А старт нельзя продать", "Ахтунг");
+                if (LF.Visible) LF.addLine(new string[1] { "\nВы пытаетесь продать старт? серьёзно?" });
+                else MessageBox.Show("А старт нельзя продать", "Ахтунг");
                 return;
             }
             int posit = figures[lastMoved - 1].position;
@@ -524,6 +526,11 @@ namespace MonopolyGameWF
                 figures[lastMoved - 1].money += (int)(cost * 0.75f);
                 figures[lastMoved - 1].toEarn -= earn;
                 infoButtons[lastMoved-1].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved - 1].money;
+            }
+            else
+            {
+                if (LF.Visible) LF.addLine(new string[] { "\nВозможно, вы не владеете этим зданием" });
+                else MessageBox.Show("Возможно, вы не владеете этим зданием", "Ахтунг");
             }
         }
 
@@ -606,7 +613,7 @@ namespace MonopolyGameWF
             else
             {
                 LF.Show();
-                LF.richTextBox1.Text = "Двигать - за шапку, закрыть - на ту же кнопку";
+                LF.addLine(new string[1] { "Двигать - за шапку, закрыть - на ту же кнопку" });
             }
         }
     }
