@@ -613,7 +613,10 @@ namespace MonopolyGameWF
             else
             {
                 LF.Show();
-                LF.addLine(new string[1] { "Двигать - за шапку, закрыть - на ту же кнопку" });
+                if (string.IsNullOrEmpty(LF.richTextBox1.Text))
+                {
+                    LF.addLine(new string[1] { "Двигать - за шапку, закрыть - на ту же кнопку" });
+                }
             }
         }
     }
