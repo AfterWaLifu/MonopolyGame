@@ -129,7 +129,7 @@ namespace MonopolyGameWF
             Random r = new Random();
             diceResult = r.Next(1,7);
             label1.Text = $"Результат броска: {diceResult}";
-            string resOut = $"\nРезультат броска: {diceResult}";
+            string resOut = $"Результат броска: {diceResult}";
             toMove.Enabled = false;
             buyButtons[0].Enabled = false;
             buyButtons[1].Enabled = false;
@@ -152,7 +152,7 @@ namespace MonopolyGameWF
                 default:
                     break;
             }
-            if (LF.Visible) LF.addLine(new string[] { resOut });
+            if (LF.Visible) LF.addLine(new string[] { $"\nИгрок {whoIsMoving+1}: {resOut}"});
             timer1.Start();
         }
 
@@ -216,6 +216,7 @@ namespace MonopolyGameWF
                 buttons[i].Visible = true;
                 buttons[i].Size = new Size(100, 100);
                 buttons[i].Text = i.ToString();
+                buttons[i].BackColor = Color.White;
                 buttons[i].Click += checkButton_Click;
             }
 
@@ -450,6 +451,21 @@ namespace MonopolyGameWF
                 figures[lastMoved - 1].buildings.Add(posit);
                 figures[lastMoved - 1].money -= cost;
                 figures[lastMoved - 1].toEarn += earn;
+                switch (whoIsMoving)
+                {
+                    case 0:
+                        buttons[posit].BackColor = Color.Red;
+                        break;
+                    case 1:
+                        buttons[posit].BackColor = Color.Green;
+                        break;
+                    case 2:
+                        buttons[posit].BackColor = Color.Blue;
+                        break;
+                    case 3:
+                        buttons[posit].BackColor = Color.Yellow;
+                        break;
+                }
                 infoButtons[lastMoved-1].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved-1].money;
             }
         }
@@ -519,6 +535,7 @@ namespace MonopolyGameWF
                 figures[lastMoved - 1].buildings.RemoveAt(temp);
                 figures[lastMoved - 1].money += (int)(cost * 0.75f);
                 figures[lastMoved - 1].toEarn -= earn;
+                buttons[posit].BackColor = Color.White;
                 infoButtons[lastMoved-1].Text = "Игрок " + lastMoved.ToString() + ": " + figures[lastMoved - 1].money;
             }
             else
