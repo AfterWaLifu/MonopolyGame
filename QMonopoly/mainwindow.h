@@ -13,9 +13,6 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-/*!
- * \brief The MainWindow класс основного окна программы
- */
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -32,9 +29,9 @@ private:
     QPushButton *buyButtons[4];
     QPushButton *sellButtons[4];
 
-    /*!
-     * \brief init Функция инициализации основного окна
-     */
-    void init();
+    QLabel *lines[2];
+
+    void buttonsInit();
+    void labelsInit();
 };
 #endif // MAINWINDOW_H
