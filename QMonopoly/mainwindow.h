@@ -25,11 +25,13 @@ private:
     QPushButton *diceButton;
     QPushButton *helpButton;
     QPushButton *setsButton;
-    QPushButton *squares[36];
     QPushButton *buyButtons[4];
     QPushButton *sellButtons[4];
+    QPushButton *squares[36];
 
-    QLabel *lines[2];
+    QLabel *Llines[2];
+    QLabel *Lbalance[4];
+    QLabel *LtoEarn[4];
 
     void buttonsInit();
     void labelsInit();

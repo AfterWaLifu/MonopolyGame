@@ -23,6 +23,11 @@ MainWindow::~MainWindow()
     for (int i = 0; i < 4 ; i++ ){
         sellButtons[i]->~QPushButton();
         buyButtons[i]->~QPushButton();
+        Lbalance[i]->~QLabel();
+        LtoEarn[i]->~QLabel();
+    }
+    for (int i = 0 ; i < 2 ; i++ ){
+        Llines[i]->~QLabel();
     }
 }
 
@@ -70,14 +75,14 @@ void MainWindow::buttonsInit()
     font.setPointSize(14);
 
     //покупки продажки
-    for (int i = 0 ; i < 4 ; i++ ){
-        buyButtons[i] = new QPushButton("Купить", this);
+    for ( int i = 0 ; i < 4 ; i++ ){
+        buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
-        buyButtons[i]->setFont(font);
+        buyButtons[i]->setFont( font );
 
-        sellButtons[i] = new QPushButton("Продать", this);
+        sellButtons[i] = new QPushButton( "Продать" , this );
         sellButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 310 + ( i / 2 * 300 ) , 200 , 80 );
-        sellButtons[i]->setFont(font);
+        sellButtons[i]->setFont( font );
     }
 
     font.~QFont();
@@ -89,17 +94,29 @@ void MainWindow::labelsInit()
 
     // линии на поле
     QString *temp = new QString(100,'_');
-    lines[0] = new QLabel(*temp,this);
-    lines[0]->setFont(font);
-    lines[0]->setGeometry(99, 381,1002, 20);
+    Llines[0] = new QLabel(*temp,this);
+    Llines[0]->setFont(font);
+    Llines[0]->setGeometry(99, 381,1002, 20);
 
     temp->clear();
     for (int i = 0; i < 50 ; i++) {
         temp->append('|');
         temp->append('\n');
     }
-    lines[1] = new QLabel(*temp,this);
-    lines[1]->setFont(font);
-    lines[1]->setGeometry(597,100,4,600);
+    Llines[1] = new QLabel(*temp,this);
+    Llines[1]->setFont(font);
+    Llines[1]->setGeometry(597,100,4,600);
 
+    //остальное
+    font.setFamily("Verdana");
+    font.setPointSize(14);
+    for ( int i = 0 ; i < 4 ; i++ ){
+        Lbalance[i] = new QLabel( QString::number(i) , this );
+        Lbalance[i]->setFont(font);
+        Lbalance[i]->setGeometry(180 + ( i % 2 * 850 ) , 140 + ( i / 2 * 300 ) , 300, 20);
+
+        LtoEarn[i] = new QLabel( QString::number(i) , this );
+        LtoEarn[i]->setFont(font);
+        LtoEarn[i]->setGeometry(180 + ( i % 2 * 850 ) , 170 + ( i / 2 * 300 ) , 100, 20);
+    }
 }
