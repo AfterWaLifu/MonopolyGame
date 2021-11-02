@@ -90,6 +90,7 @@ void MainWindow::buttonsInit()
         playersButtons[i] = new QPushButton( QString::number(i) , this );
         playersButtons[i]->setFont(font);
         playersButtons[i]->setGeometry( 0 + ( i % 2 * 50 ) , 0 + ( i / 2 * 50) , 50 , 50 );
+        playersButtons[i]->setEnabled(false);
 
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
