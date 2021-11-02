@@ -8,6 +8,8 @@
 #include <QLabel>
 #include <QString>
 #include <QFont>
+#include <QPixmap>
+#include <QPalette>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,6 +27,7 @@ private:
     QPushButton *diceButton;
     QPushButton *helpButton;
     QPushButton *setsButton;
+    QPushButton *playersButtons[4];
     QPushButton *buyButtons[4];
     QPushButton *sellButtons[4];
     QPushButton *squares[36];

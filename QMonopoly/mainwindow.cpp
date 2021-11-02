@@ -7,6 +7,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
 
+    QString path = QCoreApplication::applicationDirPath();
+    path.append("\\back.jpg");
+
+    QPixmap background(path);
+    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, background);
+    this->setPalette(palette);
+
+
     labelsInit();
     buttonsInit();
 }
@@ -21,8 +31,9 @@ MainWindow::~MainWindow()
         squares[i]->~QPushButton();
     }
     for (int i = 0; i < 4 ; i++ ){
-        sellButtons[i]->~QPushButton();
+        playersButtons[i]->~QPushButton();
         buyButtons[i]->~QPushButton();
+        sellButtons[i]->~QPushButton();
         Lbalance[i]->~QLabel();
         LtoEarn[i]->~QLabel();
     }
@@ -74,8 +85,12 @@ void MainWindow::buttonsInit()
 
     font.setPointSize(14);
 
-    //покупки продажки
+    //игроки покупки продажки
     for ( int i = 0 ; i < 4 ; i++ ){
+        playersButtons[i] = new QPushButton( QString::number(i) , this );
+        playersButtons[i]->setFont(font);
+        playersButtons[i]->setGeometry( 0 + ( i % 2 * 50 ) , 0 + ( i / 2 * 50) , 50 , 50 );
+
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
         buyButtons[i]->setFont( font );
