@@ -127,12 +127,12 @@ void MainWindow::labelsInit()
     font.setFamily("Verdana");
     font.setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
-        Lbalance[i] = new QLabel( QString::number(i) , this );
+        Lbalance[i] = new QLabel( QString::number(i*100000) , this );
         Lbalance[i]->setFont(font);
-        Lbalance[i]->setGeometry(180 + ( i % 2 * 850 ) , 140 + ( i / 2 * 300 ) , 300, 20);
+        Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
 
-        LtoEarn[i] = new QLabel( QString::number(i) , this );
+        LtoEarn[i] = new QLabel( QString::number(i*100000) , this );
         LtoEarn[i]->setFont(font);
-        LtoEarn[i]->setGeometry(180 + ( i % 2 * 850 ) , 170 + ( i / 2 * 300 ) , 100, 20);
+        LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
 }
