@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mapsquare.cpp
+    mapsquare.cpp \
+    settings.cpp
 
 HEADERS += \
     mainwindow.h \
-    mapsquare.h
+    mapsquare.h \
+    settings.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
