@@ -1,9 +1,14 @@
 #pragma once
 
+#include <QWidget>
 
-class WindowSettings
+class WindowSettings : public QWidget
 {
+    Q_OBJECT
 public:
-    WindowSettings();
+    explicit WindowSettings(QWidget *parent = nullptr);
+
+signals:
+
 };
 

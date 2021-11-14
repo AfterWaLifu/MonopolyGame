@@ -1,9 +1,14 @@
 #pragma once
 
+#include <QWidget>
 
-class WindowStart
+class WindowStart : public QWidget
 {
+    Q_OBJECT
 public:
-    WindowStart();
+    explicit WindowStart(QWidget *parent = nullptr);
+
+signals:
+
 };
 

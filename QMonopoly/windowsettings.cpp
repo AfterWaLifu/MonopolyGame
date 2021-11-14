@@ -1,6 +1,6 @@
 #include "windowsettings.h"
 
-WindowSettings::WindowSettings()
+WindowSettings::WindowSettings(QWidget *parent) : QWidget(parent)
 {
 
 }

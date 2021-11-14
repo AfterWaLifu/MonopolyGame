@@ -1,6 +1,6 @@
 #include "windowstart.h"
 
-WindowStart::WindowStart()
+WindowStart::WindowStart(QWidget *parent) : QWidget(parent)
 {
 
 }
