@@ -11,6 +11,8 @@
 #include <QPixmap>
 #include <QPalette>
 
+#include "game.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,6 +24,8 @@ class MainWindow : public QWidget
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    Game game;
 
 private:
     QPushButton *diceButton;
