@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     figure.cpp \
+    game.cpp \
     main.cpp \
     mainwindow.cpp \
     mapsquare.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     figure.h \
+    game.h \
     mainwindow.h \
     mapsquare.h \
     settings.h
