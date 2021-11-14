@@ -12,6 +12,10 @@
 #include <QPalette>
 
 #include "game.h"
+#include "windowhelp.h"
+#include "windowlogs.h"
+#include "windowsettings.h"
+#include "windowstart.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +32,11 @@ public:
     Game game;
 
 private:
+    WindowHelp *wh;
+    WindowSettings *ws;
+    WindowLogs *wl;
+    WindowStart *start;
+
     QPushButton *diceButton;
     QPushButton *helpButton;
     QPushButton *setsButton;
