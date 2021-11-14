@@ -14,14 +14,22 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapsquare.cpp \
-    settings.cpp
+    settings.cpp \
+    windowhelp.cpp \
+    windowlogs.cpp \
+    windowsettings.cpp \
+    windowstart.cpp
 
 HEADERS += \
     figure.h \
     game.h \
     mainwindow.h \
     mapsquare.h \
-    settings.h
+    settings.h \
+    windowhelp.h \
+    windowlogs.h \
+    windowsettings.h \
+    windowstart.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
