@@ -3,12 +3,12 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
-    this->setGeometry(10,100,1200,800);
+    this->setGeometry(100,100,1200,800);
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
 
     QString path = QCoreApplication::applicationDirPath();
-    path.append("\\back.jpg");
+    path.append("\\resources\\back.jpg");
 
     QPixmap background(path);
     background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
 
+    windowsInit();
 
     labelsInit();
     buttonsInit();
@@ -55,6 +56,7 @@ void MainWindow::buttonsInit()
     helpButton = new QPushButton("Помощь", this);
     helpButton->setGeometry( 500 , 400 , 100 , 50 );
     helpButton->setFont(font);
+    connect(helpButton, SIGNAL(clicked()), this, SLOT(forHelpButton()));
 
     setsButton = new QPushButton("Настройки", this);
     setsButton->setGeometry( 600 , 400 , 100 , 50 );
@@ -135,4 +137,42 @@ void MainWindow::labelsInit()
         LtoEarn[i]->setFont(font);
         LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
+}
+
+void MainWindow::windowsInit()
+{
+    wh = new WindowHelp();
+    wl = new WindowLogs();
+    ws = new WindowSettings();
+    start = new WindowStart();
+}
+
+void MainWindow::forHelpButton()
+{
+    wh->show();
+}
+
+void MainWindow::forSettingsButton()
+{
+
+}
+
+void MainWindow::forAnyButton()
+{
+
+}
+
+void MainWindow::forBuyButtons()
+{
+
+}
+
+void MainWindow::forSellButtons()
+{
+
+}
+
+void MainWindow::forDiceButton()
+{
+
 }

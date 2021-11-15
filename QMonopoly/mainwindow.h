@@ -51,5 +51,14 @@ private:
 
     void buttonsInit();
     void labelsInit();
+    void windowsInit();
+
+private slots:
+    void forHelpButton();
+    void forSettingsButton();
+    void forAnyButton();
+    void forBuyButtons();
+    void forSellButtons();
+    void forDiceButton();
 };
 #endif // MAINWINDOW_H

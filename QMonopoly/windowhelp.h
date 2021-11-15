@@ -10,7 +10,6 @@ public:
     explicit WindowHelp(QWidget *parent = nullptr);
 
 private:
-    QLabel *help;
 
 signals:
 
