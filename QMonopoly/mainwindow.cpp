@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
-    this->setGeometry(100,100,1200,800);
+    this->setGeometry(10,100,1200,800);
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
 
@@ -18,29 +18,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     windowsInit();
 
-    labelsInit();
     buttonsInit();
+    labelsInit();
 }
 
 MainWindow::~MainWindow()
 {
-    diceButton->~QPushButton();
-    helpButton->~QPushButton();
-    setsButton->~QPushButton();
 
-    for (int i = 0; i < 36 ; i++){
-        squares[i]->~QPushButton();
-    }
-    for (int i = 0; i < 4 ; i++ ){
-        playersButtons[i]->~QPushButton();
-        buyButtons[i]->~QPushButton();
-        sellButtons[i]->~QPushButton();
-        Lbalance[i]->~QLabel();
-        LtoEarn[i]->~QLabel();
-    }
-    for (int i = 0 ; i < 2 ; i++ ){
-        Llines[i]->~QLabel();
-    }
 }
 
 void MainWindow::buttonsInit()
@@ -89,11 +73,6 @@ void MainWindow::buttonsInit()
 
     //игроки покупки продажки
     for ( int i = 0 ; i < 4 ; i++ ){
-        playersButtons[i] = new QPushButton( QString::number(i) , this );
-        playersButtons[i]->setFont(font);
-        playersButtons[i]->setGeometry( 0 + ( i % 2 * 50 ) , 0 + ( i / 2 * 50) , 50 , 50 );
-        playersButtons[i]->setEnabled(false);
-
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
         buyButtons[i]->setFont( font );
@@ -129,6 +108,14 @@ void MainWindow::labelsInit()
     font.setFamily("Verdana");
     font.setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
+        Lplayers[i] = new QLabel( this );
+        Lplayers[i]->setGeometry( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50) , 40 , 40 );
+        QString path = QCoreApplication::applicationDirPath();
+        path.append("\\resources\\blue.png");
+        QPixmap pixmap(path);
+        pixmap = pixmap.scaled(Lplayers[i]->size(), Qt::IgnoreAspectRatio);
+        Lplayers[i]->setPixmap(pixmap);
+
         Lbalance[i] = new QLabel( QString::number(i*100000) , this );
         Lbalance[i]->setFont(font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
