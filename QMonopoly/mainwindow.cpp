@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
-    this->setGeometry(10,100,1200,800);
+    this->setGeometry(100,100,1200,800);
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
 
@@ -45,6 +45,7 @@ void MainWindow::buttonsInit()
     setsButton = new QPushButton("Настройки", this);
     setsButton->setGeometry( 600 , 400 , 100 , 50 );
     setsButton->setFont(font);
+    connect(setsButton, SIGNAL(clicked()), this, SLOT(forSettingsButton()));
 
     font.setPointSize(16);
     //кнопки по периметру
@@ -149,12 +150,22 @@ void MainWindow::windowsInit()
 
 void MainWindow::forHelpButton()
 {
-    wh->show();
+    if (wh->isHidden()){
+        wh->show();
+    }
+    else{
+        wh->hide();
+    }
 }
 
 void MainWindow::forSettingsButton()
 {
-
+    if (ws->isHidden()){
+        ws->show();
+    }
+    else{
+        ws->hide();
+    }
 }
 
 void MainWindow::forAnyButton()
