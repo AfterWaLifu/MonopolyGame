@@ -111,7 +111,20 @@ void MainWindow::labelsInit()
         Lplayers[i] = new QLabel( this );
         Lplayers[i]->setGeometry( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50) , 40 , 40 );
         QString path = QCoreApplication::applicationDirPath();
-        path.append("\\resources\\blue.png");
+        switch (i){
+        case 0:
+            path.append("\\resources\\blue.png");
+            break;
+        case 1:
+            path.append("\\resources\\green.png");
+            break;
+        case 2:
+            path.append("\\resources\\red.png");
+            break;
+        case 3:
+            path.append("\\resources\\purple.png");
+            break;
+        }
         QPixmap pixmap(path);
         pixmap = pixmap.scaled(Lplayers[i]->size(), Qt::IgnoreAspectRatio);
         Lplayers[i]->setPixmap(pixmap);
