@@ -17,9 +17,7 @@
 #include "windowsettings.h"
 #include "windowstart.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+class WindowStart;
 
 class MainWindow : public QWidget
 {
@@ -60,5 +58,8 @@ private slots:
     void forBuyButtons();
     void forSellButtons();
     void forDiceButton();
+
+public slots:
+    void showMe();
 };
 #endif // MAINWINDOW_H

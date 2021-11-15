@@ -3,6 +3,10 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
+    windowsInit();
+
+    start->show();
+
     this->setGeometry(100,100,1200,800);
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
@@ -15,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
-
-    windowsInit();
 
     buttonsInit();
     labelsInit();
@@ -145,7 +147,7 @@ void MainWindow::windowsInit()
     wh = new WindowHelp();
     wl = new WindowLogs();
     ws = new WindowSettings();
-    start = new WindowStart();
+    start = new WindowStart(this);
 }
 
 void MainWindow::forHelpButton()
@@ -186,4 +188,11 @@ void MainWindow::forSellButtons()
 void MainWindow::forDiceButton()
 {
 
+}
+
+void MainWindow::showMe()
+{
+    this->show();
+    start->close();
+    delete start;
 }
