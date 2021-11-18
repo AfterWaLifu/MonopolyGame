@@ -193,6 +193,7 @@ void MainWindow::forDiceButton()
 void MainWindow::showMe()
 {
     this->show();
+    wl->show();
     start->close();
     delete start;
 }

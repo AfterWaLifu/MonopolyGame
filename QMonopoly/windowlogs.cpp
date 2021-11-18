@@ -2,6 +2,6 @@
 
 WindowLogs::WindowLogs(QWidget *parent) : QWidget(parent)
 {
-    this->setGeometry(200,200, 500,500);
+    this->setGeometry(1302,100, 300,800);
     setWindowTitle("История действий");
 }
