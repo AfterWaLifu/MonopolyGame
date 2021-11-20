@@ -9,6 +9,7 @@ WindowLogs::WindowLogs(QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
 
     logs = new QTextEdit(this);
     logs->setGeometry(0,0,300,800);
+    logs->setReadOnly(true);
 }
 
 void WindowLogs::addLine(QString string)
