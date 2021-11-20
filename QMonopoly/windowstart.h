@@ -9,7 +9,7 @@ class WindowStart : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WindowStart(QWidget *main, QWidget *parent = nullptr);
+    explicit WindowStart(QWidget *main, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
     QPushButton *button;
 

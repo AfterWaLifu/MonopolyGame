@@ -144,10 +144,10 @@ void MainWindow::labelsInit()
 
 void MainWindow::windowsInit()
 {
-    wh = new WindowHelp();
-    wl = new WindowLogs();
-    ws = new WindowSettings();
-    start = new WindowStart(this);
+    wh = new WindowHelp( nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    wl = new WindowLogs(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
+    ws = new WindowSettings(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
+    start = new WindowStart(this , nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
 void MainWindow::forHelpButton()
@@ -194,6 +194,15 @@ void MainWindow::showMe()
 {
     this->show();
     wl->show();
+    this->activateWindow();
     start->close();
     delete start;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    wh->close();
+    wl->close();
+    ws->close();
+    QWidget::closeEvent(event);
 }

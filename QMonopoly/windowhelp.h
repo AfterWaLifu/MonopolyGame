@@ -7,7 +7,7 @@ class WindowHelp : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WindowHelp(QWidget *parent = nullptr);
+    explicit WindowHelp(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
 private:
 

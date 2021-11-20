@@ -6,7 +6,7 @@ class WindowSettings : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WindowSettings(QWidget *parent = nullptr);
+    explicit WindowSettings(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
 signals:
 

@@ -61,5 +61,7 @@ private slots:
 
 public slots:
     void showMe();
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_H
