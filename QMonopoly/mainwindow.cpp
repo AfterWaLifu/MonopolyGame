@@ -20,8 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
 
-    buttonsInit();
     labelsInit();
+    buttonsInit();
+    playersInit();
 }
 
 MainWindow::~MainWindow()
@@ -111,6 +112,27 @@ void MainWindow::labelsInit()
     font.setFamily("Verdana");
     font.setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
+        Lbalance[i] = new QLabel( QString::number(i*100000) , this );
+        Lbalance[i]->setFont(font);
+        Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
+
+        LtoEarn[i] = new QLabel( QString::number(i*100000) , this );
+        LtoEarn[i]->setFont(font);
+        LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
+    }
+}
+
+void MainWindow::windowsInit()
+{
+    wh = new WindowHelp( nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    wl = new WindowLogs(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
+    ws = new WindowSettings(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
+    start = new WindowStart(this , nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+}
+
+void MainWindow::playersInit()
+{
+    for (int i = 0; i < 4 ; i++ ){
         Lplayers[i] = new QLabel( this );
         Lplayers[i]->setGeometry( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50) , 40 , 40 );
         QString path = QCoreApplication::applicationDirPath();
@@ -131,23 +153,7 @@ void MainWindow::labelsInit()
         QPixmap pixmap(path);
         pixmap = pixmap.scaled(Lplayers[i]->size(), Qt::IgnoreAspectRatio);
         Lplayers[i]->setPixmap(pixmap);
-
-        Lbalance[i] = new QLabel( QString::number(i*100000) , this );
-        Lbalance[i]->setFont(font);
-        Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
-
-        LtoEarn[i] = new QLabel( QString::number(i*100000) , this );
-        LtoEarn[i]->setFont(font);
-        LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
-}
-
-void MainWindow::windowsInit()
-{
-    wh = new WindowHelp( nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    wl = new WindowLogs(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
-    ws = new WindowSettings(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
-    start = new WindowStart(this , nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
 void MainWindow::forHelpButton()
@@ -186,6 +192,11 @@ void MainWindow::forSellButtons()
 }
 
 void MainWindow::forDiceButton()
+{
+
+}
+
+void MainWindow::runforestrun()
 {
 
 }

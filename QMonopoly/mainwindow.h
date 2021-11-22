@@ -10,6 +10,7 @@
 #include <QFont>
 #include <QPixmap>
 #include <QPalette>
+#include <QTimer>
 
 #include "game.h"
 #include "windowhelp.h"
@@ -47,9 +48,14 @@ private:
     QLabel *LtoEarn[4];
     QLabel *Llines[2];
 
+    QTextEdit *TplayersOwns[4];
+
+    QTimer *timer;
+
     void buttonsInit();
     void labelsInit();
     void windowsInit();
+    void playersInit();
 
 private slots:
     void forHelpButton();
@@ -58,6 +64,7 @@ private slots:
     void forBuyButtons();
     void forSellButtons();
     void forDiceButton();
+    void runforestrun();
 
 public slots:
     void showMe();
