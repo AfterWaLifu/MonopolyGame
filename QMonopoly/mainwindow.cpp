@@ -4,6 +4,10 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
     windowsInit();
+    labelsInit();
+    buttonsInit();
+    playersInit();
+    timerInit();
 
     start->show();
 
@@ -13,16 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     QString path = QCoreApplication::applicationDirPath();
     path.append("\\resources\\back.jpg");
-
     QPixmap background(path);
     background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
-
-    labelsInit();
-    buttonsInit();
-    playersInit();
 }
 
 MainWindow::~MainWindow()
@@ -37,6 +36,7 @@ void MainWindow::buttonsInit()
     diceButton = new QPushButton("Бросить куб",this);
     diceButton->setGeometry( 500 , 350 , 200 , 50 );
     diceButton->setFont(font);
+    connect( diceButton , SIGNAL( clicked() ) , this , SLOT( forDiceButton() ) );
 
     font.setPointSize(12);
 
@@ -156,6 +156,61 @@ void MainWindow::playersInit()
     }
 }
 
+void MainWindow::timerInit()
+{
+    timer = new QTimer(this);
+    timer->setInterval(30);
+    connect( timer , SIGNAL( timeout() ) , this , SLOT( runforestrun() ) );
+}
+
+QPoint MainWindow::makeCoords(int pos)
+{
+    QPoint point = squares[pos]->pos();
+    switch (game.currentPlayer) {
+    case 1:
+        point.setX(point.x()+55);
+        point.setY(point.y()+5);
+        break;
+    case 2:
+        point.setX(point.x()+5);
+        point.setY(point.y()+55);
+        break;
+    case 3:
+        point.setX(point.x()+55);
+        point.setY(point.y()+55);
+        break;
+    default:
+        point.setX(point.x()+5);
+        point.setY(point.y()+5);
+        break;
+    }
+    return point;
+}
+
+QPoint MainWindow::addCoords(int p)
+{
+    QPoint result(0,0);
+    switch (p) {
+    case 0:
+        result.setX(5);
+        result.setY(5);
+        break;
+    case 1:
+        result.setX(55);
+        result.setY(5);
+        break;
+    case 2:
+        result.setX(5);
+        result.setY(55);
+        break;
+    case 3:
+        result.setX(55);
+        result.setY(55);
+        break;
+    }
+    return result;
+}
+
 void MainWindow::forHelpButton()
 {
     if (wh->isHidden()){
@@ -193,12 +248,32 @@ void MainWindow::forSellButtons()
 
 void MainWindow::forDiceButton()
 {
-
+    game.players[game.currentPlayer]->position += game.throwDices();
+    if (game.players[game.currentPlayer]->position >35) game.players[game.currentPlayer]->position -= 36;
+    timer->start();
 }
 
 void MainWindow::runforestrun()
 {
+    QPoint p = makeCoords(game.players[game.currentPlayer]->position);
+    QPoint add = addCoords(game.currentPlayer);
 
+    if (Lplayers[game.currentPlayer]->pos() == p) {
+        timer->stop();
+        if (game.currentPlayer == 3) game.currentPlayer = 0;
+        else game.currentPlayer++;
+    }
+    else{
+        if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
+            Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());
+        }else if (Lplayers[game.currentPlayer]->x() == 1100+add.x() && Lplayers[game.currentPlayer]->y() < 700+add.y()){
+            Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() + 10);
+        }else if (Lplayers[game.currentPlayer]->x() > 0+add.x() && Lplayers[game.currentPlayer]->y() == 700+add.y()){
+            Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() - 10 , Lplayers[game.currentPlayer]->y());
+        }else{
+            Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() - 10);
+        }
+    }
 }
 
 void MainWindow::showMe()

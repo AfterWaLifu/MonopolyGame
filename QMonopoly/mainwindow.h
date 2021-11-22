@@ -56,6 +56,10 @@ private:
     void labelsInit();
     void windowsInit();
     void playersInit();
+    void timerInit();
+
+    QPoint makeCoords(int pos);
+    QPoint addCoords(int p);
 
 private slots:
     void forHelpButton();
