@@ -16,6 +16,7 @@ public:
     Settings *settings;
 
     int currentPlayer;
+    int diceResult;
 
     // МЕТОДЫ
 

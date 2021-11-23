@@ -16,6 +16,6 @@ Game::Game()
 
 int Game::throwDices()
 {
-    int result = ( rand() % ( ( 6 * settings->diceCount ) - 1) ) + 1;
+    int result = ( rand() % ( ( 12 * settings->diceCount ) - 1) ) + 1 - 12;
     return result;
 }
