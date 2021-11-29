@@ -57,20 +57,24 @@ void MainWindow::buttonsInit()
         squares[i] = new QPushButton( QString::number(i) ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
         squares[i]->setFont(font);
+        connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
         squares[i+18] = new QPushButton( QString::number(i+18) , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
         squares[i+18]->setFont(font);
+        connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
         //вертикаль право
         squares[i] = new QPushButton( QString::number(i) , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
         squares[i]->setFont(font);
+        connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
         squares[i+18] = new QPushButton( QString::number(i+18) , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
         squares[i+18]->setFont(font);
+        connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
 
     font.setPointSize(14);
@@ -163,6 +167,24 @@ void MainWindow::timerInit()
     connect( timer , SIGNAL( timeout() ) , this , SLOT( runforestrun() ) );
 }
 
+void MainWindow::buttonsEnable()
+{
+    for (int i = 0 ; i < 4 ; i++ ){
+        buyButtons[i]->setEnabled(true);
+        sellButtons[i]->setEnabled(true);
+        diceButton->setEnabled(true);
+    }
+}
+
+void MainWindow::buttonsDisable()
+{
+    for (int i = 0 ; i < 4 ; i++ ){
+        buyButtons[i]->setEnabled(false);
+        sellButtons[i]->setEnabled(false);
+        diceButton->setEnabled(false);
+    }
+}
+
 QPoint MainWindow::makeCoords(int pos)
 {
     QPoint point = squares[pos]->pos();
@@ -233,7 +255,12 @@ void MainWindow::forSettingsButton()
 
 void MainWindow::forAnyButton()
 {
-
+    QObject* s = QObject::sender();
+    for (int i = 0 ; i < 36 ; i++ ){
+        if (squares[i] == s){
+            wl->addLine( "Квадрат\n" + squares[i]->text() + "\n\n" , 3 );
+        }
+    }
 }
 
 void MainWindow::forBuyButtons()
@@ -248,7 +275,10 @@ void MainWindow::forSellButtons()
 
 void MainWindow::forDiceButton()
 {
-    game.players[game.currentPlayer]->position += game.throwDices();
+    buttonsDisable();
+    game.throwDices();
+    wl->addLine("Игрок " + QString::number(game.currentPlayer+1) + "\nРезультат броска " + QString::number(game.diceResult)+"\n\n", 3 );
+    game.players[game.currentPlayer]->position += game.diceResult ;
     if (game.players[game.currentPlayer]->position >35) game.players[game.currentPlayer]->position -= 36;
     else if (game.players[game.currentPlayer]->position <0)game.players[game.currentPlayer]->position += 36;
     timer->start();
@@ -261,11 +291,12 @@ void MainWindow::runforestrun()
 
     if (Lplayers[game.currentPlayer]->pos() == p) {
         timer->stop();
+        buttonsEnable();
         if (game.currentPlayer == 3) game.currentPlayer = 0;
         else game.currentPlayer++;
     }
     else{
-        if ( std::abs(  game.players[game.currentPlayer]->position - (game.players[game.currentPlayer]->position - game.diceResult) ) <
+        if ( std::abs(  game.players[game.currentPlayer]->position - (game.players[game.currentPlayer]->position - game.diceResult) ) <=
              std::abs( (game.players[game.currentPlayer]->position - game.diceResult) - game.players[game.currentPlayer]->position )  ){
             if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
                 Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());

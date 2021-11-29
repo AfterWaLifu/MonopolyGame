@@ -20,6 +20,6 @@ public:
 
     // МЕТОДЫ
 
-    int throwDices();
+    void throwDices();
 };
 

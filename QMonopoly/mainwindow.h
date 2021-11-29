@@ -57,6 +57,8 @@ private:
     void windowsInit();
     void playersInit();
     void timerInit();
+    void buttonsEnable();
+    void buttonsDisable();
 
     QPoint makeCoords(int pos);
     QPoint addCoords(int p);

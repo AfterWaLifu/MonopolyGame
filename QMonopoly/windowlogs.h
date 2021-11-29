@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QWidget>
 
 class WindowLogs : public QWidget
@@ -9,9 +9,10 @@ class WindowLogs : public QWidget
 public:
     explicit WindowLogs(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
-    QTextEdit *logs;
+    QPlainTextEdit *logs;
+    int countOf;
 
-    void addLine(QString string);
+    void addLine(QString string, int count);
 
 signals:
 

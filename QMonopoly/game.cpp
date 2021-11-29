@@ -14,8 +14,8 @@ Game::Game()
     currentPlayer = 0;
 }
 
-int Game::throwDices()
+void Game::throwDices()
 {
-    int result = ( rand() % ( ( 12 * settings->diceCount ) - 1) ) + 1 - 12;
-    return result;
+    int result = ( rand() % ( 6 * settings->diceCount ) ) + 1;
+    this->diceResult = result;
 }
