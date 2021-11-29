@@ -11,11 +11,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     start->show();
 
+    QString path = QCoreApplication::applicationDirPath();
+
     this->setGeometry(100,100,1200,800);
     this->setMaximumSize(1200,800);
     this->setMinimumSize(1200,800);
 
-    QString path = QCoreApplication::applicationDirPath();
+    QPixmap iconPix( path.append( "\\resources\\QM.png" ) );
+    this->setWindowIcon( QIcon(iconPix) );
+
+    path = QCoreApplication::applicationDirPath();
     path.append("\\resources\\back.jpg");
     QPixmap background(path);
     background = background.scaled(this->size(), Qt::IgnoreAspectRatio);

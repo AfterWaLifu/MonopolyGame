@@ -3,7 +3,7 @@
 class Settings
 {
 public:
-    Settings(int i);
+    Settings(int dicecount);
 
     int Jail;
     int Train;
@@ -12,6 +12,7 @@ public:
     int SocialMoney;
     int SocialBank;
     int Stock;
+
     int percentToPtP;
     int moneyForCircle;
     int startSumm;

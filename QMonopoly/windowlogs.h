@@ -1,6 +1,8 @@
 #pragma once
 
+#include <QCoreApplication>
 #include <QPlainTextEdit>
+#include <QIcon>
 #include <QWidget>
 
 class WindowLogs : public QWidget

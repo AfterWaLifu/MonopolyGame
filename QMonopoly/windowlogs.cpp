@@ -10,6 +10,10 @@ WindowLogs::WindowLogs(QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
     logs = new QPlainTextEdit(this);
     logs->setGeometry(0,0,300,800);
     logs->setReadOnly(true);
+
+    QString path = QCoreApplication::applicationDirPath();
+    QPixmap iconPix( path.append( "\\resources\\logs.ico" ) );
+    this->setWindowIcon( QIcon(iconPix) );
 }
 
 void WindowLogs::addLine(QString string, int count)

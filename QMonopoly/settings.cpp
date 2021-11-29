@@ -1,8 +1,8 @@
 #include "settings.h"
 
-Settings::Settings(int i)
+Settings::Settings(int dicecount)
 {
-    switch (i) {
+    switch (dicecount) {
     case 0:
         diceCount = 2;
         break;
@@ -10,4 +10,6 @@ Settings::Settings(int i)
         diceCount = 1;
         break;
     }
+
+
 }

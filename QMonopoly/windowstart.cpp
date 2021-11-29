@@ -7,6 +7,10 @@ WindowStart::WindowStart(QWidget *Main, QWidget *parent, Qt::WindowFlags f) : QW
     this->setMinimumSize(QSize(500,500));
     setWindowTitle("Выберете начальные параметры");
 
+    QString path = QCoreApplication::applicationDirPath();
+    QPixmap iconPix( path.append( "\\resources\\start.png" ) );
+    this->setWindowIcon( QIcon(iconPix) );
+
     button = new QPushButton("Ok", this);
     connect( button, SIGNAL(clicked()) , Main , SLOT(showMe()) );
 }

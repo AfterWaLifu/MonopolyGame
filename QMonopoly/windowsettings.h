@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QWidget>
+#include <QCoreApplication>
+#include <QIcon>
 
 class WindowSettings : public QWidget
 {

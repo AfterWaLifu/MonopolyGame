@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <mainwindow.h>
+#include <QCoreApplication>
+#include <QIcon>
 
 class WindowStart : public QWidget
 {
