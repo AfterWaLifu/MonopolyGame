@@ -17,5 +17,7 @@ public:
     int moneyForCircle;
     int startSumm;
     int diceCount;
+
+    void setMapConf(int j, int tr, int ta, int w, int sm, int sb, int st);
 };
 
