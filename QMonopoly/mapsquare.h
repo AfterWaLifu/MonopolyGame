@@ -1,18 +1,18 @@
 #pragma once
 
+#include <QString>
+
 class MapSquare
 {
 public:
-    MapSquare();
+    MapSquare( QString n , int tp , int cst = -1 );
 
-    const char* name;
-    int Cost;
+    QString name;
+    int cost;
     int toSell;
     int toEarn;
 
     int type;
-
-    int specialNum;
 
     enum TYPES {
         START           = 0,
