@@ -55,28 +55,28 @@ void MainWindow::buttonsInit()
     setsButton->setFont(font);
     connect(setsButton, SIGNAL(clicked()), this, SLOT(forSettingsButton()));
 
-    font.setPointSize(16);
+    font.setPointSize(7);
     //кнопки по периметру
     for ( int i = 0 ; i < 12 ; i++ ){
         //горизонталь верх
-        squares[i] = new QPushButton( QString::number(i) ,this);
+        squares[i] = new QPushButton( game.map[i]->name + ",\nЦена: " + QString::number(game.map[i]->cost) ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
         squares[i]->setFont(font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
-        squares[i+18] = new QPushButton( QString::number(i+18) , this);
+        squares[i+18] = new QPushButton( game.map[i+18]->name + ",\nЦена: " + QString::number(game.map[i+18]->cost) , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
         squares[i+18]->setFont(font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
         //вертикаль право
-        squares[i] = new QPushButton( QString::number(i) , this);
+        squares[i] = new QPushButton( game.map[i]->name + ",\nЦена: " + QString::number(game.map[i]->cost) , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
         squares[i]->setFont(font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
-        squares[i+18] = new QPushButton( QString::number(i+18) , this);
+        squares[i+18] = new QPushButton( game.map[i+18]->name + ",\nЦена: " + QString::number(game.map[i+18]->cost) , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
         squares[i+18]->setFont(font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
@@ -263,7 +263,7 @@ void MainWindow::forAnyButton()
     QObject* s = QObject::sender();
     for (int i = 0 ; i < 36 ; i++ ){
         if (squares[i] == s){
-            wl->addLine( "Квадрат\n" + squares[i]->text() + "\n\n" , 3 );
+            wl->addLine( squares[i]->text() + "\n\n" , 3 );
         }
     }
 }

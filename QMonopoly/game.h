@@ -21,5 +21,6 @@ public:
     // МЕТОДЫ
 
     void throwDices();
+    void setUpMap();
 };
 

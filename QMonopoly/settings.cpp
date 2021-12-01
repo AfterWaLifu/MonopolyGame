@@ -13,15 +13,17 @@ Settings::Settings(int dicecount)
 
     startSumm = 300;
     moneyForCircle = 100;
+
+    setMapConf();
 }
 
-void Settings::setMapConf(int j, int tr, int ta, int w, int sm, int sb, int st)
+void Settings::setMapConf()
 {
-    Jail = j;
-    Train = tr;
-    Taxes = ta;
-    Wormhole = w;
-    SocialMoney = sm;
-    SocialBank = sb;
-    Stock = st;
+    Jail = JAIL;
+    Train = TRAIN;
+    Taxes = TAXES;
+    Wormhole = WORMHOLE;
+    SocialMoney = SOCIAL_MONEY;
+    SocialBank = SOCIAL_BANK;
+    Stock = STOCK;
 }
