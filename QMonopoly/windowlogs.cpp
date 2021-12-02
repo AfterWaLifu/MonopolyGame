@@ -21,7 +21,7 @@ void WindowLogs::addLine(QString string, int count)
     countOf += count;
     string += logs->document()->toPlainText();
 
-    if (countOf > 50){
+    if (countOf > 49){
         for (int i = 0 ; i < count ; i++){
             string = string.left( string.lastIndexOf('\n') );
         }

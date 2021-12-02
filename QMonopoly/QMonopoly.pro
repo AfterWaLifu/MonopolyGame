@@ -12,7 +12,8 @@ SOURCES += \
     figure.cpp \
     game.cpp \
     main.cpp \
-    mainwindow.cpp \
+    mainwindowgui.cpp \
+    mainwindownotgui.cpp \
     mapsquare.cpp \
     settings.cpp \
     windowhelp.cpp \

@@ -59,24 +59,24 @@ void MainWindow::buttonsInit()
     //кнопки по периметру
     for ( int i = 0 ; i < 12 ; i++ ){
         //горизонталь верх
-        squares[i] = new QPushButton( game.map[i]->name + ",\nЦена: " + QString::number(game.map[i]->cost) ,this);
+        squares[i] = new QPushButton( game.map[i]->name ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
         squares[i]->setFont(font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
-        squares[i+18] = new QPushButton( game.map[i+18]->name + ",\nЦена: " + QString::number(game.map[i+18]->cost) , this);
+        squares[i+18] = new QPushButton( game.map[i+18]->name , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
         squares[i+18]->setFont(font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
         //вертикаль право
-        squares[i] = new QPushButton( game.map[i]->name + ",\nЦена: " + QString::number(game.map[i]->cost) , this);
+        squares[i] = new QPushButton( game.map[i]->name , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
         squares[i]->setFont(font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
-        squares[i+18] = new QPushButton( game.map[i+18]->name + ",\nЦена: " + QString::number(game.map[i+18]->cost) , this);
+        squares[i+18] = new QPushButton( game.map[i+18]->name , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
         squares[i+18]->setFont(font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
@@ -190,54 +190,6 @@ void MainWindow::buttonsDisable()
     }
 }
 
-QPoint MainWindow::makeCoords(int pos)
-{
-    QPoint point = squares[pos]->pos();
-    switch (game.currentPlayer) {
-    case 1:
-        point.setX(point.x()+55);
-        point.setY(point.y()+5);
-        break;
-    case 2:
-        point.setX(point.x()+5);
-        point.setY(point.y()+55);
-        break;
-    case 3:
-        point.setX(point.x()+55);
-        point.setY(point.y()+55);
-        break;
-    default:
-        point.setX(point.x()+5);
-        point.setY(point.y()+5);
-        break;
-    }
-    return point;
-}
-
-QPoint MainWindow::addCoords(int p)
-{
-    QPoint result(0,0);
-    switch (p) {
-    case 0:
-        result.setX(5);
-        result.setY(5);
-        break;
-    case 1:
-        result.setX(55);
-        result.setY(5);
-        break;
-    case 2:
-        result.setX(5);
-        result.setY(55);
-        break;
-    case 3:
-        result.setX(55);
-        result.setY(55);
-        break;
-    }
-    return result;
-}
-
 void MainWindow::forHelpButton()
 {
     if (wh->isHidden()){
@@ -263,7 +215,9 @@ void MainWindow::forAnyButton()
     QObject* s = QObject::sender();
     for (int i = 0 ; i < 36 ; i++ ){
         if (squares[i] == s){
-            wl->addLine( squares[i]->text() + "\n\n" , 3 );
+            QString temp = squares[i]->text();
+            temp.replace('\n',' ');
+            wl->addLine( temp + "\n\n" , 2 );
         }
     }
 }
@@ -287,44 +241,6 @@ void MainWindow::forDiceButton()
     if (game.players[game.currentPlayer]->position >35) game.players[game.currentPlayer]->position -= 36;
     else if (game.players[game.currentPlayer]->position <0)game.players[game.currentPlayer]->position += 36;
     timer->start();
-}
-
-void MainWindow::runforestrun()
-{
-    QPoint p = makeCoords(game.players[game.currentPlayer]->position);
-    QPoint add = addCoords(game.currentPlayer);
-
-    if (Lplayers[game.currentPlayer]->pos() == p) {
-        timer->stop();
-        buttonsEnable();
-        if (game.currentPlayer == 3) game.currentPlayer = 0;
-        else game.currentPlayer++;
-    }
-    else{
-        if ( std::abs(  game.players[game.currentPlayer]->position - (game.players[game.currentPlayer]->position - game.diceResult) ) <=
-             std::abs( (game.players[game.currentPlayer]->position - game.diceResult) - game.players[game.currentPlayer]->position )  ){
-            if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());
-            }else if (Lplayers[game.currentPlayer]->x() == 1100+add.x() && Lplayers[game.currentPlayer]->y() < 700+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() + 10);
-            }else if (Lplayers[game.currentPlayer]->x() > 0+add.x() && Lplayers[game.currentPlayer]->y() == 700+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() - 10 , Lplayers[game.currentPlayer]->y());
-            }else{
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() - 10);
-            }
-        }
-        else{
-            if (Lplayers[game.currentPlayer]->x() > 0+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() - 10 , Lplayers[game.currentPlayer]->y());
-            }else if (Lplayers[game.currentPlayer]->x() == 0+add.x() && Lplayers[game.currentPlayer]->y() < 700+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() + 10);
-            }else if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 700+add.y()){
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());
-            }else{
-                Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() , Lplayers[game.currentPlayer]->y() - 10);
-            }
-        }
-    }
 }
 
 void MainWindow::showMe()
