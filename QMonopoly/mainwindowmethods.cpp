@@ -131,7 +131,30 @@ void MainWindow::forAnyButton()
         if (squares[i] == s){
             QString temp = squares[i]->text();
             temp.replace('\n',' ');
-            wl->addLine( temp + "\n\n" , 2 );
+            if ( game.map[i]->type == game.settings->ENTERPRISE )
+                temp.append( "\nЦена: " + QString::number(game.map[i]->cost) +
+                             ", продать: " + QString::number(game.map[i]->toSell) +
+                             ", за круг: " + QString::number(game.map[i]->toEarn) );
+            else{
+                if ( game.map[i]->type == game.settings->JAIL ) temp.append("\nИгрок пропускает ход");
+                if ( game.map[i]->type == game.settings->TRAIN ) temp.append("\nИгрок переходи на следующую станцию");
+                if ( game.map[i]->type == game.settings->TAXES ) temp.append("\nИгрок платит налоги с предприятий");
+                if ( game.map[i]->type == game.settings->WORMHOLE ) temp.append("\nИгрок переносится на случайную позицию");
+                if ( game.map[i]->type == game.settings->SOCIAL_MONEY ) temp.append("\nИгрок забирает скопившиеся деньги (" +QString::number(game.socialMoney) + ")");
+                if ( game.map[i]->type == game.settings->SOCIAL_BANK ) temp.append("\nИгрок отдаёт часть денег в общественную казну");
+                if ( game.map[i]->type == game.settings->LENIN ) temp.append("\nИгрок теряет случайное предприятие");
+                if ( game.map[i]->type == game.settings->STOCK ) temp.append("\nИгрок играет на бирже на прибыль с круга");
+                if ( game.map[i]->type == game.settings->ONE_MORE_TIME ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->PENALTY ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->PLUS_ONE ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->PLUS_TWO ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->PLUS_THREE ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->MINUS_SIX ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->PLUS_MONEY ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->MINUS_CONSTMONEY ) temp.append("\n");
+                if ( game.map[i]->type == game.settings->MINUS_LARGEST_MONEY ) temp.append("\n");
+            }
+            wl->addLine( temp + "\n\n" , 3 );
         }
     }
 }

@@ -32,6 +32,8 @@ HEADERS += \
     windowsettings.h \
     windowstart.h
 
+win32:RC_FILE = res.rc
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

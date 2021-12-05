@@ -42,8 +42,7 @@ public:
         MINUS_SIX,
         PLUS_MONEY,
         MINUS_CONSTMONEY,
-        MINUS_LARGEST_MONEY,
-        MOVE_SKIP
+        MINUS_LARGEST_MONEY
     };
 };
 

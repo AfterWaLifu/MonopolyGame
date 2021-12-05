@@ -18,6 +18,8 @@ public:
     int currentPlayer;
     int diceResult;
 
+    int socialMoney;
+
     // МЕТОДЫ
 
     void throwDices();
