@@ -11,6 +11,7 @@ public:
     int cost;
     int toSell;
     int toEarn;
+    int owner;
 
     int type;
 };

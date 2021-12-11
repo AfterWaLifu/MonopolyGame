@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     labelsInit();
     buttonsInit();
     playersInit();
+    tPlayersOwnsInit();
     timerInit();
 
     start->show();
@@ -39,19 +40,19 @@ void MainWindow::buttonsInit()
     QFont font("Verdana", 14);
 
     diceButton = new QPushButton("Бросить куб",this);
-    diceButton->setGeometry( 500 , 350 , 200 , 50 );
+    diceButton->setGeometry( 500 , 375 , 200 , 50 );
     diceButton->setFont(font);
     connect( diceButton , SIGNAL( clicked() ) , this , SLOT( forDiceButton() ) );
 
     font.setPointSize(12);
 
     helpButton = new QPushButton("Помощь", this);
-    helpButton->setGeometry( 500 , 400 , 100 , 50 );
+    helpButton->setGeometry( 400 , 375 , 100 , 50 );
     helpButton->setFont(font);
     connect(helpButton, SIGNAL(clicked()), this, SLOT(forHelpButton()));
 
     setsButton = new QPushButton("Настройки", this);
-    setsButton->setGeometry( 600 , 400 , 100 , 50 );
+    setsButton->setGeometry( 700 , 375 , 100 , 50 );
     setsButton->setFont(font);
     connect(setsButton, SIGNAL(clicked()), this, SLOT(forSettingsButton()));
 
@@ -121,11 +122,11 @@ void MainWindow::labelsInit()
     font.setFamily("Verdana");
     font.setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
-        Lbalance[i] = new QLabel( QString::number(i*100000) , this );
+        Lbalance[i] = new QLabel( QString::number(game.players[i]->money) , this );
         Lbalance[i]->setFont(font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
 
-        LtoEarn[i] = new QLabel( QString::number(i*100000) , this );
+        LtoEarn[i] = new QLabel( QString::number(game.players[i]->toEarn) , this );
         LtoEarn[i]->setFont(font);
         LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
@@ -170,6 +171,15 @@ void MainWindow::timerInit()
     timer = new QTimer(this);
     timer->setInterval(30);
     connect( timer , SIGNAL( timeout() ) , this , SLOT( runforestrun() ) );
+}
+
+void MainWindow::tPlayersOwnsInit(){
+    for (int i = 0 ; i < 4 ; i++ ){
+        TplayersOwns[i] = new QTextEdit(this);
+        TplayersOwns[i]->setGeometry(330 + (i%2 * 275) ,110 + (i/2 * 320) ,265,260);
+        TplayersOwns[i]->setPlainText("Список предприятий:\n");
+        TplayersOwns[i]->setReadOnly(true);
+    }
 }
 
 void MainWindow::showMe()

@@ -59,9 +59,13 @@ private:
     void timerInit();
     void buttonsEnable();
     void buttonsDisable();
+    void tPlayersOwnsInit();
 
     QPoint makeCoords(int pos);
     QPoint addCoords(int p);
+
+    void updFigureInfo();
+
 
 private slots:
     void forHelpButton();

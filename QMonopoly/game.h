@@ -19,6 +19,7 @@ public:
     int diceResult;
 
     int socialMoney;
+    int skippingPlayers[4];
 
     // МЕТОДЫ
 

@@ -8,4 +8,5 @@ MapSquare::MapSquare(QString n, int tp, int cst)
     cost = cst;
     toSell = cost / 5 * 4 ;
     toEarn = cost / 5 ;
+    owner = -1;
 }

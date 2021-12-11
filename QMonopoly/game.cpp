@@ -13,6 +13,8 @@ Game::Game()
     currentPlayer = 0;
 
     socialMoney = 0;
+
+    for (int i = 0 ; i < 4 ; i++ ) skippingPlayers[i] = 0;
 }
 
 void Game::throwDices()
