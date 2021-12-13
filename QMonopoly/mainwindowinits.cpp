@@ -42,7 +42,7 @@ void MainWindow::buttonsInit()
     diceButton = new QPushButton("Бросить куб",this);
     diceButton->setGeometry( 500 , 375 , 200 , 50 );
     diceButton->setFont(font);
-    connect( diceButton , SIGNAL( clicked() ) , this , SLOT( forDiceButton() ) );
+    connect( diceButton , SIGNAL( clicked() ) , this , SLOT( move() ) );
 
     font.setPointSize(12);
 
@@ -169,7 +169,7 @@ void MainWindow::playersInit()
 void MainWindow::timerInit()
 {
     timer = new QTimer(this);
-    timer->setInterval(30);
+    timer->setInterval(10);
     connect( timer , SIGNAL( timeout() ) , this , SLOT( runforestrun() ) );
 }
 

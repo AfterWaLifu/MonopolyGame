@@ -29,7 +29,7 @@ public:
     ~MainWindow();
 
     Game game;
-
+    int y=0;
 private:
     WindowHelp *wh;
     WindowSettings *ws;
@@ -65,6 +65,7 @@ private:
     QPoint addCoords(int p);
 
     void updFigureInfo();
+    void checkForSpecialSquares();
 
 
 private slots:
@@ -73,7 +74,7 @@ private slots:
     void forAnyButton();
     void forBuyButtons();
     void forSellButtons();
-    void forDiceButton();
+    void move(int q = 0);
     void runforestrun();
 
 public slots:

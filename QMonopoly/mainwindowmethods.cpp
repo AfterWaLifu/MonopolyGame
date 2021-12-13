@@ -65,6 +65,76 @@ void MainWindow::updFigureInfo()
     }
 }
 
+void MainWindow::checkForSpecialSquares()
+{
+    int temp = game.map[ game.players[game.currentPlayer]->position + game.diceResult]->type ;
+    if ( temp != game.settings->ENTERPRISE ){
+
+        if ( temp == game.settings->JAIL ){
+            game.skippingPlayers[game.currentPlayer] = 1;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " пропускает следующий ход\n\n" , 2);
+        }
+        else if ( temp == game.settings->TRAIN ) {
+            int station;
+
+            if (game.players[game.currentPlayer]->position == 11) station = 1;
+            else if (game.players[game.currentPlayer]->position == 18) station = 2;
+            else station = 3;
+
+            if (station == 2) game.diceResult+=11;
+            else game.diceResult+=7;
+
+            game.toCheckOrNotToCheck=false;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " чучухает от станции " + QString::number(station) + "\n\n" , 2);
+        }
+        else if ( temp == game.settings->TAXES ) {
+
+        }
+        else if ( temp == game.settings->WORMHOLE ) {
+
+        }
+        else if ( temp == game.settings->SOCIAL_MONEY ) {
+
+        }
+        else if ( temp == game.settings->SOCIAL_BANK ) {
+
+        }
+        else if ( temp == game.settings->LENIN ) {
+
+        }
+        else if ( temp == game.settings->STOCK ) {
+
+        }
+        else if ( temp == game.settings->ONE_MORE_TIME ) {
+
+        }
+        else if ( temp == game.settings->PENALTY ) {
+
+        }
+        else if ( temp == game.settings->PLUS_ONE ) {
+
+        }
+        else if ( temp == game.settings->PLUS_TWO ) {
+
+        }
+        else if ( temp == game.settings->PLUS_THREE ) {
+
+        }
+        else if ( temp == game.settings->MINUS_SIX ) {
+
+        }
+        else if ( temp == game.settings->PLUS_MONEY ) {
+
+        }
+        else if ( temp == game.settings->MINUS_CONSTMONEY ) {
+
+        }
+        else if ( temp == game.settings->MINUS_LARGEST_MONEY ) {
+
+        }
+    }
+}
+
 void MainWindow::runforestrun()
 {
     QPoint p = makeCoords(game.players[game.currentPlayer]->position);
@@ -77,8 +147,7 @@ void MainWindow::runforestrun()
         else game.currentPlayer++;
     }
     else{
-        if ( std::abs(  game.players[game.currentPlayer]->position - (game.players[game.currentPlayer]->position - game.diceResult) ) <=
-             std::abs( (game.players[game.currentPlayer]->position - game.diceResult) - game.players[game.currentPlayer]->position )  ){
+        if ( game.diceResult < 18 ) {
             if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
                 Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());
             }else if (Lplayers[game.currentPlayer]->x() == 1100+add.x() && Lplayers[game.currentPlayer]->y() < 700+add.y()){
@@ -163,7 +232,7 @@ void MainWindow::forAnyButton()
                 else if ( game.map[i]->type == game.settings->LENIN ) temp.append("\nИгрок теряет случайное предприятие");
                 else if ( game.map[i]->type == game.settings->STOCK ) temp.append("\nИгрок играет на бирже на прибыль с круга");
                 else if ( game.map[i]->type == game.settings->ONE_MORE_TIME ) temp.append("\nИгрок делает ещё один бросок");
-                else if ( game.map[i]->type == game.settings->PENALTY ) temp.append("\nИгрок пропускает один ход");
+                else if ( game.map[i]->type == game.settings->PENALTY ) temp.append("\nИгрок пропускает два хода");
                 else if ( game.map[i]->type == game.settings->PLUS_ONE ) temp.append("\nИгрок делает шаг вперёд");
                 else if ( game.map[i]->type == game.settings->PLUS_TWO ) temp.append("\nИгрок делает два шага вперёд");
                 else if ( game.map[i]->type == game.settings->PLUS_THREE ) temp.append("\nИгрок делает три шага вперёд");
@@ -190,12 +259,28 @@ void MainWindow::forSellButtons()
     updFigureInfo();
 }
 
-void MainWindow::forDiceButton()
+void MainWindow::move(int q)
 {
+    if (game.skippingPlayers[game.currentPlayer]){
+        game.skippingPlayers[game.currentPlayer]--;
+        wl->addLine( "Игрок " + QString::number(game.currentPlayer+1) + " своё отсидел\n\n" , 2 );
+        if (game.currentPlayer == 3) game.currentPlayer = 0;
+        else game.currentPlayer++;
+        return;
+    }
+
     buttonsDisable();
-    game.throwDices();
+
+    if ( !q ) game.diceResult = 14 + y;
+    else game.diceResult = q ;
+    if (game.currentPlayer == 0)y++;
     wl->addLine("Игрок " + QString::number(game.currentPlayer+1) + "\nРезультат броска " + QString::number(game.diceResult)+"\n\n", 3 );
+
+    if (game.toCheckOrNotToCheck) checkForSpecialSquares();
+    else game.toCheckOrNotToCheck = true;
+
     game.players[game.currentPlayer]->position += game.diceResult ;
+
     if (game.players[game.currentPlayer]->position >35) {
         game.players[game.currentPlayer]->position -= 36;
         game.players[game.currentPlayer]->addMoney( game.settings->moneyForCircle );
@@ -203,6 +288,7 @@ void MainWindow::forDiceButton()
         Lbalance[game.currentPlayer]->setText(QString::number(game.players[game.currentPlayer]->getMoneyQ()));
     }
     else if (game.players[game.currentPlayer]->position <0)game.players[game.currentPlayer]->position += 36;
+
     updFigureInfo();
 
     timer->start();

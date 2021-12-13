@@ -20,6 +20,7 @@ public:
 
     int socialMoney;
     int skippingPlayers[4];
+    bool toCheckOrNotToCheck = true;
 
     // МЕТОДЫ
 
