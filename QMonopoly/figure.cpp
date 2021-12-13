@@ -7,3 +7,14 @@ Figure::Figure(int id, int startMoney)
     money = startMoney;
     toEarn = 0;
 }
+
+void Figure::subMoney(int q)
+{
+    money -= q;
+    if (money <= 0) Id = -1;
+}
+
+void Figure::addMoney(int q)
+{
+    money += q;
+}

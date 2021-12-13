@@ -7,7 +7,12 @@ public:
 
     int Id;
     int position;
-    int money;
     int toEarn;
+
+    void subMoney(int q);
+    void addMoney(int q);
+
+private:
+    int money;
 };
 
