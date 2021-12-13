@@ -9,8 +9,9 @@ public:
     int position;
     int toEarn;
 
-    void subMoney(int q);
-    void addMoney(int q);
+    inline void subMoney(int q) { money -= q; if (money <= 0) Id = -1;}
+    inline void addMoney(int q) { money += q; }
+    inline int getMoneyQ() { return money; }
 
 private:
     int money;

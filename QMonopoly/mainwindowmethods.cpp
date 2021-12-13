@@ -51,8 +51,8 @@ QPoint MainWindow::addCoords(int p)
 void MainWindow::updFigureInfo()
 {
     for (int i = 0 ; i < 4 ; i++ ){
-       Lbalance[i]->setText( QString::number(game.players[i]->money) ) ;
-       LtoEarn[i]->setText( QString::number(game.players[i]->toEarn) ) ;
+       Lbalance[i]->setText( QString::number(game.players[i]->getMoneyQ()) ) ;
+       LtoEarn[i]->setText( QString::number(game.players[i]->toEarn + game.settings->moneyForCircle) ) ;
 
        QString temp;
        temp.append("Список предприятий:\n");
@@ -198,9 +198,9 @@ void MainWindow::forDiceButton()
     game.players[game.currentPlayer]->position += game.diceResult ;
     if (game.players[game.currentPlayer]->position >35) {
         game.players[game.currentPlayer]->position -= 36;
-        game.players[game.currentPlayer]->money += game.settings->moneyForCircle;
-        game.players[game.currentPlayer]->money += game.players[game.currentPlayer]->toEarn;
-        Lbalance[game.currentPlayer]->setText(QString::number(game.players[game.currentPlayer]->money));
+        game.players[game.currentPlayer]->addMoney( game.settings->moneyForCircle );
+        game.players[game.currentPlayer]->addMoney( game.players[game.currentPlayer]->toEarn ) ;
+        Lbalance[game.currentPlayer]->setText(QString::number(game.players[game.currentPlayer]->getMoneyQ()));
     }
     else if (game.players[game.currentPlayer]->position <0)game.players[game.currentPlayer]->position += 36;
     updFigureInfo();

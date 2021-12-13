@@ -122,11 +122,11 @@ void MainWindow::labelsInit()
     font.setFamily("Verdana");
     font.setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
-        Lbalance[i] = new QLabel( QString::number(game.players[i]->money) , this );
+        Lbalance[i] = new QLabel( QString::number(game.players[i]->getMoneyQ()) , this );
         Lbalance[i]->setFont(font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
 
-        LtoEarn[i] = new QLabel( QString::number(game.players[i]->toEarn) , this );
+        LtoEarn[i] = new QLabel( QString::number(game.players[i]->toEarn + game.settings->moneyForCircle) , this );
         LtoEarn[i]->setFont(font);
         LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
