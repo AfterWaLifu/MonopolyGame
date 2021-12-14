@@ -29,7 +29,7 @@ public:
     ~MainWindow();
 
     Game game;
-    int y=0;
+
 private:
     WindowHelp *wh;
     WindowSettings *ws;

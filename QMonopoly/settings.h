@@ -17,6 +17,8 @@ public:
     int moneyForCircle;
     int startSumm;
     int diceCount;
+    int taxPercent;
+    int moneyToAddOrSub;
 
     void setMapConf();
 

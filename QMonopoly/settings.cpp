@@ -13,6 +13,8 @@ Settings::Settings(int dicecount)
 
     startSumm = 300;
     moneyForCircle = 100;
+    taxPercent = 7;
+    moneyToAddOrSub = 100;
 
     setMapConf();
 }

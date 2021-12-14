@@ -88,49 +88,95 @@ void MainWindow::checkForSpecialSquares()
             wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " чучухает от станции " + QString::number(station) + "\n\n" , 2);
         }
         else if ( temp == game.settings->TAXES ) {
-
+            int tax = 0;
+            for (int i = 0 ; i < 36 ; i++ ){
+                if (game.map[i]->owner == game.currentPlayer) tax += game.map[i]->cost*game.settings->Taxes/100;
+            }
+            game.players[game.currentPlayer]->subMoney(tax);
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " заплатил налог " + QString::number(tax) + "\n\n" , 2);
         }
         else if ( temp == game.settings->WORMHOLE ) {
-
+            game.diceResult = rand()%36;
+            wl->addLine("Игрок " + QString::number(game.currentPlayer + 1) + " попал в червоточину\n\n" , 2);
         }
         else if ( temp == game.settings->SOCIAL_MONEY ) {
-
+            wl->addLine("Игрок " + QString::number(game.currentPlayer + 1) + " забрал из общих денег" + QString::number(game.socialMoney) + " валюты\n\n" , 2);
+            game.players[game.currentPlayer]->addMoney(game.socialMoney);
+            game.socialMoney = 0;
         }
         else if ( temp == game.settings->SOCIAL_BANK ) {
-
+            wl->addLine("Игрок " + QString::number(game.currentPlayer + 1) + " оставил в общих деньгах полтос\n\n" , 2);
+            game.players[game.currentPlayer]->subMoney(50);
+            game.socialMoney += 50;
         }
         else if ( temp == game.settings->LENIN ) {
-
+            std::vector<int> builds;
+            for (int i = 0 ; i < 36 ; i++ ){
+                if (game.map[i]->owner == game.currentPlayer) builds.push_back(i);
+            }
+            int stealed = rand() % builds.size();
+            game.map[ builds.at(stealed) ]->owner = -1;
+            wl->addLine("Игрок " + QString::number(game.currentPlayer + 1) + " потерял " + game.map[stealed]->name + "\n\n" , 2);
         }
         else if ( temp == game.settings->STOCK ) {
-
+            int pc, pl;
+            pc = rand()%6;
+            pl = rand()%6;
+            wl->addLine("Игрок " + QString::number(pl) + " : " + QString::number(pc) + "Не игрок\n\n" , 2 );
+            if (pc > pl){
+                game.players[game.currentPlayer]->subMoney(game.players[game.currentPlayer]->toEarn);
+                wl->addLine("Вы проиграли сумму за круг\n" , 1 );
+            }
+            else{
+                game.players[game.currentPlayer]->addMoney(game.players[game.currentPlayer]->toEarn);
+                wl->addLine("Вы выиграли сумму за круг\n" , 1 );
+            }
         }
         else if ( temp == game.settings->ONE_MORE_TIME ) {
-
+            int add = ( rand() % ( 6 * game.settings->diceCount ) ) + 1;
+            game.diceResult += add;
+            wl->addLine("Игрок " + QString::number(game.currentPlayer + 1) + " бросил ещё кубов и получил " + QString::number(add) + "\n\n" , 2);
         }
         else if ( temp == game.settings->PENALTY ) {
-
+            game.skippingPlayers[game.currentPlayer] = 2;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " пропускает следующие 2 хода\n\n" , 2);
         }
         else if ( temp == game.settings->PLUS_ONE ) {
-
+            game.diceResult += 1;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " совершает ещё шаг\n\n" , 2 );
         }
         else if ( temp == game.settings->PLUS_TWO ) {
-
+            game.diceResult += 2;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " совершает ещё 2 шага\n\n" , 2 );
         }
         else if ( temp == game.settings->PLUS_THREE ) {
-
+            game.diceResult += 3;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " совершает ещё 3 шага\n\n" , 2 );
         }
         else if ( temp == game.settings->MINUS_SIX ) {
-
+            game.diceResult += 6;
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " отходит на 6 назад\n\n" , 2 );
         }
         else if ( temp == game.settings->PLUS_MONEY ) {
-
+            game.players[game.currentPlayer]->addMoney(game.settings->moneyToAddOrSub);
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " нашёл денюжку\n\n" , 2 );
         }
         else if ( temp == game.settings->MINUS_CONSTMONEY ) {
-
+            game.players[game.currentPlayer]->subMoney(game.settings->moneyToAddOrSub);
+            wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " потерял денюжку\n\n" , 2 );
         }
         else if ( temp == game.settings->MINUS_LARGEST_MONEY ) {
-
+            int cost = -1;
+            for (int i = 0 ; i < 36 ; i++ ){
+                if (game.map[i]->owner  == game.currentPlayer && cost < game.map[i]->cost ) cost = game.map[i]->cost;
+            }
+            if (cost > 0){
+                game.players[game.currentPlayer]->subMoney(cost);
+                wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " теряет " + QString::number(cost) + " валюты\n\n" , 2 );
+            }
+            else{
+                wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " не имеет что терять\n\n" , 2 );
+            }
         }
     }
 }
@@ -271,9 +317,9 @@ void MainWindow::move(int q)
 
     buttonsDisable();
 
-    if ( !q ) game.diceResult = 14 + y;
+    if ( !q ) game.throwDices();
     else game.diceResult = q ;
-    if (game.currentPlayer == 0)y++;
+
     wl->addLine("Игрок " + QString::number(game.currentPlayer+1) + "\nРезультат броска " + QString::number(game.diceResult)+"\n\n", 3 );
 
     if (game.toCheckOrNotToCheck) checkForSpecialSquares();
