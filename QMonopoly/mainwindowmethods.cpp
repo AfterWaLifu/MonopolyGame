@@ -69,7 +69,6 @@ void MainWindow::checkForSpecialSquares()
 {
     int temp = game.map[ game.players[game.currentPlayer]->position + game.diceResult]->type ;
     if ( temp != game.settings->ENTERPRISE ){
-
         if ( temp == game.settings->JAIL ){
             game.skippingPlayers[game.currentPlayer] = 1;
             wl->addLine( "Игрок " + QString::number(game.currentPlayer + 1) + " пропускает следующий ход\n\n" , 2);
@@ -77,8 +76,8 @@ void MainWindow::checkForSpecialSquares()
         else if ( temp == game.settings->TRAIN ) {
             int station;
 
-            if (game.players[game.currentPlayer]->position == 11) station = 1;
-            else if (game.players[game.currentPlayer]->position == 18) station = 2;
+            if (game.players[game.currentPlayer]->position+ game.diceResult == 11) station = 1;
+            else if (game.players[game.currentPlayer]->position+ game.diceResult == 18) station = 2;
             else station = 3;
 
             if (station == 2) game.diceResult+=11;
@@ -120,17 +119,19 @@ void MainWindow::checkForSpecialSquares()
         }
         else if ( temp == game.settings->STOCK ) {
             int pc, pl;
-            pc = rand()%6;
-            pl = rand()%6;
+            pc = rand()%5+1;
+            pl = rand()%5+1;
             wl->addLine("Игрок " + QString::number(pl) + " : " + QString::number(pc) + "Не игрок\n\n" , 2 );
             if (pc > pl){
                 game.players[game.currentPlayer]->subMoney(game.players[game.currentPlayer]->toEarn);
                 wl->addLine("Вы проиграли сумму за круг\n" , 1 );
             }
+            else if (pc == pl) wl->addLine( "НИЧЬЯ\n" , 1 );
             else{
                 game.players[game.currentPlayer]->addMoney(game.players[game.currentPlayer]->toEarn);
                 wl->addLine("Вы выиграли сумму за круг\n" , 1 );
             }
+            wl->addLine("Игрок " + QString::number(game.currentPlayer+1) + ",\n" , 1 );
         }
         else if ( temp == game.settings->ONE_MORE_TIME ) {
             int add = ( rand() % ( 6 * game.settings->diceCount ) ) + 1;
