@@ -4,8 +4,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
     windowsInit();
-    labelsInit();
     buttonsInit();
+    labelsInit();
     playersInit();
     tPlayersOwnsInit();
     timerInit();
@@ -32,104 +32,101 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete diceButton;
+    delete helpButton;
+    delete setsButton;
+    delete buyButtons[4];
+    delete sellButtons[4];
+    delete squares[36];
 
+    delete Lbalance[4];
+    delete LtoEarn[4];
+    delete Lplayers[4];
+
+    delete TplayersOwns[4];
+
+    delete timer;
 }
 
 void MainWindow::buttonsInit()
 {
-    QFont font("Verdana", 14);
+    QFont *font = new QFont("Verdana", 14);
 
     diceButton = new QPushButton("Бросить куб",this);
     diceButton->setGeometry( 500 , 375 , 200 , 50 );
-    diceButton->setFont(font);
+    diceButton->setFont(*font);
     connect( diceButton , SIGNAL( clicked() ) , this , SLOT( move() ) );
 
-    font.setPointSize(12);
+    font->setPointSize(12);
 
     helpButton = new QPushButton("Помощь", this);
     helpButton->setGeometry( 400 , 375 , 100 , 50 );
-    helpButton->setFont(font);
+    helpButton->setFont(*font);
     connect(helpButton, SIGNAL(clicked()), this, SLOT(forHelpButton()));
 
     setsButton = new QPushButton("Настройки", this);
     setsButton->setGeometry( 700 , 375 , 100 , 50 );
-    setsButton->setFont(font);
+    setsButton->setFont(*font);
     connect(setsButton, SIGNAL(clicked()), this, SLOT(forSettingsButton()));
 
-    font.setPointSize(7);
+    font->setPointSize(7);
     //кнопки по периметру
     for ( int i = 0 ; i < 12 ; i++ ){
         //горизонталь верх
         squares[i] = new QPushButton( game.map[i]->name ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
-        squares[i]->setFont(font);
+        squares[i]->setFont(*font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
         squares[i+18] = new QPushButton( game.map[i+18]->name , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
-        squares[i+18]->setFont(font);
+        squares[i+18]->setFont(*font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
         //вертикаль право
         squares[i] = new QPushButton( game.map[i]->name , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
-        squares[i]->setFont(font);
+        squares[i]->setFont(*font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
         squares[i+18] = new QPushButton( game.map[i+18]->name , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
-        squares[i+18]->setFont(font);
+        squares[i+18]->setFont(*font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
 
-    font.setPointSize(14);
+    font->setPointSize(14);
 
     //игроки покупки продажки
     for ( int i = 0 ; i < 4 ; i++ ){
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
-        buyButtons[i]->setFont( font );
+        buyButtons[i]->setFont( *font );
 
         sellButtons[i] = new QPushButton( "Продать" , this );
         sellButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 310 + ( i / 2 * 300 ) , 200 , 80 );
-        sellButtons[i]->setFont( font );
+        sellButtons[i]->setFont( *font );
     }
 
-    font.~QFont();
+    delete font;
 }
 
 void MainWindow::labelsInit()
 {
-    QFont font("Arial", 14);
-
-    // линии на поле
-    QString *temp = new QString(100,'_');
-    Llines[0] = new QLabel(*temp,this);
-    Llines[0]->setFont(font);
-    Llines[0]->setGeometry(99, 381,1002, 20);
-
-    temp->clear();
-    for (int i = 0; i < 50 ; i++) {
-        temp->append('|');
-        temp->append('\n');
-    }
-    Llines[1] = new QLabel(*temp,this);
-    Llines[1]->setFont(font);
-    Llines[1]->setGeometry(597,100,4,600);
-
-    //остальное
-    font.setFamily("Verdana");
-    font.setPointSize(14);
+    QFont *font = new QFont();
+    font->setFamily("Verdana");
+    font->setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
         Lbalance[i] = new QLabel( QString::number(game.players[i]->getMoneyQ()) , this );
-        Lbalance[i]->setFont(font);
+        Lbalance[i]->setFont(*font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
 
         LtoEarn[i] = new QLabel( QString::number(game.players[i]->toEarn + game.settings->moneyForCircle) , this );
-        LtoEarn[i]->setFont(font);
+        LtoEarn[i]->setFont(*font);
         LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }
+    delete font;
 }
 
 void MainWindow::windowsInit()

@@ -43,10 +43,9 @@ private:
     QPushButton *sellButtons[4];
     QPushButton *squares[36];
 
-    QLabel *Lplayers[4];
     QLabel *Lbalance[4];
     QLabel *LtoEarn[4];
-    QLabel *Llines[2];
+    QLabel *Lplayers[4];
 
     QTextEdit *TplayersOwns[4];
 
