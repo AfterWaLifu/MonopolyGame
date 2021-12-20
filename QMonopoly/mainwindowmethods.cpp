@@ -194,7 +194,7 @@ void MainWindow::runforestrun()
         else game.currentPlayer++;
     }
     else{
-        if ( game.diceResult < 18 ) {
+        if ( game.diceResult <= 18 ) {
             if (Lplayers[game.currentPlayer]->x() < 1100+add.x() && Lplayers[game.currentPlayer]->y() == 0+add.y()){
                 Lplayers[game.currentPlayer]->move(Lplayers[game.currentPlayer]->x() + 10 , Lplayers[game.currentPlayer]->y());
             }else if (Lplayers[game.currentPlayer]->x() == 1100+add.x() && Lplayers[game.currentPlayer]->y() < 700+add.y()){
