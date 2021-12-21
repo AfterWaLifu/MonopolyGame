@@ -9,8 +9,6 @@ class Game
 public:
     Game();
 
-    // ПЕРЕМЕШКИ
-
     MapSquare *map[36];
     Figure *players[4];
     Settings *settings;

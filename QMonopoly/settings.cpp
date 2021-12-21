@@ -15,6 +15,7 @@ Settings::Settings(int dicecount)
     moneyForCircle = 100;
     taxPercent = 7;
     moneyToAddOrSub = 100;
+    percentToPtP = 5;
 
     setMapConf();
 }

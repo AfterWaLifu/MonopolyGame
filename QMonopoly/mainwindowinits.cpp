@@ -3,6 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
+    game = new Game();
     windowsInit();
     buttonsInit();
     labelsInit();
@@ -32,20 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete diceButton;
-    delete helpButton;
-    delete setsButton;
-    delete buyButtons[4];
-    delete sellButtons[4];
-    delete squares[36];
 
-    delete Lbalance[4];
-    delete LtoEarn[4];
-    delete Lplayers[4];
-
-    delete TplayersOwns[4];
-
-    delete timer;
 }
 
 void MainWindow::buttonsInit()
@@ -73,24 +61,24 @@ void MainWindow::buttonsInit()
     //кнопки по периметру
     for ( int i = 0 ; i < 12 ; i++ ){
         //горизонталь верх
-        squares[i] = new QPushButton( game.map[i]->name ,this);
+        squares[i] = new QPushButton( game->map[i]->name ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
         squares[i]->setFont(*font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
-        squares[i+18] = new QPushButton( game.map[i+18]->name , this);
+        squares[i+18] = new QPushButton( game->map[i+18]->name , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
         squares[i+18]->setFont(*font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
         //вертикаль право
-        squares[i] = new QPushButton( game.map[i]->name , this);
+        squares[i] = new QPushButton( game->map[i]->name , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
         squares[i]->setFont(*font);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
-        squares[i+18] = new QPushButton( game.map[i+18]->name , this);
+        squares[i+18] = new QPushButton( game->map[i+18]->name , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
         squares[i+18]->setFont(*font);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
@@ -118,11 +106,11 @@ void MainWindow::labelsInit()
     font->setFamily("Verdana");
     font->setPointSize(14);
     for ( int i = 0 ; i < 4 ; i++ ){
-        Lbalance[i] = new QLabel( QString::number(game.players[i]->getMoneyQ()) , this );
+        Lbalance[i] = new QLabel( QString::number(game->players[i]->getMoneyQ()) , this );
         Lbalance[i]->setFont(*font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
 
-        LtoEarn[i] = new QLabel( QString::number(game.players[i]->toEarn + game.settings->moneyForCircle) , this );
+        LtoEarn[i] = new QLabel( QString::number(game->players[i]->toEarn + game->settings->moneyForCircle) , this );
         LtoEarn[i]->setFont(*font);
         LtoEarn[i]->setGeometry(222 + ( i % 2 * 801 ) , 162 + ( i / 2 * 300 ) , 100, 20);
     }

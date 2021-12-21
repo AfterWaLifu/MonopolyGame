@@ -28,7 +28,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    Game game;
+    Game* game;
 
 private:
     WindowHelp *wh;

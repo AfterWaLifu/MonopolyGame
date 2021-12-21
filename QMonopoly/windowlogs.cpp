@@ -14,6 +14,7 @@ WindowLogs::WindowLogs(QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
     QString path = QCoreApplication::applicationDirPath();
     QPixmap iconPix( path.append( "\\resources\\logs.ico" ) );
     this->setWindowIcon( QIcon(iconPix) );
+    countOf = 0;
 }
 
 void WindowLogs::addLine(QString string, int count)
@@ -21,7 +22,7 @@ void WindowLogs::addLine(QString string, int count)
     countOf += count;
     string += logs->document()->toPlainText();
 
-    if (countOf > 48){
+    if (countOf > 49){
         for (int i = 0 ; i < count ; i++){
             string = string.left( string.lastIndexOf('\n') );
         }
