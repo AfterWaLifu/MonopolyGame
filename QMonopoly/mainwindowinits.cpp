@@ -91,10 +91,12 @@ void MainWindow::buttonsInit()
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
         buyButtons[i]->setFont( *font );
+        connect(buyButtons[i] , SIGNAL( clicked() ) , this , SLOT( forBuyButtons() ) );
 
         sellButtons[i] = new QPushButton( "Продать" , this );
         sellButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 310 + ( i / 2 * 300 ) , 200 , 80 );
         sellButtons[i]->setFont( *font );
+        connect(sellButtons[i] , SIGNAL( clicked() ) , this , SLOT( forSellButtons() ) );
     }
 
     delete font;

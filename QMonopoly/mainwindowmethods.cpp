@@ -100,7 +100,7 @@ void MainWindow::checkForSpecialSquares()
             wl->addLine( "Игрок " + QString::number(game->currentPlayer + 1) + " заплатил налог " + QString::number(tax) + "\n\n" , 2);
         }
         else if ( temp == game->settings->WORMHOLE ) {
-            game->diceResult = rand()%36;
+            game->diceResult = rand()%35 + 1;
             wl->addLine("Игрок " + QString::number(game->currentPlayer + 1) + " попал в червоточину\n\n" , 2);
         }
         else if ( temp == game->settings->SOCIAL_MONEY ) {
@@ -188,6 +188,12 @@ void MainWindow::checkForSpecialSquares()
             else{
                 wl->addLine( "Игрок " + QString::number(game->currentPlayer + 1) + " не имеет что терять\n\n" , 2 );
             }
+        }
+    }
+    else{
+        if (game->map[temploc]->owner > -1){
+            game->players[game->currentPlayer]->subMoney(game->map[temploc]->cost * game->settings->percentToPtP / 100);
+            game->players[game->map[temploc]->owner]->addMoney(game->map[temploc]->cost * game->settings->percentToPtP / 100);
         }
     }
 }
@@ -307,11 +313,72 @@ void MainWindow::forAnyButton()
 
 void MainWindow::forBuyButtons()
 {
+    QObject *s = QObject::sender();
+    int pWannaBuy = -1;
+
+    for (int i = 0 ; i < 4 ; i++ ){
+        if (buyButtons[i] == s){
+            pWannaBuy = i;
+            break;
+        }
+    }
+
+    int needed = game->players[pWannaBuy]->position;
+
+    if ( game->map[needed]->type == game->settings->ENTERPRISE ){
+        if (game->map[needed]->owner > -1) {
+            wl->addLine( game->map[needed]->name + " принадлежит " + QString::number(game->map[needed]->owner+1) + "\n\n" , 2 );
+            return;
+        }
+        else if (game->map[needed]->cost > game->players[pWannaBuy]->getMoneyQ()){
+            wl->addLine( "У игрока " + QString::number(pWannaBuy+1) + " не хватает денег для покупки\n" + game->map[needed]->name + "\n\n" , 3 );
+            return;
+        }
+        else{
+            game->players[pWannaBuy]->subMoney(game->map[needed]->cost);
+            game->players[pWannaBuy]->toEarn += game->map[needed]->toEarn;
+            game->map[needed]->owner = pWannaBuy;
+            wl->addLine( "Игрок " + QString::number(pWannaBuy+1) + " купил\n" + game->map[needed]->name + "\n\n", 3 );
+        }
+    }
+    else{
+        wl->addLine( game->map[game->players[pWannaBuy]->position]->name + " нельзя купить\n\n", 2 );
+        return;
+    }
+
     updFigureInfo();
 }
 
 void MainWindow::forSellButtons()
 {
+    QObject *s = QObject::sender();
+    int pWannaSell = -1;
+
+    for (int i = 0 ; i < 4 ; i++ ){
+        if (sellButtons[i] == s){
+            pWannaSell = i;
+            break;
+        }
+    }
+
+    int needed = game->players[pWannaSell]->position;
+
+    if (game->map[game->players[pWannaSell]->position]->type == game->settings->ENTERPRISE){
+        if (game->map[needed]->owner != pWannaSell){
+            wl->addLine( "Игрок " + QString::number(pWannaSell+1) + " не владеет\n" + game->map[needed]->name + "\n\n" , 3 );
+            return;
+        }
+        else{
+            game->players[pWannaSell]->addMoney(game->map[needed]->toSell);
+            game->players[pWannaSell]->toEarn -= game->map[needed]->toEarn;
+            game->map[needed]->owner = -1;
+            wl->addLine( "Игрок " + QString::number(pWannaSell+1) + " продал\n" + game->map[needed]->name + "\n\n", 3 );
+        }
+    }
+    else{
+        wl->addLine( game->map[game->players[pWannaSell]->position]->name + " нельзя продать\n\n", 2 );
+    }
+
     updFigureInfo();
 }
 
@@ -346,6 +413,12 @@ void MainWindow::move(int q)
     else if (game->players[game->currentPlayer]->position <0)game->players[game->currentPlayer]->position += 36;
 
     updFigureInfo();
+
+    if (game->players[game->currentPlayer]->Id < 0){
+        game->skippingPlayers[game->currentPlayer] = 2000000;
+        game->currentPlayer++;
+        return;
+    }
 
     timer->start();
 }
