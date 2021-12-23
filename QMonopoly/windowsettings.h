@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QIcon>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QLabel>
 #include <QLayout>
 #include <QSpinBox>
@@ -18,15 +19,14 @@ public:
 
     Settings *sets;
 
-private:
-
     QComboBox* jail;
     QComboBox* train;
     QComboBox* stock;
     QComboBox* lenin;
     QComboBox* social;
     QComboBox* worm;
-    QComboBox* dicesQ;
+
+    QRadioButton* dicesQ[2];
 
     QSpinBox* taxes;
     QSpinBox* circle;
@@ -34,6 +34,9 @@ private:
     QPushButton *apply;
     QPushButton *newGame;
 
+    void applySettings();
+
+private:
     void setUp();
 
 signals:
