@@ -66,19 +66,22 @@ void WindowSettings::setUp()
     worm->addItem("Ничего");
     worm->setGeometry(210 , 85 , 170 , 20);
 
-    QLabel* ltax = new QLabel("Налоговая, %:", this);
-    QLabel* lcir = new QLabel("Бонус за круг:", this);
-    QLabel* ldic = new QLabel("Количество кубиков:", this);
+    ltax = new QLabel("Налоговая, %:", this);
+    lcir = new QLabel("Бонус за круг:", this);
+    ldic = new QLabel("Количество кубиков:", this);
     ltax->move(20,130);
     lcir->move(210,130);
     ldic->move(20,165);
 
     taxes->setGeometry(110, 130 , 80 , 20);
+    taxes->setValue(7);
     circle->setGeometry(290, 130 , 90 , 20);
     circle->setMaximum(1000);
+    circle->setValue(100);
 
     dicesQ[0]->move(220,165);
     dicesQ[1]->move(350,165);
+    dicesQ[1]->setChecked(true);
 
     apply->setGeometry(20 , 200 , 170 , 20);
     newGame->setGeometry(210 , 200 , 170 , 20);

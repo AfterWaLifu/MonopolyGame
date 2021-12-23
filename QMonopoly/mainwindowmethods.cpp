@@ -50,7 +50,7 @@ QPoint MainWindow::addCoords(int p)
 
 void MainWindow::updFigureInfo()
 {
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
        Lbalance[i]->setText( QString::number(game->players[i]->getMoneyQ()) ) ;
        LtoEarn[i]->setText( QString::number(game->players[i]->toEarn + game->settings->moneyForCircle) ) ;
 
@@ -207,11 +207,22 @@ void MainWindow::runforestrun()
 {
     QPoint p = makeCoords(game->players[game->currentPlayer]->position);
     QPoint add = addCoords(game->currentPlayer);
+
     if (Lplayers[game->currentPlayer]->pos() == p) {
+
         timer->stop();
         buttonsEnable();
-        if (game->currentPlayer == 3) game->currentPlayer = 0;
+
+        if (game->currentPlayer == game->playersCount-1) game->currentPlayer = 0;
         else game->currentPlayer++;
+
+        if (game->skippingPlayers[game->currentPlayer]){
+            game->skippingPlayers[game->currentPlayer]--;
+            wl->addLine( "Игрок " + QString::number(game->currentPlayer+1) + " пропускает ход\n\n" , 2 );
+            if (game->currentPlayer == game->playersCount-1) game->currentPlayer = 0;
+            else game->currentPlayer++;
+            return;
+        }
     }
     else{
         if ( game->diceResult <= 18 ) {
@@ -241,7 +252,7 @@ void MainWindow::runforestrun()
 
 void MainWindow::buttonsEnable()
 {
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
         buyButtons[i]->setEnabled(true);
         sellButtons[i]->setEnabled(true);
         diceButton->setEnabled(true);
@@ -250,7 +261,7 @@ void MainWindow::buttonsEnable()
 
 void MainWindow::buttonsDisable()
 {
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
         buyButtons[i]->setEnabled(false);
         sellButtons[i]->setEnabled(false);
         diceButton->setEnabled(false);
@@ -321,7 +332,7 @@ void MainWindow::forBuyButtons()
     QObject *s = QObject::sender();
     int pWannaBuy = -1;
 
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
         if (buyButtons[i] == s){
             pWannaBuy = i;
             break;
@@ -359,7 +370,7 @@ void MainWindow::forSellButtons()
     QObject *s = QObject::sender();
     int pWannaSell = -1;
 
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
         if (sellButtons[i] == s){
             pWannaSell = i;
             break;
@@ -389,14 +400,6 @@ void MainWindow::forSellButtons()
 
 void MainWindow::move(int q)
 {
-    if (game->skippingPlayers[game->currentPlayer]){
-        game->skippingPlayers[game->currentPlayer]--;
-        wl->addLine( "Игрок " + QString::number(game->currentPlayer+1) + " своё отсидел\n\n" , 2 );
-        if (game->currentPlayer == 3) game->currentPlayer = 0;
-        else game->currentPlayer++;
-        return;
-    }
-
     buttonsDisable();
 
     if ( !q ) game->throwDices();

@@ -17,6 +17,10 @@ class WindowSettings : public QWidget
 public:
     explicit WindowSettings(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
+    QLabel* ltax;
+    QLabel* lcir;
+    QLabel* ldic;
+
     QComboBox* jail;
     QComboBox* train;
     QComboBox* stock;

@@ -3,32 +3,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
 {
-    game = new Game();
     windowsInit();
-    buttonsInit();
-    labelsInit();
-    playersInit();
-    tPlayersOwnsInit();
-    timerInit();
 
     start->show();
-
-    QString path = QCoreApplication::applicationDirPath();
-
-    this->setGeometry(100,100,1200,800);
-    this->setMaximumSize(1200,800);
-    this->setMinimumSize(1200,800);
-
-    QPixmap iconPix( path.append( "\\resources\\QM.png" ) );
-    this->setWindowIcon( QIcon(iconPix) );
-
-    path = QCoreApplication::applicationDirPath();
-    path.append("\\resources\\back.jpg");
-    QPixmap background(path);
-    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Window, background);
-    this->setPalette(palette);
 }
 
 MainWindow::~MainWindow()
@@ -87,7 +64,7 @@ void MainWindow::buttonsInit()
     font->setPointSize(14);
 
     //игроки покупки продажки
-    for ( int i = 0 ; i < 4 ; i++ ){
+    for ( int i = 0 ; i < game->playersCount ; i++ ){
         buyButtons[i] = new QPushButton( "Купить" , this );
         buyButtons[i]->setGeometry( 110 + ( i % 2 * 780 ) , 210 + ( i / 2 * 300 ) , 200 , 80 );
         buyButtons[i]->setFont( *font );
@@ -107,7 +84,7 @@ void MainWindow::labelsInit()
     QFont *font = new QFont();
     font->setFamily("Verdana");
     font->setPointSize(14);
-    for ( int i = 0 ; i < 4 ; i++ ){
+    for ( int i = 0 ; i < game->playersCount ; i++ ){
         Lbalance[i] = new QLabel( QString::number(game->players[i]->getMoneyQ()) , this );
         Lbalance[i]->setFont(*font);
         Lbalance[i]->setGeometry(222 + ( i % 2 * 801 ) , 136 + ( i / 2 * 300 ) , 300, 20);
@@ -129,7 +106,7 @@ void MainWindow::windowsInit()
 
 void MainWindow::playersInit()
 {
-    for (int i = 0; i < 4 ; i++ ){
+    for (int i = 0; i < game->playersCount ; i++ ){
         Lplayers[i] = new QLabel( this );
         Lplayers[i]->setGeometry( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50) , 40 , 40 );
         QString path = QCoreApplication::applicationDirPath();
@@ -161,7 +138,7 @@ void MainWindow::timerInit()
 }
 
 void MainWindow::tPlayersOwnsInit(){
-    for (int i = 0 ; i < 4 ; i++ ){
+    for (int i = 0 ; i < game->playersCount ; i++ ){
         TplayersOwns[i] = new QTextEdit(this);
         TplayersOwns[i]->setGeometry(330 + (i%2 * 275) ,110 + (i/2 * 320) ,265,260);
         TplayersOwns[i]->setPlainText("Список предприятий:\n");
@@ -171,14 +148,36 @@ void MainWindow::tPlayersOwnsInit(){
 
 void MainWindow::startThisGame()
 {
-    this->show();
-    wl->show();
-    this->activateWindow();
+    QString path = QCoreApplication::applicationDirPath();
+
+    this->setGeometry(100,100,1200,800);
+    this->setMaximumSize(1200,800);
+    this->setMinimumSize(1200,800);
+
+    QPixmap iconPix( path.append( "\\resources\\QM.png" ) );
+    this->setWindowIcon( QIcon(iconPix) );
+
+    path = QCoreApplication::applicationDirPath();
+    path.append("\\resources\\back.jpg");
+    QPixmap background(path);
+    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, background);
+    this->setPalette(palette);
+
     start->hide();
 
+    game = new Game(start->players->value());
 
+    buttonsInit();
+    labelsInit();
+    playersInit();
+    tPlayersOwnsInit();
+    timerInit();
 
-    delete start;
+    wl->show();
+    this->show();
+    this->activateWindow();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

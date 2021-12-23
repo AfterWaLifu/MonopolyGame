@@ -1,20 +1,21 @@
 #include "game.h"
 #include <stdlib.h>
 
-Game::Game()
+Game::Game(int plCnt)
 {
     settings = new Settings();
 
-    for (int i = 0 ; i < 4 ; i++ ){
-        players[i] = new Figure(i, settings->startSumm);
-    }
     setUpMap();
 
     currentPlayer = 0;
-
+    playersCount = plCnt;
     socialMoney = 0;
 
     for (int i = 0 ; i < 4 ; i++ ) skippingPlayers[i] = 0;
+
+    for (int i = 0 ; i < playersCount ; i++ ){
+        players[i] = new Figure(i, settings->startSumm);
+    }
 }
 
 void Game::throwDices()

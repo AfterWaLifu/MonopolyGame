@@ -7,12 +7,13 @@
 class Game
 {
 public:
-    Game();
+    Game(int plCnt);
 
     MapSquare *map[36];
     Figure *players[4];
     Settings *settings;
 
+    int playersCount;
     int currentPlayer;
     int diceResult;
 
