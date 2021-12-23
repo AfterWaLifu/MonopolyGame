@@ -383,48 +383,7 @@ namespace MonopolyGameWF
                 return;
             }
             int posit = figures[lastMoved - 1].position;
-            if (posit > 11)
-            {
-                switch (posit)
-                {
-                    case 12:
-                        posit = 23;
-                        break;
-                    case 13:
-                        posit = 22;
-                        break;
-                    case 14:
-                        posit = 21;
-                        break;
-                    case 15:
-                        posit = 20;
-                        break;
-                    case 16:
-                        posit = 19;
-                        break;
-                    case 17:
-                        posit = 18;
-                        break;
-                    case 18:
-                        posit = 17;
-                        break;
-                    case 19:
-                        posit = 16;
-                        break;
-                    case 20:
-                        posit = 15;
-                        break;
-                    case 21:
-                        posit = 14;
-                        break;
-                    case 22:
-                        posit = 13;
-                        break;
-                    case 23:
-                        posit = 12;
-                        break;
-                }
-            } 
+            if (posit > 11) posit = 35 - posit;
 
             string needed = buttons[posit].Text;
             int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
@@ -482,48 +441,8 @@ namespace MonopolyGameWF
                 return;
             }
             int posit = figures[lastMoved - 1].position;
-            if (posit > 11)
-            {
-                switch (posit)
-                {
-                    case 12:
-                        posit = 23;
-                        break;
-                    case 13:
-                        posit = 22;
-                        break;
-                    case 14:
-                        posit = 21;
-                        break;
-                    case 15:
-                        posit = 20;
-                        break;
-                    case 16:
-                        posit = 19;
-                        break;
-                    case 17:
-                        posit = 18;
-                        break;
-                    case 18:
-                        posit = 17;
-                        break;
-                    case 19:
-                        posit = 16;
-                        break;
-                    case 20:
-                        posit = 15;
-                        break;
-                    case 21:
-                        posit = 14;
-                        break;
-                    case 22:
-                        posit = 13;
-                        break;
-                    case 23:
-                        posit = 12;
-                        break;
-                }
-            }
+            if (posit > 11) posit = 35 - posit;
+
             string needed = buttons[posit].Text;
             int cost = Convert.ToInt32(needed.Substring(needed.LastIndexOf("=") + 1, needed.LastIndexOf("+") - needed.LastIndexOf("=") - 1));
             int owner = whoIsTheOwner(posit);
