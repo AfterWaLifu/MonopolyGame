@@ -3,7 +3,7 @@
 
 Game::Game()
 {
-    settings = new Settings(1);
+    settings = new Settings();
 
     for (int i = 0 ; i < 4 ; i++ ){
         players[i] = new Figure(i, settings->startSumm);

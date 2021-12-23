@@ -1,16 +1,8 @@
 #include "settings.h"
 
-Settings::Settings(int dicecount)
+Settings::Settings()
 {
-    switch (dicecount) {
-    case 0:
-        diceCount = 1;
-        break;
-    case 1:
-        diceCount = 2;
-        break;
-    }
-
+    diceCount = 2;
     startSumm = 300;
     moneyForCircle = 100;
     taxPercent = 7;

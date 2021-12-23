@@ -3,7 +3,7 @@
 class Settings
 {
 public:
-    Settings(int dicecount);
+    Settings();
 
     int Jail;
     int Train;
