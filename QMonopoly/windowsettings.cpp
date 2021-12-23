@@ -9,4 +9,10 @@ WindowSettings::WindowSettings(QWidget *parent, Qt::WindowFlags f) : QWidget(par
     QString path = QCoreApplication::applicationDirPath();
     QPixmap iconPix( path.append( "\\resources\\sets.png" ) );
     this->setWindowIcon( QIcon(iconPix) );
+    setUp();
+}
+
+void WindowSettings::setUp()
+{
+
 }
