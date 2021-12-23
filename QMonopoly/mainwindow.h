@@ -78,7 +78,7 @@ private slots:
     void runforestrun();
 
 public slots:
-    void showMe();
+    void startThisGame();
 protected:
     void closeEvent(QCloseEvent *event) override;
 };

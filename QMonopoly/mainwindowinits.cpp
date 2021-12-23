@@ -169,12 +169,15 @@ void MainWindow::tPlayersOwnsInit(){
     }
 }
 
-void MainWindow::showMe()
+void MainWindow::startThisGame()
 {
     this->show();
     wl->show();
     this->activateWindow();
-    start->close();
+    start->hide();
+
+
+
     delete start;
 }
 
