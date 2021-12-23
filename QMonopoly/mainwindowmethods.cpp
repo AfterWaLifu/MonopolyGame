@@ -198,6 +198,11 @@ void MainWindow::checkForSpecialSquares()
     }
 }
 
+void MainWindow::updateSettings()
+{
+
+}
+
 void MainWindow::runforestrun()
 {
     QPoint p = makeCoords(game->players[game->currentPlayer]->position);

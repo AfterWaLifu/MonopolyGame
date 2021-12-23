@@ -17,8 +17,6 @@ class WindowSettings : public QWidget
 public:
     explicit WindowSettings(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
-    Settings *sets;
-
     QComboBox* jail;
     QComboBox* train;
     QComboBox* stock;

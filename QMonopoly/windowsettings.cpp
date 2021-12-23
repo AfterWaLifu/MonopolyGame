@@ -19,8 +19,6 @@ void WindowSettings::applySettings()
 
 void WindowSettings::setUp()
 {
-    sets = new Settings();
-
     jail     = new QComboBox(this);
     train    = new QComboBox(this);
     stock    = new QComboBox(this);

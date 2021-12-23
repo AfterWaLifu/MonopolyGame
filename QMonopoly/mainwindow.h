@@ -66,6 +66,7 @@ private:
     void updFigureInfo();
     void checkForSpecialSquares();
 
+    void updateSettings();
 
 private slots:
     void forHelpButton();
