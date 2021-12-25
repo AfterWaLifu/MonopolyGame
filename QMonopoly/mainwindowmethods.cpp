@@ -94,7 +94,7 @@ void MainWindow::checkForSpecialSquares()
         else if ( temp == game->settings->TAXES ) {
             int tax = 0;
             for (int i = 0 ; i < 36 ; i++ ){
-                if (game->map[i]->owner == game->currentPlayer) tax += game->map[i]->cost*game->settings->Taxes/100;
+                if (game->map[i]->owner == game->currentPlayer) tax += game->map[i]->cost*game->settings->taxPercent/100;
             }
             game->players[game->currentPlayer]->subMoney(tax);
             wl->addLine( "Игрок " + QString::number(game->currentPlayer + 1) + " заплатил налог " + QString::number(tax) + "\n\n" , 2);
@@ -189,6 +189,7 @@ void MainWindow::checkForSpecialSquares()
                 wl->addLine( "Игрок " + QString::number(game->currentPlayer + 1) + " не имеет что терять\n\n" , 2 );
             }
         }
+        else if ( temp == game->settings->NOTHING ) wl->addLine( "Кто-то попал на пустою клетку\n\n" , 2 );
     }
     else{
         if (game->map[temploc]->owner > -1){
@@ -199,6 +200,154 @@ void MainWindow::checkForSpecialSquares()
 }
 
 void MainWindow::updateSettings()
+{
+    if (ws->jail->currentIndex() == 0 ) {
+        game->map[6]->name = "Тюрьма";
+        game->map[6]->type = game->settings->JAIL;
+        squares[6]->setText(game->map[6]->name);
+    }
+    else if (ws->jail->currentIndex() == 1 ){
+        game->map[6]->name = "Штраф";
+        game->map[6]->type = game->settings->MINUS_CONSTMONEY;
+        squares[6]->setText(game->map[6]->name);
+    }
+    else if (ws->jail->currentIndex() == 2 ){
+        game->map[6]->name = "Повторный бросок";
+        game->map[6]->type = game->settings->ONE_MORE_TIME;
+        squares[6]->setText(game->map[6]->name);
+    }
+    else if (ws->jail->currentIndex() == 3 ){
+        game->map[6]->name = "Ничего";
+        game->map[6]->type = game->settings->NOTHING;
+        squares[6]->setText(game->map[6]->name);
+    }
+
+    if (ws->train->currentIndex() == 0 ){
+        game->map[11]->name = "Ж/д Вокзал";
+        game->map[11]->type = game->settings->TRAIN;
+        squares[11]->setText(game->map[11]->name);
+        game->map[18]->name = "Ж/д Вокзал";
+        game->map[18]->type = game->settings->TRAIN;
+        squares[18]->setText(game->map[18]->name);
+        game->map[29]->name = "Ж/д Вокзал";
+        game->map[29]->type = game->settings->TRAIN;
+        squares[29]->setText(game->map[29]->name);
+    }
+    else if (ws->train->currentIndex() == 1 ){
+        game->map[11]->name = "+1 шаг";
+        game->map[11]->type = game->settings->PLUS_ONE;
+        squares[11]->setText(game->map[11]->name);
+        game->map[18]->name = "+2 шага";
+        game->map[18]->type = game->settings->PLUS_TWO;
+        squares[18]->setText(game->map[18]->name);
+        game->map[29]->name = "+3 шага";
+        game->map[29]->type = game->settings->PLUS_THREE;
+        squares[29]->setText(game->map[29]->name);
+    }
+    else if (ws->train->currentIndex() == 2 ){
+        game->map[11]->name = "Повторный бросок";
+        game->map[11]->type = game->settings->ONE_MORE_TIME;
+        squares[11]->setText(game->map[11]->name);
+        game->map[18]->name = "Повторный бросок";
+        game->map[18]->type = game->settings->ONE_MORE_TIME;
+        squares[18]->setText(game->map[18]->name);
+        game->map[29]->name = "Повторный бросок";
+        game->map[29]->type = game->settings->ONE_MORE_TIME;
+        squares[29]->setText(game->map[29]->name);
+    }
+    else if (ws->train->currentIndex() == 3 ){
+        game->map[11]->name = "Ничего";
+        game->map[11]->type = game->settings->NOTHING;
+        squares[11]->setText(game->map[11]->name);
+        game->map[18]->name = "Ничего";
+        game->map[18]->type = game->settings->NOTHING;
+        squares[18]->setText(game->map[18]->name);
+        game->map[29]->name = "Ничего";
+        game->map[29]->type = game->settings->NOTHING;
+        squares[29]->setText(game->map[29]->name);
+    }
+
+    if (ws->worm->currentIndex() == 0){
+        game->map[23]->name = "Червоточина";
+        game->map[23]->type = game->settings->WORMHOLE;
+        squares[23]->setText(game->map[23]->name);
+    }
+    else if (ws->worm->currentIndex() == 1) {
+        game->map[23]->name = "6 шагов назад";
+        game->map[23]->type = game->settings->MINUS_SIX;
+        squares[23]->setText(game->map[23]->name);
+    }
+    else if (ws->worm->currentIndex() == 2) {
+        game->map[23]->name = "Ничего";
+        game->map[23]->type = game->settings->NOTHING;
+        squares[23]->setText(game->map[23]->name);
+    }
+
+    if (ws->social->currentIndex() == 0){
+        game->map[15]->name = "Общественный\nбанк";
+        game->map[15]->type = game->settings->SOCIAL_BANK;
+        squares[15]->setText(game->map[15]->name);
+        game->map[33]->name = "Общественная\nказна";
+        game->map[33]->type = game->settings->SOCIAL_MONEY;
+        squares[33]->setText(game->map[33]->name);
+    }
+    else if (ws->social->currentIndex() == 1){
+        game->map[15]->name = "Отдать валюты";
+        game->map[15]->type = game->settings->MINUS_CONSTMONEY;
+        squares[15]->setText(game->map[15]->name);
+        game->map[33]->name = "Взять валюты";
+        game->map[33]->type = game->settings->PLUS_MONEY;
+        squares[33]->setText(game->map[33]->name);
+    }
+    else if (ws->social->currentIndex() == 2){
+        game->map[15]->name = "Ничего";
+        game->map[15]->type = game->settings->NOTHING;
+        squares[15]->setText(game->map[15]->name);
+        game->map[33]->name = "Ничего";
+        game->map[33]->type = game->settings->NOTHING;
+        squares[33]->setText(game->map[33]->name);
+    }
+
+    if (ws->lenin->currentIndex() == 0) {
+        game->map[32]->name = "Революция";
+        game->map[32]->type = game->settings->LENIN;
+        squares[32]->setText(game->map[32]->name);
+    }
+    else if (ws->lenin->currentIndex() == 1) {
+        game->map[32]->name = "Штраф в цену\nдорогого пр.";
+        game->map[32]->type = game->settings->MINUS_LARGEST_MONEY;
+        squares[32]->setText(game->map[32]->name);
+    }
+    else if (ws->lenin->currentIndex() == 2) {
+        game->map[32]->name = "Ничего";
+        game->map[32]->type = game->settings->NOTHING;
+        squares[32]->setText(game->map[32]->name);
+    }
+
+    if (ws->stock->currentIndex() == 0) {
+        game->map[14]->name = "Фондовая биржа";
+        game->map[14]->type = game->settings->STOCK;
+        squares[14]->setText(game->map[14]->name);
+    }
+    else if (ws->stock->currentIndex() == 1) {
+        game->map[14]->name = "Пропуск хода х2";
+        game->map[14]->type = game->settings->PENALTY;
+        squares[14]->setText(game->map[14]->name);
+    }
+    else if (ws->stock->currentIndex() == 2) {
+        game->map[14]->name = "Ничего";
+        game->map[14]->type = game->settings->NOTHING;
+        squares[14]->setText(game->map[14]->name);
+    }
+
+    game->settings->taxPercent = ws->taxes->value();
+    game->settings->moneyForCircle = ws->circle->value();
+
+    if (ws->dicesQ[0]->isChecked()) game->settings->diceCount = 1;
+    else game->settings->diceCount = 2;
+}
+
+void MainWindow::startNewGame()
 {
 
 }
@@ -321,6 +470,7 @@ void MainWindow::forAnyButton()
                     temp.append("\nИгрок отдаёт стоимость самого дорогого\nпредприятия");
                     lines++;
                 }
+                else if ( game->map[i]->type == game->settings->NOTHING ) temp.append("\nИгрок ничего не делает");
             }
             wl->addLine( temp + "\n\n" , lines );
         }

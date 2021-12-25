@@ -32,8 +32,8 @@ public:
 
 private:
     WindowHelp *wh;
-    WindowSettings *ws;
     WindowLogs *wl;
+    WindowSettings *ws;
     WindowStart *start;
 
     QPushButton *diceButton;
@@ -66,7 +66,6 @@ private:
     void updFigureInfo();
     void checkForSpecialSquares();
 
-    void updateSettings();
 
 private slots:
     void forHelpButton();
@@ -78,6 +77,8 @@ private slots:
     void runforestrun();
 
 public slots:
+    void updateSettings();
+    void startNewGame();
     void startThisGame();
 protected:
     void closeEvent(QCloseEvent *event) override;

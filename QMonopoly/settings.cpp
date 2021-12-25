@@ -8,17 +8,4 @@ Settings::Settings()
     taxPercent = 7;
     moneyToAddOrSub = 100;
     percentToPtP = 5;
-
-    setMapConf();
-}
-
-void Settings::setMapConf()
-{
-    Jail = JAIL;
-    Train = TRAIN;
-    Taxes = TAXES;
-    Wormhole = WORMHOLE;
-    SocialMoney = SOCIAL_MONEY;
-    SocialBank = SOCIAL_BANK;
-    Stock = STOCK;
 }

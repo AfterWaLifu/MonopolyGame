@@ -1,7 +1,8 @@
 #include "windowsettings.h"
 
-WindowSettings::WindowSettings(QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
+WindowSettings::WindowSettings(QWidget* mw, QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
 {
+    motherWindow = mw;
     this->setGeometry(900,100, 400,240);
     this->setMaximumSize(QSize(400,240));
     this->setMinimumSize(QSize(400,240));
@@ -47,7 +48,7 @@ void WindowSettings::setUp()
     train->setGeometry(210,15,170,20);
 
     stock->addItem("Биржа 3d6 против PC");
-    stock->addItem("Пропуск хода");
+    stock->addItem("Пропуск хода х2");
     stock->addItem("Ничего");
     stock->setGeometry(20 , 50 , 170 , 20);
 
@@ -84,6 +85,8 @@ void WindowSettings::setUp()
     dicesQ[1]->setChecked(true);
 
     apply->setGeometry(20 , 200 , 170 , 20);
+    connect( apply , SIGNAL(clicked()) , motherWindow , SLOT( updateSettings() ) );
     newGame->setGeometry(210 , 200 , 170 , 20);
+    connect( newGame , SIGNAL(clicked()) , motherWindow , SLOT(startNewGame()));
 
 }

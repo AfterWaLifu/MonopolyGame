@@ -15,7 +15,9 @@ class WindowSettings : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WindowSettings(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+    explicit WindowSettings(QWidget* mw, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+
+    QWidget* motherWindow;
 
     QLabel* ltax;
     QLabel* lcir;

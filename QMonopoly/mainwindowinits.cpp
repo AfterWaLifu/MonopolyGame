@@ -98,9 +98,9 @@ void MainWindow::labelsInit()
 
 void MainWindow::windowsInit()
 {
-    wh = new WindowHelp( nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    wh = new WindowHelp( nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
     wl = new WindowLogs(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
-    ws = new WindowSettings(nullptr , Qt::Window | Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
+    ws = new WindowSettings(this , nullptr , Qt::Window | Qt::WindowMinimizeButtonHint);
     start = new WindowStart(this , nullptr , Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
 }
 
