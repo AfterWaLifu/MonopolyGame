@@ -13,6 +13,8 @@ public:
 
 private:
 
+    QLabel* hepl;
+
 signals:
 
 };

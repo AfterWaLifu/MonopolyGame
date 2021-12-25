@@ -7,8 +7,8 @@ Game::Game(int plCnt)
 
     setUpMap();
 
-    currentPlayer = 0;
     playersCount = plCnt;
+    currentPlayer = 0;
     socialMoney = 0;
 
     for (int i = 0 ; i < 4 ; i++ ) skippingPlayers[i] = 0;

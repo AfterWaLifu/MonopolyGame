@@ -349,6 +349,19 @@ void MainWindow::updateSettings()
 
 void MainWindow::startNewGame()
 {
+    updateSettings();
+    game->currentPlayer = 0;
+    game->socialMoney = 0;
+
+    for (int i = 0 ; i < 4 ; i++ ) game->skippingPlayers[i] = 0;
+
+    for (int i = 0 ; i < game->playersCount ; i++ ){
+        game->players[i] = new Figure(i, game->settings->startSumm);
+        Lplayers[i]->move( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50));
+
+    }
+
+    updFigureInfo();
 
 }
 

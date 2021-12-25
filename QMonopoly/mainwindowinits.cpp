@@ -175,6 +175,19 @@ void MainWindow::startThisGame()
     tPlayersOwnsInit();
     timerInit();
 
+    if (start->rules[1]->isChecked()){
+        ws->jail->  setCurrentIndex(1);
+        ws->train-> setCurrentIndex(1);
+        ws->stock-> setCurrentIndex(1);
+        ws->lenin-> setCurrentIndex(1);
+        ws->social->setCurrentIndex(1);
+        ws->worm->  setCurrentIndex(1);
+        ws->dicesQ[0]->setChecked(true);
+        ws->circle->setValue(500);
+        ws->taxes->setValue(2);
+    }
+    updateSettings();
+
     wl->show();
     this->show();
     this->activateWindow();
