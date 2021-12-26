@@ -13,11 +13,6 @@ WindowSettings::WindowSettings(QWidget* mw, QWidget *parent, Qt::WindowFlags f) 
     setUp();
 }
 
-void WindowSettings::applySettings()
-{
-
-}
-
 void WindowSettings::setUp()
 {
     jail     = new QComboBox(this);

@@ -11,6 +11,7 @@
 #include <QPixmap>
 #include <QPalette>
 #include <QTimer>
+#include <QMessageBox>
 
 #include "game.h"
 #include "windowhelp.h"
@@ -36,12 +37,12 @@ private:
     WindowSettings *ws;
     WindowStart *start;
 
-    QPushButton *diceButton;
-    QPushButton *helpButton;
-    QPushButton *setsButton;
-    QPushButton *buyButtons[4];
-    QPushButton *sellButtons[4];
-    QPushButton *squares[36];
+    QPushButton* diceButton;
+    QPushButton* helpButton;
+    QPushButton* setsButton;
+    QPushButton* buyButtons[4];
+    QPushButton* sellButtons[4];
+    QPushButton* squares[36];
 
     QLabel *Lbalance[4];
     QLabel *LtoEarn[4];

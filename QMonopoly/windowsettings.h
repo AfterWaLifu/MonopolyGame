@@ -38,8 +38,6 @@ public:
     QPushButton *apply;
     QPushButton *newGame;
 
-    void applySettings();
-
 private:
     void setUp();
 

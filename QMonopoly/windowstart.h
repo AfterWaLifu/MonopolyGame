@@ -16,7 +16,7 @@ public:
     QPushButton *letskekinggo;
 
     QSpinBox* players;
-    QRadioButton* rules[];
+    QRadioButton* rules[2];
 
 signals:
 

@@ -192,7 +192,10 @@ void MainWindow::checkForSpecialSquares()
         else if ( temp == game->settings->NOTHING ) wl->addLine( "Кто-то попал на пустою клетку\n\n" , 2 );
     }
     else{
-        if (game->map[temploc]->owner > -1){
+        if (game->map[temploc]->owner == game->currentPlayer){
+            game->players[game->currentPlayer]->addMoney(game->map[temploc]->toEarn);
+        }
+        else if (game->map[temploc]->owner > -1){
             game->players[game->currentPlayer]->subMoney(game->map[temploc]->cost * game->settings->percentToPtP / 100);
             game->players[game->map[temploc]->owner]->addMoney(game->map[temploc]->cost * game->settings->percentToPtP / 100);
         }
@@ -359,6 +362,10 @@ void MainWindow::startNewGame()
         game->players[i] = new Figure(i, game->settings->startSumm);
         Lplayers[i]->move( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50));
 
+    }
+
+    for (int i = 0 ; i < 36 ; i++){
+        if (game->map[i]->type == game->settings->ENTERPRISE) game->map[i]->owner = -1;
     }
 
     updFigureInfo();
@@ -588,6 +595,16 @@ void MainWindow::move(int q)
     if (game->players[game->currentPlayer]->Id < 0){
         game->skippingPlayers[game->currentPlayer] = 2000000;
         game->currentPlayer++;
+        int temp = 0;
+        int winner = -1;
+        for (int i = 0 ; i < game->playersCount ; i++ ) {if ( game->players[i]->Id < 0) temp++; else winner = i;}
+        if (temp == ( game->playersCount - 1 ) ) {
+            QMessageBox message;
+            message.setText("Победил игрок " + QString::number(winner) );
+            message.setStandardButtons(QMessageBox::Ok);
+            int ret = message.exec();
+            if (ret == QMessageBox::Ok) this->close();
+        }
         return;
     }
 

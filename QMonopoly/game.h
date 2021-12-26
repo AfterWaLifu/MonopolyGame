@@ -21,8 +21,6 @@ public:
     int skippingPlayers[4];
     bool toCheckOrNotToCheck = true;
 
-    // МЕТОДЫ
-
     void throwDices();
     void setUpMap();
 };
