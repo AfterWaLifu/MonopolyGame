@@ -188,8 +188,8 @@ void MainWindow::startThisGame()
     }
     updateSettings();
 
-    wl->show();
     this->show();
+    wl->show();
     this->activateWindow();
 }
 

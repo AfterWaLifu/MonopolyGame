@@ -370,6 +370,8 @@ void MainWindow::startNewGame()
 
     updFigureInfo();
 
+    wl->addLine("Новая игра была начата\n\n", 2);
+
 }
 
 void MainWindow::runforestrun()
@@ -577,8 +579,7 @@ void MainWindow::move(int q)
 
     wl->addLine("Игрок " + QString::number(game->currentPlayer+1) + "\nРезультат броска " + QString::number(game->diceResult)+"\n\n", 3 );
 
-    if (game->toCheckOrNotToCheck) checkForSpecialSquares();
-    else game->toCheckOrNotToCheck = true;
+    checkForSpecialSquares();
 
     game->players[game->currentPlayer]->position += game->diceResult ;
 

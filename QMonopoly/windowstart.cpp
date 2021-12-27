@@ -5,7 +5,7 @@ WindowStart::WindowStart(QWidget *Main, QWidget *parent, Qt::WindowFlags f) : QW
     this->setGeometry(200,200, 300,160);
     this->setMaximumSize(QSize(300,160));
     this->setMinimumSize(QSize(300,160));
-    setWindowTitle("Выберете начальные параметры");
+    setWindowTitle("QMonopoly");
 
     QString path = QCoreApplication::applicationDirPath();
     QPixmap iconPix( path.append( "\\resources\\start.png" ) );
