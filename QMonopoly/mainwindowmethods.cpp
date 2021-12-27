@@ -58,7 +58,7 @@ void MainWindow::updFigureInfo()
        temp.append("Список предприятий:\n");
        for (int j = 0 ; j < 36 ; j++ ) {
             if ( game->map[j]->owner == i ) {
-                temp.append(game->map[j]->name + ", +" + QString::number(game->map[j]->toEarn) + ", s=" + QString::number(game->map[j]->toSell));
+                temp.append(game->map[j]->name + ", +" + QString::number(game->map[j]->toEarn) + ", s=" + QString::number(game->map[j]->toSell) + "\n");
             }
        }
        TplayersOwns[i]->setPlainText(temp);
@@ -348,6 +348,8 @@ void MainWindow::updateSettings()
 
     if (ws->dicesQ[0]->isChecked()) game->settings->diceCount = 1;
     else game->settings->diceCount = 2;
+
+    updFigureInfo();
 }
 
 void MainWindow::startNewGame()
@@ -601,11 +603,12 @@ void MainWindow::move(int q)
         for (int i = 0 ; i < game->playersCount ; i++ ) {if ( game->players[i]->Id < 0) temp++; else winner = i;}
         if (temp == ( game->playersCount - 1 ) ) {
             QMessageBox message;
-            message.setText("Победил игрок " + QString::number(winner) );
+            message.setText("Победил игрок " + QString::number(winner+1) );
             message.setStandardButtons(QMessageBox::Ok);
             int ret = message.exec();
             if (ret == QMessageBox::Ok) this->close();
         }
+        buttonsEnable();
         return;
     }
 
