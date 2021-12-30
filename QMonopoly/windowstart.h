@@ -13,10 +13,13 @@ class WindowStart : public QWidget
 public:
     explicit WindowStart(QWidget *main, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
+    QLabel* labels[3];
+
     QPushButton *letskekinggo;
 
     QSpinBox* players;
     QRadioButton* rules[2];
+    QSpinBox* startMoney;
 
 signals:
 

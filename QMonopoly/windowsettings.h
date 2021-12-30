@@ -22,6 +22,7 @@ public:
     QLabel* ltax;
     QLabel* lcir;
     QLabel* ldic;
+    QLabel* lsts;
 
     QComboBox* jail;
     QComboBox* train;
@@ -34,6 +35,7 @@ public:
 
     QSpinBox* taxes;
     QSpinBox* circle;
+    QSpinBox* startLave;
 
     QPushButton *apply;
     QPushButton *newGame;

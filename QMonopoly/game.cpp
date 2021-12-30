@@ -1,7 +1,7 @@
 #include "game.h"
 #include <stdlib.h>
 
-Game::Game(int plCnt)
+Game::Game(int plCnt , int startLave)
 {
     settings = new Settings();
 
@@ -14,7 +14,7 @@ Game::Game(int plCnt)
     for (int i = 0 ; i < 4 ; i++ ) skippingPlayers[i] = 0;
 
     for (int i = 0 ; i < playersCount ; i++ ){
-        players[i] = new Figure(i, settings->startSumm);
+        players[i] = new Figure(i, startLave);
     }
 }
 

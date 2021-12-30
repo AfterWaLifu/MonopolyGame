@@ -7,7 +7,7 @@
 class Game
 {
 public:
-    Game(int plCnt);
+    Game(int plCnt , int startLave = 300);
 
     MapSquare *map[36];
     Figure *players[4];

@@ -3,9 +3,9 @@
 WindowSettings::WindowSettings(QWidget* mw, QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
 {
     motherWindow = mw;
-    this->setGeometry(900,100, 400,240);
-    this->setMaximumSize(QSize(400,240));
-    this->setMinimumSize(QSize(400,240));
+    this->setGeometry(900,100, 400,285);
+    this->setMaximumSize(QSize(400,285));
+    this->setMinimumSize(QSize(400,285));
     setWindowTitle("Настройки");
     QString path = QCoreApplication::applicationDirPath();
     QPixmap iconPix( path.append( "\\resources\\sets.png" ) );
@@ -24,8 +24,9 @@ void WindowSettings::setUp()
     dicesQ[0]   = new QRadioButton("1",this);
     dicesQ[1]   = new QRadioButton("2",this);
 
-    taxes   = new QSpinBox(this);
-    circle  = new QSpinBox(this);
+    taxes       = new QSpinBox(this);
+    circle      = new QSpinBox(this);
+    startLave   = new QSpinBox(this);
 
     apply   = new QPushButton("Принять",this);
     newGame = new QPushButton("Новая игра",this);
@@ -64,24 +65,29 @@ void WindowSettings::setUp()
 
     ltax = new QLabel("Налоговая, %:", this);
     lcir = new QLabel("Бонус за круг:", this);
+    lsts = new QLabel("Стартовая сумма:" , this);
     ldic = new QLabel("Количество кубиков:", this);
     ltax->move(20,130);
     lcir->move(210,130);
-    ldic->move(20,165);
+    lsts->move(20,165);
+    ldic->move(20,200);
 
     taxes->setGeometry(110, 130 , 80 , 20);
     taxes->setValue(7);
     circle->setGeometry(290, 130 , 90 , 20);
     circle->setMaximum(1000);
     circle->setValue(100);
+    startLave->setGeometry(210,165 , 170 , 20);
+    startLave->setMaximum(10000);
+    startLave->setValue(300);
 
-    dicesQ[0]->move(220,165);
-    dicesQ[1]->move(350,165);
+    dicesQ[0]->move(220,200);
+    dicesQ[1]->move(350,200);
     dicesQ[1]->setChecked(true);
 
-    apply->setGeometry(20 , 200 , 170 , 20);
+    apply->setGeometry(20 , 245 , 170 , 20);
     connect( apply , SIGNAL(clicked()) , motherWindow , SLOT( updateSettings() ) );
-    newGame->setGeometry(210 , 200 , 170 , 20);
+    newGame->setGeometry(210 , 245 , 170 , 20);
     connect( newGame , SIGNAL(clicked()) , motherWindow , SLOT(startNewGame()));
 
 }

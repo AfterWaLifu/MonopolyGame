@@ -2,9 +2,8 @@
 
 WindowStart::WindowStart(QWidget *Main, QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
 {
-    this->setGeometry(200,200, 300,160);
-    this->setMaximumSize(QSize(300,160));
-    this->setMinimumSize(QSize(300,160));
+    this->setMaximumSize(QSize(300,190));
+    this->setMinimumSize(QSize(300,190));
     setWindowTitle("QMonopoly");
 
     QString path = QCoreApplication::applicationDirPath();
@@ -14,11 +13,12 @@ WindowStart::WindowStart(QWidget *Main, QWidget *parent, Qt::WindowFlags f) : QW
     letskekinggo = new QPushButton("Ok", this);
     connect( letskekinggo, SIGNAL(clicked()) , Main , SLOT(startThisGame()) );
 
-    QLabel* labels[2];
-    labels[0] = new QLabel("Количество игроков:",this);
-    labels[1] = new QLabel("Набор правил      :",this);
+    labels[0] = new QLabel("Количество игроков:" , this);
+    labels[1] = new QLabel("Набор правил      :" , this);
+    labels[2] = new QLabel("Начальный баланс  :" , this);
     labels[0]->move(20 , 20);
     labels[1]->move(20 , 65);
+    labels[2]->move(20 , 110);
 
     players = new QSpinBox(this);
     players->setGeometry( 140 , 20 , 140 , 20 );
@@ -26,11 +26,17 @@ WindowStart::WindowStart(QWidget *Main, QWidget *parent, Qt::WindowFlags f) : QW
     players->setMinimum(2);
     players->setValue(4);
 
+
     rules[0] = new QRadioButton("Полные", this);
     rules[1] = new QRadioButton("Простые", this);
     rules[0]->move(140 , 55);
     rules[1]->move(140 , 75);
     rules[0]->setChecked(true);
 
-    letskekinggo->setGeometry(20 , 110 , 260 , 30);
+    startMoney = new QSpinBox(this);
+    startMoney->setGeometry( 140 , 110 , 140 , 20 );
+    startMoney->setMaximum(10000);
+    startMoney->setValue(300);
+
+    letskekinggo->setGeometry(20 , 145 , 260 , 30);
 }

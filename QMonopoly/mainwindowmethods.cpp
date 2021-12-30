@@ -208,21 +208,33 @@ void MainWindow::updateSettings()
         game->map[6]->name = "Тюрьма";
         game->map[6]->type = game->settings->JAIL;
         squares[6]->setText(game->map[6]->name);
+        game->map[24]->name = "Тюрьма";
+        game->map[24]->type = game->settings->JAIL;
+        squares[24]->setText(game->map[24]->name);
     }
     else if (ws->jail->currentIndex() == 1 ){
         game->map[6]->name = "Штраф";
         game->map[6]->type = game->settings->MINUS_CONSTMONEY;
         squares[6]->setText(game->map[6]->name);
+        game->map[24]->name = "Штраф";
+        game->map[24]->type = game->settings->MINUS_CONSTMONEY;
+        squares[24]->setText(game->map[24]->name);
     }
     else if (ws->jail->currentIndex() == 2 ){
         game->map[6]->name = "Повторный бросок";
         game->map[6]->type = game->settings->ONE_MORE_TIME;
         squares[6]->setText(game->map[6]->name);
+        game->map[24]->name = "Повторный бросок";
+        game->map[24]->type = game->settings->ONE_MORE_TIME;
+        squares[24]->setText(game->map[24]->name);
     }
     else if (ws->jail->currentIndex() == 3 ){
         game->map[6]->name = "Ничего";
         game->map[6]->type = game->settings->NOTHING;
         squares[6]->setText(game->map[6]->name);
+        game->map[24]->name = "Ничего";
+        game->map[24]->type = game->settings->NOTHING;
+        squares[24]->setText(game->map[24]->name);
     }
 
     if (ws->train->currentIndex() == 0 ){
@@ -345,6 +357,7 @@ void MainWindow::updateSettings()
 
     game->settings->taxPercent = ws->taxes->value();
     game->settings->moneyForCircle = ws->circle->value();
+    game->settings->startSumm = ws->startLave->value();
 
     if (ws->dicesQ[0]->isChecked()) game->settings->diceCount = 1;
     else game->settings->diceCount = 2;

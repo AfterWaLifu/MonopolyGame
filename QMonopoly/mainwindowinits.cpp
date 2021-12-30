@@ -167,13 +167,6 @@ void MainWindow::startThisGame()
 
     start->hide();
 
-    game = new Game(start->players->value());
-
-    buttonsInit();
-    labelsInit();
-    playersInit();
-    tPlayersOwnsInit();
-    timerInit();
 
     if (start->rules[1]->isChecked()){
         ws->jail->  setCurrentIndex(1);
@@ -186,6 +179,15 @@ void MainWindow::startThisGame()
         ws->circle->setValue(500);
         ws->taxes->setValue(2);
     }
+    ws->startLave->setValue(start->startMoney->value());
+    game = new Game(start->players->value() , ws->startLave->value());
+
+    buttonsInit();
+    labelsInit();
+    playersInit();
+    tPlayersOwnsInit();
+    timerInit();
+
     updateSettings();
 
     this->show();
