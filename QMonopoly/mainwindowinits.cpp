@@ -41,6 +41,7 @@ void MainWindow::buttonsInit()
         squares[i] = new QPushButton( game->map[i]->name ,this);
         squares[i]->setGeometry(i*100, 0, 100,100);
         squares[i]->setFont(*font);
+        squares[i]->setAutoFillBackground(true);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //горизонталь низ
         squares[i+18] = new QPushButton( game->map[i+18]->name , this);

@@ -541,6 +541,20 @@ void MainWindow::forBuyButtons()
             game->players[pWannaBuy]->subMoney(game->map[needed]->cost);
             game->players[pWannaBuy]->toEarn += game->map[needed]->toEarn;
             game->map[needed]->owner = pWannaBuy;
+            switch(pWannaBuy){
+            case 0:
+                squares[needed]->setPalette( QPalette(QColor(75,90,160)) );
+                break;
+            case 1:
+                squares[needed]->setPalette( QPalette(QColor(100,165,105)) );
+                break;
+            case 2:
+                squares[needed]->setPalette( QPalette(QColor(185,85,100)) );
+                break;
+            case 3:
+                squares[needed]->setPalette( QPalette(QColor(165,100,165)) );
+                break;
+            }
             wl->addLine( "Игрок " + QString::number(pWannaBuy+1) + " купил\n" + game->map[needed]->name + "\n\n", 3 );
         }
     }
@@ -575,6 +589,7 @@ void MainWindow::forSellButtons()
             game->players[pWannaSell]->addMoney(game->map[needed]->toSell);
             game->players[pWannaSell]->toEarn -= game->map[needed]->toEarn;
             game->map[needed]->owner = -1;
+            squares[needed]->setPalette( QPalette(QColor(255,255,255,255)) );
             wl->addLine( "Игрок " + QString::number(pWannaSell+1) + " продал\n" + game->map[needed]->name + "\n\n", 3 );
         }
     }
