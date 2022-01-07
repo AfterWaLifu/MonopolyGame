@@ -116,7 +116,6 @@ void WindowSettings::setUp()
     choosingPlayer->addItem("Игрок 3");
     choosingPlayer->addItem("Игрок 4");
     choosingPlayer->setCurrentIndex(0);
-    connect( choosingPlayer , SIGNAL(  ) , this , SLOT( changedChoosingPlayer() ) ) ;
 
     for (int i = 0 ; i < 13 ; i++ ){
         skins[i] = new QPushButton(this);
