@@ -108,7 +108,7 @@ void MainWindow::playersInit()
 {
     for (int i = 0; i < game->playersCount ; i++ ){
         Lplayers[i] = new QLabel( this );
-        Lplayers[i]->setAutoFillBackground(true);
+        //Lplayers[i]->setAutoFillBackground(true);
         Lplayers[i]->setGeometry( 5 + ( i % 2 * 50 ) , 5 + ( i / 2 * 50) , 40 , 40 );
         QString path = QCoreApplication::applicationDirPath();
         switch (i){
