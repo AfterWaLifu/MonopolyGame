@@ -627,3 +627,19 @@ void MainWindow::move(int q)
 
     timer->start();
 }
+
+void MainWindow::updateSkin()
+{
+    QObject* s = QObject::sender();
+    int skin = 0;
+    for (int i = 0 ; i < 13 ; i++ ){
+        if ( ws->skins[i] == s ) {
+            skin = i;
+        }
+    }
+    QString path = QCoreApplication::applicationDirPath();
+    path.append("\\resources\\players\\");
+    QPixmap pix( path + ws->availableSkins[skin] );
+    pix = pix.scaled( Lplayers[0]->size(), Qt::IgnoreAspectRatio);
+    Lplayers[ ws->choosingPlayer->currentIndex() ]->setPixmap(pix);
+}

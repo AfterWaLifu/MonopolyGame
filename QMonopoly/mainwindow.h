@@ -81,6 +81,7 @@ public slots:
     void updateSettings();
     void startNewGame();
     void startThisGame();
+    void updateSkin();
 protected:
     void closeEvent(QCloseEvent *event) override;
 };

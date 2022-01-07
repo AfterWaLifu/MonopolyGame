@@ -3,9 +3,9 @@
 WindowSettings::WindowSettings(QWidget* mw, QWidget *parent, Qt::WindowFlags f) : QWidget(parent , f)
 {
     motherWindow = mw;
-    this->setGeometry(900,100, 400,285);
-    this->setMaximumSize(QSize(400,285));
-    this->setMinimumSize(QSize(400,285));
+    this->setGeometry(650,100, 650,285);
+    this->setMaximumSize(QSize(650,285));
+    this->setMinimumSize(QSize(650,285));
     setWindowTitle("Настройки");
     QString path = QCoreApplication::applicationDirPath();
     QPixmap iconPix( path.append( "\\resources\\sets.png" ) );
@@ -90,4 +90,42 @@ void WindowSettings::setUp()
     newGame->setGeometry(210 , 245 , 170 , 20);
     connect( newGame , SIGNAL(clicked()) , motherWindow , SLOT(startNewGame()));
 
+    availableSkins[0] = "blue.png";
+    availableSkins[1] = "green.png";
+    availableSkins[2] = "red.png";
+    availableSkins[3] = "purple.png";
+    availableSkins[4] = "M1.png";
+    availableSkins[5] = "M2.png";
+    availableSkins[6] = "M3.png";
+    availableSkins[7] = "M4.png";
+    availableSkins[8] = "Boss0.png";
+    availableSkins[9] = "Boss1.png";
+    availableSkins[10] ="Boss2.png";
+    availableSkins[11] ="Boss3.png";
+    availableSkins[12] ="Boss4.png";
+
+    choosenSkins[0] = 0;
+    choosenSkins[1] = 1;
+    choosenSkins[2] = 2;
+    choosenSkins[3] = 3;
+
+    choosingPlayer = new QComboBox(this);
+    choosingPlayer->setGeometry( 430 , 15 , 160 , 25 );
+    choosingPlayer->addItem("Игрок 1");
+    choosingPlayer->addItem("Игрок 2");
+    choosingPlayer->addItem("Игрок 3");
+    choosingPlayer->addItem("Игрок 4");
+    choosingPlayer->setCurrentIndex(0);
+    connect( choosingPlayer , SIGNAL(  ) , this , SLOT( changedChoosingPlayer() ) ) ;
+
+    for (int i = 0 ; i < 13 ; i++ ){
+        skins[i] = new QPushButton(this);
+        skins[i]->setAutoFillBackground(true);
+        skins[i]->setGeometry( 430 + ((i%4)*40) , 55 + ((i/4)*40) , 40 , 40 );
+        connect( skins[i] , SIGNAL( clicked() ) , motherWindow , SLOT( updateSkin() ) ) ;
+        QString path = QCoreApplication::applicationDirPath();
+        path.append( "\\resources\\players\\" + availableSkins[i] );
+        QPixmap pix(path);
+        skins[i]->setIcon( pix );
+    }
 }

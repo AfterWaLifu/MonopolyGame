@@ -40,9 +40,11 @@ public:
     QPushButton *apply;
     QPushButton *newGame;
 
+    QString availableSkins[13];
+    int choosenSkins[4];
+    QComboBox* choosingPlayer;
+    QPushButton* skins[13];
+
 private:
     void setUp();
-
-signals:
-
 };
