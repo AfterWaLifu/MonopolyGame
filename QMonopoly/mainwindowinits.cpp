@@ -112,16 +112,16 @@ void MainWindow::playersInit()
         QString path = QCoreApplication::applicationDirPath();
         switch (i){
         case 0:
-            path.append("\\resources\\blue.png");
+            path.append("\\resources\\players\\blue.png");
             break;
         case 1:
-            path.append("\\resources\\green.png");
+            path.append("\\resources\\players\\green.png");
             break;
         case 2:
-            path.append("\\resources\\red.png");
+            path.append("\\resources\\players\\red.png");
             break;
         case 3:
-            path.append("\\resources\\purple.png");
+            path.append("\\resources\\players\\purple.png");
             break;
         }
         QPixmap pixmap(path);
