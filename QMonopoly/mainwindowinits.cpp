@@ -47,6 +47,7 @@ void MainWindow::buttonsInit()
         squares[i+18] = new QPushButton( game->map[i+18]->name , this);
         squares[i+18]->setGeometry(1100-i*100 , 700, 100,100);
         squares[i+18]->setFont(*font);
+        squares[i+18]->setAutoFillBackground(true);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
     for ( int i = 12 ; i < 18 ; i++ ){
@@ -54,11 +55,13 @@ void MainWindow::buttonsInit()
         squares[i] = new QPushButton( game->map[i]->name , this);
         squares[i]->setGeometry(1100, (i-11)*100, 100,100);
         squares[i]->setFont(*font);
+        squares[i]->setAutoFillBackground(true);
         connect(squares[i] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
         //вертикаль лево
         squares[i+18] = new QPushButton( game->map[i+18]->name , this);
         squares[i+18]->setGeometry(0, 700-(i-11)*100, 100,100);
         squares[i+18]->setFont(*font);
+        squares[i+18]->setAutoFillBackground(true);
         connect(squares[i+18] , SIGNAL( clicked() ), this, SLOT( forAnyButton() ) );
     }
 
