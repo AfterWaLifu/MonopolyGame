@@ -122,6 +122,7 @@ void MainWindow::checkForSpecialSquares()
                 int stealed = rand() % builds.size();
                 game->map[ builds.at(stealed) ]->owner = -1;
                 wl->addLine("Игрок " + QString::number(game->currentPlayer + 1) + " потерял " + game->map[stealed]->name + "\n\n" , 2);
+                squares[stealed]->setPalette( QPalette(QColor(255,255,255,255)) );
             }
             else{
                 wl->addLine("Игрок " + QString::number(game->currentPlayer + 1) + " ничего не потерял, тк нечего\n\n" , 2);
@@ -409,6 +410,7 @@ void MainWindow::runforestrun()
             else game->currentPlayer++;
             return;
         }
+        updFigureInfo();
     }
     else{
         if ( game->diceResult <= 18 ) {
@@ -620,8 +622,6 @@ void MainWindow::move(int q)
         Lbalance[game->currentPlayer]->setText(QString::number(game->players[game->currentPlayer]->getMoneyQ()));
     }
     else if (game->players[game->currentPlayer]->position <0)game->players[game->currentPlayer]->position += 36;
-
-    updFigureInfo();
 
     if (game->players[game->currentPlayer]->Id < 0){
         game->skippingPlayers[game->currentPlayer] = 2000000;
